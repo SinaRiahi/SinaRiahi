@@ -1,40 +1,61 @@
-# Heyo! 👋 I'm Sina
+<!-- ====================================================== -->
+<!--                     Banner Image                       -->
+<!-- ====================================================== -->
 
-> Computer Science undergraduate who loves learning by building.
+<p align="center">
+  <img src="images/banner.png" alt="Sina Riahi Banner" width="100%">
+</p>
 
-I'm a Computer Science student who enjoys exploring how software works beneath the surface. Whenever I learn something new, I usually build a small project, write detailed notes, or create a utility around it.
+<h1 align="center">Heyo! 👋 I'm Sina</h1>
 
-I believe that consistent progress beats chasing perfect projects... since perfection is a myth...
+<p align="center">
+  <b>Computer Science Undergraduate</b> • <b>Learning by Building</b> • <b>Always Curious</b>
+</p>
+
+<p align="center">
+  <i>"Consistent progress beats chasing perfection."</i>
+</p>
 
 ---
 
-## 🚀 What I'm Working On
+## 🚀 About Me
 
-- 📚 Strengthening my Computer Science fundamentals
-- 🛠 Building personal utilities that solve everyday problems
-- 🤖 Learning to use and expand AI for a better productive life
-- 🧪 Experimenting with new technologies in my training repository
-- 🌱 Continuously improving my problem-solving skills
+I'm a Computer Science student who enjoys exploring **how software works beneath the surface**.
+
+Whenever I learn something new, I usually:
+
+- 💻 Build a project
+- 📝 Write detailed notes
+- ⚙️ Create a utility
+- 🧪 Experiment until I understand it
+
+I'm less interested in memorizing APIs and more interested in understanding **why things work**.
 
 ---
 
-## 💻 Technologies I'm Learning
+## 🛠 Tech Stack
 
-### Languages
-- Python
-- SQL
-- Html and css
-- Typescript
+<p align="center">
+<img src="https://skillicons.dev/icons?i=python,postgres,html,css,ts,git,github,vscode&perline=8" />
+</p>
 
-### Databases
-- PostgreSQL
+---
 
-### Currently Exploring
-- Data Structures & Algorithms
-- Linear Algebra
-- Combinational Optimization
-- Backend Development
-- Software Design
+## 🌱 Currently Learning
+
+- 🐍 Python
+- 🗄 PostgreSQL
+- 🌐 HTML & CSS
+- ⚡ TypeScript
+
+### Current Focus
+
+- 📚 Data Structures & Algorithms
+- 📐 Linear Algebra
+- 🧩 Combinational Optimization
+- 🖥 Backend Development
+- 🏗 Software Design
+- 🤖 AI-assisted Development & Productivity
 
 ---
 
@@ -42,48 +63,62 @@ I believe that consistent progress beats chasing perfect projects... since perfe
 
 ### 🛠 Utilities
 
-A growing collection of small tools that make everyday tasks easier.
+A growing collection of tools that make everyday tasks easier.
 
-Instead of searching for a website every time I need one, I'm gradually building my own versions.
+Instead of searching for the perfect website or application every time, I'm gradually building my own collection of utilities that I can access whenever I need them.
 
----
-
-## 📖 My Learning Philosophy
-
-I enjoy understanding *why* things work—not just memorizing how to use them.
-
-Most of my repositories are part of that journey: experimenting, making mistakes, improving, and documenting what I learn along the way.
+This project is both a productivity toolkit and a playground for learning new technologies.
 
 ---
 
-## 🌟 Outside Programming
+## 📖 Learning Philosophy
 
-When I'm away from my keyboard, you'll probably find me
+> *"Learning sticks when you build something with it."*
+
+Most of my repositories are experiments rather than finished products.
+
+Every commit represents something I learned, improved, broke, fixed, or finally understood.
+
+I'm a firm believer that **small improvements made consistently compound into meaningful progress.**
+
+---
+
+## 🎨 Beyond Programming
+
+When I'm not coding, you'll probably find me:
 
 - 🎮 Exploring games
-- 🎨 Drawing surreal artwork
+- 🎨 Drawing surreal & cyberpunk-inspired artwork
 - 📚 Learning something completely unrelated to programming
-- ☕ Thinking of another tiny project to build
+- ☕ Thinking about the next small project to build
 
 ---
 
-## 📈 GitHub Stats
+## 📊 GitHub Statistics
 
 <p align="center">
   <img height="170" src="https://github-readme-stats.vercel.app/api?username=SinaRiahi&show_icons=true&theme=tokyonight&hide_border=true"/>
   <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=SinaRiahi&layout=compact&theme=tokyonight&hide_border=true"/>
 </p>
 
+<p align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com?user=SinaRiahi&theme=tokyonight&hide_border=true"/>
+</p>
+
 ---
 
 ## 🎯 Current Goals
 
-- Build larger real-world projects
-- Learn modern backend development
-- Strengthen algorithmic thinking
-- Contribute to open source
-- Never stop learning
+- 🚀 Build larger real-world software projects
+- ⚙️ Become a stronger backend developer
+- 🧠 Strengthen algorithmic thinking
+- 🤝 Contribute to open source
+- 📚 Keep learning, one project at a time
 
 ---
 
-Thanks for stopping by! 🍀
+<p align="center">
+
+### Thanks for stopping by! 🍀
+
+</p>
