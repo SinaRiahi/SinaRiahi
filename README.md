@@ -1,7 +1,3 @@
-<!-- ====================================================== -->
-<!--                     Banner Image                       -->
-<!-- ====================================================== -->
-
 <p align="center">
   <img src="images/banner.png" alt="Sina Riahi Banner" width="100%">
 </p>
@@ -61,7 +57,7 @@ I'm less interested in memorizing APIs and more interested in understanding **wh
 
 ## 📦 Featured Project
 
-### 🛠 Utilities
+### 🛠 [Utilities](https://github.com/SinaRiahi/Utilities)
 
 A growing collection of tools that make everyday tasks easier.
 
@@ -73,7 +69,7 @@ This project is both a productivity toolkit and a playground for learning new te
 
 ## 📖 Learning Philosophy
 
-> *"Learning sticks when you build something with it."*
+> *"I just want to know how it works and more importantly, how to improve it"*
 
 Most of my repositories are experiments rather than finished products.
 
@@ -95,11 +91,6 @@ When I'm not coding, you'll probably find me:
 ---
 
 ## 📊 GitHub Statistics
-
-<p align="center">
-  <img height="170" src="https://github-readme-stats.vercel.app/api?username=SinaRiahi&show_icons=true&theme=tokyonight&hide_border=true"/>
-  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=SinaRiahi&layout=compact&theme=tokyonight&hide_border=true"/>
-</p>
 
 <p align="center">
   <img src="https://github-readme-streak-stats.herokuapp.com?user=SinaRiahi&theme=tokyonight&hide_border=true"/>
