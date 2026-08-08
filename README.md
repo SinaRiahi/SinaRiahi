@@ -74,7 +74,7 @@ I'm a firm believer that **small improvements made consistently compound into me
 
 ---
 
-## 🎨 Beyond Programming
+## 👾 Beyond Programming
 
 When I'm not coding, you'll probably find me:
 
