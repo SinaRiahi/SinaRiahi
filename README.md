@@ -85,14 +85,6 @@ When I'm not coding, you'll probably find me:
 
 ---
 
-## 📊 GitHub Statistics
-
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com?user=SinaRiahi&theme=tokyonight&hide_border=true"/>
-</p>
-
----
-
 ## 🎯 Current Goals
 
 - 🚀 Build larger real-world software projects
