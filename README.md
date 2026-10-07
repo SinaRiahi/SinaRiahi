@@ -93,6 +93,7 @@ When I'm not coding, you'll probably find me:
 
 ## 🎯 Current Goals
 
+- 🛡️ **Ultimate Goal: AI in Cybersecurity** — Applying intelligent machine learning systems, automated diagnostics, and algorithmic defenses to security
 - 🚀 Build larger real-world software projects
 - ⚙️ Become a stronger backend developer
 - 🧠 Strengthen algorithmic thinking

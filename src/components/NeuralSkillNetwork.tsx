@@ -49,37 +49,49 @@ export const NeuralSkillNetwork: React.FC = () => {
     // Left hemisphere: x < -15, Right hemisphere: x > 15
     // Frontal: z > 25, Occipital: z < -35, Parietal/Temporal: -35 <= z <= 25
     const brainMap: Record<string, { x: number; y: number; z: number; lobe: string }> = {
-      // Core Languages
+      // Core Languages & Foundations
       Python: { x: -55, y: -25, z: 60, lobe: 'Left Frontal (Automation / Logic)' },
+      'Data Structures': { x: -35, y: -45, z: 50, lobe: 'Left Frontal (Algorithmic Logic)' },
+      Algorithms: { x: -45, y: -35, z: 40, lobe: 'Left Frontal (Computational Theory)' },
       TypeScript: { x: 55, y: -25, z: 60, lobe: 'Right Frontal (Systems / UI)' },
-      Rust: { x: -45, y: -55, z: 15, lobe: 'Left Parietal (Memory / Safety)' },
-      SQL: { x: -30, y: 15, z: 20, lobe: 'Left Temporal (Data Structuring)' },
-      R: { x: -65, y: 20, z: -10, lobe: 'Left Temporal (Statistical Math)' },
       JavaScript: { x: 65, y: -15, z: -40, lobe: 'Right Occipital (Async Event Loop)' },
+      HTML: { x: 50, y: -10, z: -65, lobe: 'Right Occipital (Semantic Markup)' },
+      CSS: { x: 60, y: -30, z: -55, lobe: 'Right Occipital (Visual Hierarchy)' },
+      R: { x: -65, y: 20, z: -10, lobe: 'Left Temporal (Statistical Math)' },
+      Rust: { x: -45, y: -55, z: 15, lobe: 'Left Parietal (Memory / Safety)' },
+      'Advanced Math': { x: -20, y: -60, z: 25, lobe: 'Left Parietal (Linear Algebra & Calculus)' },
 
-      // Frameworks & Libraries
-      'PySide6 (Qt)': { x: -75, y: -30, z: 30, lobe: 'Left Frontal (Desktop GUIs)' },
+      // Backend, Desktop & Systems
+      PySide6: { x: -75, y: -30, z: 30, lobe: 'Left Frontal (Desktop GUIs & Qt)' },
       FastAPI: { x: 35, y: -30, z: 45, lobe: 'Right Frontal (Async Services)' },
-      'Pandas & NumPy': { x: -70, y: 25, z: 20, lobe: 'Left Temporal (Numerical Arrays)' },
-      SciPy: { x: -60, y: 40, z: -15, lobe: 'Left Temporal (Scientific Computing)' },
-      'React 19': { x: 60, y: -25, z: -60, lobe: 'Right Occipital (Visual Hierarchy)' },
-      'Tauri v2': { x: 50, y: -50, z: -15, lobe: 'Right Parietal (Desktop Core)' },
-      Pydantic: { x: -25, y: -40, z: 45, lobe: 'Left Frontal (Data Validation)' },
-
-      // Automation & Scraping
-      Selenium: { x: -45, y: -10, z: 80, lobe: 'Left Frontal Pole (Browser Drivers)' },
-      nodriver: { x: 45, y: -10, z: 80, lobe: 'Right Frontal Pole (Stealth Automation)' },
-      'BeautifulSoup & Requests': { x: 65, y: 30, z: 0, lobe: 'Right Temporal (HTML Parsing)' },
-      'REST APIs': { x: 75, y: 10, z: 30, lobe: 'Right Temporal (Network Ingestion)' },
       PostgreSQL: { x: 30, y: 20, z: 15, lobe: 'Right Deep Cortex (ACID Transactions)' },
+      'REST APIs': { x: 75, y: 10, z: 30, lobe: 'Right Temporal (Network Ingestion)' },
+      Pydantic: { x: -25, y: -40, z: 45, lobe: 'Left Frontal (Data Validation)' },
+      SQLAlchemy: { x: -15, y: 10, z: 35, lobe: 'Left Deep Cortex (ORM & Schemas)' },
+      WordPress: { x: 70, y: 40, z: -25, lobe: 'Right Temporal (CMS & Web Platforms)' },
+      React: { x: 60, y: -25, z: -60, lobe: 'Right Occipital (Reactive State)' },
+      Tauri: { x: 50, y: -50, z: -15, lobe: 'Right Parietal (Desktop Core)' },
+      'Tailwind CSS': { x: 40, y: -35, z: -50, lobe: 'Right Occipital (Utility Design)' },
+      'Node.js': { x: 25, y: -45, z: -35, lobe: 'Right Parietal (Server Runtimes)' },
 
-      // Engineering Tools & Ecosystem
+      // Data Science, AI & Automation
+      nodriver: { x: 45, y: -10, z: 80, lobe: 'Right Frontal Pole (Stealth Automation)' },
+      NumPy: { x: -70, y: 25, z: 20, lobe: 'Left Temporal (Vectorized Arrays)' },
+      Requests: { x: 60, y: 15, z: 10, lobe: 'Right Temporal (HTTP Networking)' },
+      PyTorch: { x: -10, y: -50, z: 70, lobe: 'Prefrontal Cortex (Neural Networks)' },
+      Pandas: { x: -50, y: 35, z: 10, lobe: 'Left Temporal (Data Wrangling)' },
+      SciPy: { x: -60, y: 40, z: -15, lobe: 'Left Temporal (Scientific Computing)' },
+      Selenium: { x: -45, y: -10, z: 80, lobe: 'Left Frontal Pole (Browser Drivers)' },
+      BeautifulSoup: { x: 65, y: 30, z: 0, lobe: 'Right Temporal (HTML Parsing)' },
+      'AI & ML': { x: 0, y: -30, z: 65, lobe: 'Prefrontal Cortex (Machine Learning)' },
+      Optimization: { x: -30, y: -20, z: 35, lobe: 'Left Frontal (Combinatorial Solvers)' },
+
+      // Cybersecurity, DevOps & Tools
+      Cybersecurity: { x: 0, y: 45, z: 40, lobe: 'Central Executive (Network Security & AI)' },
       Docker: { x: -40, y: 55, z: -45, lobe: 'Left Cerebellum (Containerization)' },
       'Git & GitHub': { x: 40, y: 55, z: -45, lobe: 'Right Cerebellum (Version Control)' },
       Wireshark: { x: 0, y: 70, z: -10, lobe: 'Brainstem (Packet Diagnostics)' },
-      'Web Audio API & Canvas': { x: 35, y: 0, z: -75, lobe: 'Right Visual Cortex (Interactive Graphics)' },
-      'Photoshop & Illustrator': { x: -45, y: -15, z: -70, lobe: 'Left Visual Cortex (Design Systems)' },
-      WordPress: { x: 70, y: 40, z: -25, lobe: 'Right Temporal (CMS & Architecture)' },
+      Photoshop: { x: -45, y: -15, z: -70, lobe: 'Left Visual Cortex (Digital Graphics)' },
     };
 
     const result: Node3D[] = [];

@@ -41,8 +41,14 @@ export const Skills: React.FC = () => {
               Skills, Technologies & Systems
             </h2>
             <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-              A comprehensive breakdown of the programming languages, backend frameworks, automation engines, and system architecture tools I work with daily across production projects and experiments.
+              A comprehensive breakdown of the programming languages, backend frameworks, automation engines, and system architecture tools I work with daily — driven toward my ultimate goal of <strong className="text-cyan-600 dark:text-cyan-400 font-bold">AI in Cybersecurity</strong>.
             </p>
+            <div className="pt-1 flex items-center gap-2">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800/40 text-xs font-mono text-cyan-800 dark:text-cyan-300 font-bold">
+                <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+                <span>Ultimate Goal: AI in Cybersecurity</span>
+              </span>
+            </div>
           </div>
 
           {/* Interactive Proficiency Filter (No scrollbars, clean selected state) */}
@@ -119,22 +125,22 @@ export const Skills: React.FC = () => {
         </div>
 
         {/* Legend / Key */}
-        <div className="mt-12 p-4 rounded-xl bg-white dark:bg-white/[0.02] border border-slate-300 dark:border-white/5 flex flex-wrap items-center justify-center gap-6 text-xs font-mono text-slate-800 dark:text-slate-300 shadow-sm font-semibold">
+        <div className="mt-12 p-3.5 rounded-xl bg-white dark:bg-white/[0.02] border border-slate-300 dark:border-white/5 flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs font-mono text-slate-800 dark:text-slate-300 shadow-sm font-semibold">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <span>Actively Using: Daily production & project tools</span>
+            <span>Actively Using</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
-            <span>Familiar With: Confident implementation & schemas</span>
+            <span>Familiar With</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-            <span>Learning: Active study & foundational coursework</span>
+            <span>Learning</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-cyan-500" />
-            <span>Exploring: Experimental architectures & bionics</span>
+            <span>Exploring</span>
           </div>
         </div>
 
