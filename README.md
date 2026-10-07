@@ -26,6 +26,10 @@ I'm less interested in memorizing APIs and more interested in understanding **wh
 <img src="https://skillicons.dev/icons?i=python,postgres,github,vscode,godot,ps,docker,git,fastapi,selenium,wordpress&perline=12" />
 </p>
 
+*Interactive 3D Neural Network:* In the portfolio's Skills section, skills are mapped as nodes across the dual cerebral hemispheres of a 3D brain model with synaptic firing pulses, orbit rotation, and context inspection.
+
+*Interactive Time-Travel Calendar:* In the Trajectory & Journey timeline section, a minimalist kinetic calendar widget in portfolio blue tracks along with the scroll, smoothly animating backwards through months and years (June 2026 ➔ September 2022) as you scroll down through milestones, and forward as you scroll up.
+
 ---
 
 ## 🔥 Interests
@@ -36,8 +40,10 @@ I'm less interested in memorizing APIs and more interested in understanding **wh
   - I adore a topic that seems straightforward at first but backfires in an instance
 - **⚡ Game development**
   - Everyone secretly wants to design their own games, I believe
+  - *Interactive Feature:* Meet the cute Blue Nom Nom monster in his dedicated interactive box under the direct message card — he tracks your cursor, chomps it down with full cursor hiding, chews for 3 seconds, spits the cursor back out where it respawns, and rests for 3 seconds before eating again. Transform your cursor into snacks (🍗 Chicken, 🍕 Pizza, 🍔 Burger, 🥤 Soda, or ↖ Normal Cursor) and feed him soda to trigger a hilarious bubbly *BLURP!* effect! 🍬😋
 - **🦾 Bionics**
   - **Fun Fact:** I was originally studying biology but I changed my program
+  - *Interactive Feature:* Check out the hero section bionic ocular sensor — track the cursor, click to glitch, or shake your cursor frantically to make it dizzy! 😵‍💫
 
 ### 🔬 Current Focus
 

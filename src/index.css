@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html.light {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  /* Default Dark Mode */
+  body {
+    background-color: #08090D;
+    color: #F8FAFC;
+  }
+
+  /* Light mode root overrides */
+  html.light body {
+    background-color: #F8F9FC;
+    color: #0F172A;
+  }
+}
+
+/* Scrollbar elimination utilities */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* High-contrast text selection for both light and dark modes */
+html.light ::selection {
+  background-color: #2563EB !important;
+  color: #FFFFFF !important;
+}
+
+html.dark ::selection {
+  background-color: rgba(37, 99, 235, 0.45) !important;
+  color: #BAE6FD !important;
+}
+
+/* Precise text color protection for primary colored action buttons */
+button.bg-blue-600,
+button.bg-blue-600 *,
+a.bg-blue-600,
+a.bg-blue-600 *,
+button.bg-blue-500,
+button.bg-blue-500 *,
+a.bg-blue-500,
+a.bg-blue-500 * {
+  color: #FFFFFF !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0.2;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0.2;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes chew {
+  0%, 100% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1.14, 0.88);
+  }
+  50% {
+    transform: scale(0.92, 1.08);
+  }
+  75% {
+    transform: scale(1.12, 0.9);
+  }
+}
+
+.animate-chew {
+  animation: chew 0.35s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-12deg);
+  }
+  75% {
+    transform: rotate(12deg);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 0.4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes floatBubble {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5) translateX(0);
+  }
+  25% {
+    opacity: 0.95;
+    transform: translateY(-12px) scale(1.05) translateX(4px);
+  }
+  75% {
+    opacity: 0.8;
+    transform: translateY(-34px) scale(1.1) translateX(-5px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.4) translateX(3px);
+  }
+}
+
+.animate-floatBubble {
+  animation: floatBubble 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes blurpWobble {
+  0%, 100% { transform: scale(1); }
+  20% { transform: scale(1.22, 0.82); }
+  40% { transform: scale(0.85, 1.18) rotate(-4deg); }
+  60% { transform: scale(1.12, 0.9) rotate(3deg); }
+  80% { transform: scale(0.96, 1.04); }
+}
+
+.animate-blurpWobble {
+  animation: blurpWobble 0.8s ease-in-out;
+}
+
+
