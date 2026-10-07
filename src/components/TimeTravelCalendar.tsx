@@ -101,15 +101,10 @@ export const TimeTravelCalendar: React.FC = () => {
 
         {/* Top Header: Website Matching Blue Banner */}
         <div className="pt-5 pb-3 px-6 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white relative shadow-sm">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <CalendarIcon className="w-4 h-4 text-blue-100" />
-              <span className="text-xs font-mono font-bold tracking-widest uppercase text-blue-100">
-                Timeline Archive
-              </span>
-            </div>
-            <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm">
-              {scrollDirection === 'rewind' ? '⏪ Rewinding' : '⏩ Advancing'}
+          <div className="flex items-center justify-center gap-2">
+            <CalendarIcon className="w-4 h-4 text-blue-100" />
+            <span className="text-xs font-mono font-bold tracking-widest uppercase text-blue-100">
+              Timeline Archive
             </span>
           </div>
         </div>

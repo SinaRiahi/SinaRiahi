@@ -33,12 +33,6 @@ export const PROJECTS_DATA: Project[] = [
       'Rust + Tauri provides an order of magnitude memory advantage over Electron for background system utilities.',
       'Designing a plugin system around strict JSON manifests and isolated sandboxes makes long-term modularity effortless.'
     ],
-    futureRoadmap: [
-      'Cross-platform compilation for macOS and Linux environments.',
-      'Bi-directional encrypted folder synchronization daemon.'
-    ],
-    githubUrl: 'https://github.com/Sinariahi',
-    hasInteractiveDemo: false,
   },
   {
     id: 'utilities-suite',
@@ -71,9 +65,6 @@ export const PROJECTS_DATA: Project[] = [
       'Modern web browser APIs (Web Audio, Canvas, Web Workers) enable desktop-grade utility performance with zero cloud operational costs.',
       'Zero-backend architectures provide unmatched user privacy and infinite horizontal scalability.'
     ],
-    githubUrl: 'https://github.com/Sinariahi/utilities',
-    hasInteractiveDemo: true,
-    interactiveDemoType: 'markdown-tool',
   },
   {
     id: 'task-master',
@@ -106,8 +97,6 @@ export const PROJECTS_DATA: Project[] = [
       'Building robust desktop automation requires rigorous error isolation and explicit status telemetry for non-technical operators.',
       'Multithreaded worker pools with Qt signals/slots provide unmatched stability for high-volume data operations.'
     ],
-    githubUrl: 'https://github.com/Sinariahi',
-    hasInteractiveDemo: false,
   },
   {
     id: 'yadban',
@@ -141,9 +130,7 @@ export const PROJECTS_DATA: Project[] = [
       'Deep localization and native calendar support are paramount for regional productivity tools.',
       'Jetpack Compose state management simplifies complex grid rendering and dynamic form builders.'
     ],
-    githubUrl: 'https://github.com/Sinariahi',
     liveUrl: 'https://myket.ir',
-    hasInteractiveDemo: false,
   },
   {
     id: 'finglish-bot',
@@ -176,9 +163,6 @@ export const PROJECTS_DATA: Project[] = [
       'Edge compute is ideal for high-throughput, micro-payload text transformations.',
       'Rule-based text systems remain substantially faster and more predictable than large models for deterministic transliteration tasks.'
     ],
-    githubUrl: 'https://github.com/Sinariahi',
-    hasInteractiveDemo: true,
-    interactiveDemoType: 'transliteration',
   },
   {
     id: 'scraping-automation-suite',
@@ -211,7 +195,5 @@ export const PROJECTS_DATA: Project[] = [
       'nodriver provides vastly superior performance and lower resource footprint compared to traditional ChromeDriver setups.',
       'Data pipelines must implement defensive schemas to absorb upstream HTML restructuring gracefully.'
     ],
-    githubUrl: 'https://github.com/Sinariahi',
-    hasInteractiveDemo: false,
   }
 ];

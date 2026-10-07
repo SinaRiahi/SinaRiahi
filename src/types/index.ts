@@ -27,11 +27,7 @@ export interface Project {
   architectureDetails: string[];
   challenges: string[];
   lessonsLearned: string[];
-  futureRoadmap?: string[];
-  githubUrl?: string;
   liveUrl?: string;
-  hasInteractiveDemo?: boolean;
-  interactiveDemoType?: 'procedural-grid' | 'transliteration' | 'markdown-tool';
 }
 
 export type SkillProficiency = 'Actively Using' | 'Familiar With' | 'Learning' | 'Exploring';
@@ -39,7 +35,6 @@ export type SkillProficiency = 'Actively Using' | 'Familiar With' | 'Learning' |
 export interface SkillItem {
   name: string;
   level: SkillProficiency;
-  iconName?: string;
   context?: string;
 }
 

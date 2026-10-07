@@ -118,8 +118,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
           </div>
 
           {/* Right Column: Interactive Bionic Ocular Sensor */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl bg-transparent border-transparent overflow-visible p-2">
+          <div className="lg:col-span-5 relative flex items-center justify-center">
+            <div className="relative rounded-2xl bg-transparent border-transparent overflow-visible p-2 flex items-center justify-center">
               <TrackingEye interactive={true} />
             </div>
           </div>

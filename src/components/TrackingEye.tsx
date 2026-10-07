@@ -205,9 +205,8 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
       <div 
         ref={containerRef}
         onClick={triggerGlitch}
-        className="relative w-72 h-72 sm:w-80 sm:h-80 flex items-center justify-center cursor-pointer group transition-transform"
+        className="relative w-72 h-72 sm:w-80 sm:h-80 aspect-square flex-shrink-0 flex items-center justify-center cursor-pointer group transition-transform"
         style={{
-          width: '320px',
           transform: isGlitching
             ? `translate(${glitchShift.x}px, ${glitchShift.y}px) skewX(${glitchShift.skew}deg)`
             : isDizzy
@@ -245,7 +244,7 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
         )}
 
         {/* The Eyeball (Sclera) with 3D Depth */}
-        <div className="relative w-60 h-60 sm:w-64 sm:h-64 rounded-full overflow-hidden bg-gradient-to-b from-white via-slate-100 to-slate-200 dark:from-[#151924] dark:via-[#0e121a] dark:to-[#090b10] shadow-[inset_0_2px_12px_rgba(0,0,0,0.15)] dark:shadow-inner border border-slate-300 dark:border-white/10 flex items-center justify-center">
+        <div className="relative w-60 h-60 sm:w-64 sm:h-64 aspect-square flex-shrink-0 rounded-full overflow-hidden bg-gradient-to-b from-white via-slate-100 to-slate-200 dark:from-[#151924] dark:via-[#0e121a] dark:to-[#090b10] shadow-[inset_0_2px_12px_rgba(0,0,0,0.15)] dark:shadow-inner border border-slate-300 dark:border-white/10 flex items-center justify-center">
           
           {/* Sclera Vascular & Shading Layers */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_45%,_rgba(0,0,0,0.25)_100%)] pointer-events-none" />
@@ -253,7 +252,7 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
           {/* IRIS & PUPIL ASSEMBLY (Clean & Grid-Free, Smooth 60fps tracking) */}
           <div
             ref={irisRef}
-            className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full flex items-center justify-center transition-transform duration-75 ease-out shadow-2xl"
+            className="relative w-32 h-32 sm:w-36 sm:h-36 aspect-square flex-shrink-0 rounded-full flex items-center justify-center transition-transform duration-75 ease-out shadow-2xl"
             style={{
               background: `radial-gradient(circle at 40% 40%, ${colors.irisInner} 0%, ${colors.irisOuter} 65%, ${colors.ring} 100%)`,
               boxShadow: `0 0 25px ${colors.glow}, inset 0 0 20px rgba(0,0,0,0.6)`,
@@ -261,7 +260,7 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
           >
             {/* PUPIL (Dilates & Tracks; Spins comic spiral when dizzy) */}
             <div
-              className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#050608] transition-transform duration-100 ease-out flex items-center justify-center shadow-inner relative overflow-hidden"
+              className="w-14 h-14 sm:w-16 sm:h-16 aspect-square flex-shrink-0 rounded-full bg-[#050608] transition-transform duration-100 ease-out flex items-center justify-center shadow-inner relative overflow-hidden"
               style={{
                 transform: `scale(${isGlitching ? pupilScale * 1.3 : isDizzy ? 1.2 : pupilScale})`,
               }}
