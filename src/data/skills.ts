@@ -14,7 +14,7 @@ export const SKILLS_DATA: SkillCategory[] = [
       { name: 'CSS', level: 'Familiar With', context: 'Modern responsive layouts, flexbox, grid, and CSS animations' },
       { name: 'R', level: 'Familiar With', context: 'Statistical computing, data analysis, and mathematical modeling' },
       { name: 'Rust', level: 'Exploring', context: 'Systems programming, memory safety without GC, and native modules' },
-      { name: 'Advanced Math', level: 'Learning', context: 'Linear algebra, multivariate calculus, and discrete mathematics for algorithms' },
+      { name: 'Advanced Math', level: 'Learning', context: 'Advanced probability and statistics, linear algebra, and numerical analysis' },
     ],
   },
   {

@@ -21,7 +21,7 @@ export const PERSONAL_INFO = {
     degree: 'Bachelor of Computer Science',
     university: 'Kharazmi University',
     graduated: '2026',
-    average: '17.08 / 20',
+    average: '17.22 / 20',
   },
   languages: [
     { name: 'English', level: 'C2, Full Fluency' },

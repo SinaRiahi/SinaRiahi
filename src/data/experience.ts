@@ -21,8 +21,8 @@ export const JOURNEY_DATA: JourneyMilestone[] = [
     period: '2022 – 2026',
     title: 'Bachelor of Computer Science',
     organizationOrContext: 'Kharazmi University',
-    description: 'Graduated in 2026 with a high cumulative academic average of 17.08 / 20. Comprehensive foundation in algorithms, data structures, linear algebra, software design, statistical computation, and systems programming.',
-    tags: ['Average: 17.08/20', 'Algorithms', 'Data Structures', 'Linear Algebra', 'Systems'],
+    description: 'Graduated in 2026 with a high cumulative academic average of 17.22 / 20. Comprehensive foundation in algorithms, data structures, advanced probability and statistics, linear algebra, numerical analysis, software design, and systems programming.',
+    tags: ['Average: 17.22/20', 'Probability & Stats', 'Linear Algebra', 'Numerical Analysis', 'Algorithms'],
     type: 'education',
   },
   {
