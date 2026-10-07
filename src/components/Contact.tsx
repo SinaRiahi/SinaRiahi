@@ -190,7 +190,7 @@ export const Contact: React.FC = () => {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="e.g. Alex Turing"
+                      placeholder="e.g. S... R....."
                       className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#08090d] border border-slate-300 dark:border-white/10 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 text-xs font-medium focus:outline-none focus:border-blue-600 focus:bg-white dark:focus:bg-[#08090d] transition-all"
                     />
                   </div>
@@ -204,7 +204,7 @@ export const Contact: React.FC = () => {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="e.g. alex@example.com"
+                      placeholder="e.g. ...@example.com"
                       className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#08090d] border border-slate-300 dark:border-white/10 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 text-xs font-medium focus:outline-none focus:border-blue-600 focus:bg-white dark:focus:bg-[#08090d] transition-all"
                     />
                   </div>

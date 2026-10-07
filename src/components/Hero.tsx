@@ -34,7 +34,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
             {/* Clean unboxed status & kicker (Zero-pill discipline) */}
             <div className="flex items-center gap-2 text-xs font-mono text-slate-700 dark:text-slate-400">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-semibold text-slate-800 dark:text-slate-300">Available for Software Engineering & Systems Roles</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-300">Available for part-time and freelance duties</span>
               <span aria-hidden="true" className="text-slate-400 dark:text-slate-600">·</span>
               <span className="font-semibold text-slate-700 dark:text-slate-400"></span>
             </div>
@@ -65,9 +65,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
               <span className="text-slate-900 dark:text-white font-bold">Core Focus:</span>
               <span className="text-slate-800 dark:text-slate-200 font-medium">AI and ML </span>
               <span aria-hidden="true" className="text-slate-400 dark:text-slate-600">·</span>
-              <span className="text-slate-800 dark:text-slate-200 font-medium">Python v2</span>
+              <span className="text-slate-800 dark:text-slate-200 font-medium">Cybersecurity</span>
               <span aria-hidden="true" className="text-slate-400 dark:text-slate-600">·</span>
-              <span className="text-slate-800 dark:text-slate-200 font-medium">Marketplace Automation</span>
+              <span className="text-slate-800 dark:text-slate-200 font-medium">Automation</span>
               <span aria-hidden="true" className="text-slate-400 dark:text-slate-600">·</span>
               <span className="text-slate-800 dark:text-slate-200 font-medium">Web Scraping</span>
               <span aria-hidden="true" className="text-slate-400 dark:text-slate-600">·</span>
