@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Project, ProjectCategory } from '../types';
 import { PROJECTS_DATA } from '../data/projects';
-import { ArrowUpRight, Sparkles, Terminal, Gamepad2, FileCode, Database } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Terminal, FileCode, Database } from 'lucide-react';
 
 interface ProjectsProps {
   onSelectProject: (p: Project) => void;
@@ -12,9 +12,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
 
   const categories: ProjectCategory[] = [
     'All',
-    'Automation & Tools',
-    'Game Engineering',
     'Systems & Backend',
+    'Automation & Tools',
     'Product & Web',
   ];
 
@@ -25,8 +24,6 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
 
   const getCategoryIcon = (category: Project['category']) => {
     switch (category) {
-      case 'Game Engineering':
-        return Gamepad2;
       case 'Automation & Tools':
         return Terminal;
       case 'Systems & Backend':
@@ -50,7 +47,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
               Evidence of software built & tested
             </h2>
             <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-              Explore concrete implementations spanning modular desktop utilities, business automation, linguistic edge processors, and game loop mechanics.
+              Explore concrete implementations spanning modular desktop utilities, business automation, linguistic edge processors, and data scraping systems.
             </p>
           </div>
 
@@ -165,13 +162,6 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
               </div>
             );
           })}
-        </div>
-
-        {/* Note on Data-Driven Extensibility */}
-        <div className="mt-12 text-center">
-          <p className="text-xs text-slate-600 dark:text-slate-400 font-mono font-medium">
-            Designed with a modular project schema in <code className="text-blue-600 dark:text-blue-400 font-semibold">src/data/projects.ts</code> for frictionless expansion as new repositories ship.
-          </p>
         </div>
 
       </div>

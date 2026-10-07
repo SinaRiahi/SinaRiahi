@@ -1,8 +1,7 @@
 export type ProjectCategory = 
   | 'All'
-  | 'Automation & Tools'
-  | 'Game Engineering'
   | 'Systems & Backend'
+  | 'Automation & Tools'
   | 'Product & Web';
 
 export type ProjectStatus = 
@@ -15,7 +14,7 @@ export interface Project {
   id: string;
   title: string;
   subtitle: string;
-  category: 'Automation & Tools' | 'Game Engineering' | 'Systems & Backend' | 'Product & Web';
+  category: 'Systems & Backend' | 'Automation & Tools' | 'Product & Web';
   year: string;
   status: ProjectStatus;
   featured: boolean;
