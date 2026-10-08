@@ -542,11 +542,6 @@ export const NeuralSkillNetwork: React.FC = () => {
           <span>{isAutoRotate ? 'Auto-Orbit: ON' : 'Auto-Orbit: PAUSED'}</span>
         </button>
 
-        {/* Mobile helper indicator */}
-        <div className="sm:hidden absolute top-4 left-4 z-10 px-2.5 py-1 rounded-md bg-white/70 dark:bg-black/60 border border-slate-200/80 dark:border-white/10 text-[10px] font-mono text-slate-600 dark:text-slate-400 backdrop-blur-sm pointer-events-none">
-          Drag to rotate · Tap node to inspect
-        </div>
-
         {/* Main Interactive 3D Canvas */}
         <canvas
           ref={canvasRef}

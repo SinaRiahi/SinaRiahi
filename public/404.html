@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>404 // RESOURCE_NOT_FOUND</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // GitHub Pages SPA 404 handler:
+    // When a visitor hits an unresolved path directly on GitHub Pages,
+    // redirect to the base repository path with #404 hash to launch the custom 404 Tic-Tac-Toe arena
+    (function() {
+      var path = window.location.pathname;
+      var segments = path.split('/').filter(Boolean);
+      var isGitHubPages = window.location.hostname.endsWith('github.io');
+      var isRepoSubpath = segments.length > 0 && segments[0].toLowerCase() === 'sinariahi';
+
+      var basePath = (isGitHubPages || isRepoSubpath) && segments.length > 0
+        ? '/' + segments[0] + '/'
+        : '/';
+
+      window.location.replace(basePath + '#404');
+    })();
+  </script>
+</head>
+<body style="background:#08090D;color:#94a3b8;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+  <p>Redirecting to cyber sector 404...</p>
+</body>
+</html>

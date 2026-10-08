@@ -22,11 +22,47 @@ export function App() {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  // Detect base path for GitHub Pages (e.g. /SinaRiahi/) or standard domain (/)
+  const getBasePath = () => {
+    const segments = window.location.pathname.split('/').filter(Boolean);
+    const isGitHubPages = window.location.hostname.endsWith('github.io');
+    const isRepoSubpath = segments.length > 0 && segments[0].toLowerCase() === 'sinariahi';
+
+    if ((isGitHubPages || isRepoSubpath) && segments.length > 0) {
+      return `/${segments[0]}/`;
+    }
+    return '/';
+  };
+
   // Check if current route or hash represents a 404 page
   const checkIs404 = () => {
-    const path = window.location.pathname;
-    const isRoot = path === '/' || path === '' || path === '/index.html';
-    return !isRoot || window.location.hash === '#404';
+    // Explicit hash route for 404 error page / easter egg
+    if (window.location.hash === '#404') {
+      return true;
+    }
+
+    const segments = window.location.pathname.split('/').filter(Boolean);
+
+    // Root paths: '', '/', '/index.html'
+    if (segments.length === 0 || (segments.length === 1 && segments[0] === 'index.html')) {
+      return false;
+    }
+
+    // GitHub Pages repository root: /SinaRiahi, /SinaRiahi/, /SinaRiahi/index.html
+    const isGitHubPages = window.location.hostname.endsWith('github.io');
+    const isRepoSubpath = segments.length > 0 && segments[0].toLowerCase() === 'sinariahi';
+
+    if (isGitHubPages || isRepoSubpath) {
+      if (segments.length === 1 && segments[0].toLowerCase() !== '404') {
+        return false;
+      }
+      if (segments.length === 2 && segments[1] === 'index.html') {
+        return false;
+      }
+    }
+
+    // Any other unresolved path should display the 404 page
+    return true;
   };
 
   const [is404, setIs404] = useState<boolean>(checkIs404);
@@ -44,8 +80,10 @@ export function App() {
   }, []);
 
   const returnHome = () => {
-    if (window.location.pathname !== '/' && window.location.pathname !== '') {
-      window.history.pushState({}, '', '/');
+    const basePath = getBasePath();
+    // Keep the repository base path intact in the URL so reloading doesn't 404 on GitHub
+    if (window.location.hash === '#404' || window.location.pathname !== basePath) {
+      window.history.pushState({}, '', `${basePath}#home`);
     }
     window.location.hash = '#home';
     setIs404(false);
