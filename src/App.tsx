@@ -8,6 +8,7 @@ import { Skills } from './components/Skills';
 import { Experience } from './components/Experience';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { NotFound404 } from './components/NotFound404';
 import { ProjectDetailModal } from './components/ProjectDetailModal';
 import { CommandPalette } from './components/CommandPalette';
 import { TerminalModal } from './components/TerminalModal';
@@ -20,6 +21,36 @@ export function App() {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Check if current route or hash represents a 404 page
+  const checkIs404 = () => {
+    const path = window.location.pathname;
+    const isRoot = path === '/' || path === '' || path === '/index.html';
+    return !isRoot || window.location.hash === '#404';
+  };
+
+  const [is404, setIs404] = useState<boolean>(checkIs404);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIs404(checkIs404());
+    };
+    window.addEventListener('popstate', handleRouteChange);
+    window.addEventListener('hashchange', handleRouteChange);
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+      window.removeEventListener('hashchange', handleRouteChange);
+    };
+  }, []);
+
+  const returnHome = () => {
+    if (window.location.pathname !== '/' && window.location.pathname !== '') {
+      window.history.pushState({}, '', '/');
+    }
+    window.location.hash = '#home';
+    setIs404(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Monitor scroll position to show scroll-to-top button as soon as user scrolls down even a bit (> 15px)
   useEffect(() => {
@@ -59,43 +90,52 @@ export function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-[#F8F9FC] dark:bg-[#08090D] text-slate-900 dark:text-slate-100 transition-colors selection:bg-blue-600 selection:text-white dark:selection:bg-blue-600/40 dark:selection:text-cyan-200 relative">
-        {/* Navigation Bar (Strict 3-zone contract) */}
-        <Navbar onOpenCommandPalette={() => setCommandPaletteOpen(true)} />
+        {is404 ? (
+          <NotFound404
+            onReturnHome={returnHome}
+            onOpenTerminal={() => setTerminalOpen(true)}
+          />
+        ) : (
+          <>
+            {/* Navigation Bar (Strict 3-zone contract) */}
+            <Navbar onOpenCommandPalette={() => setCommandPaletteOpen(true)} />
 
-        {/* Main Content Sections */}
-        <main>
-          {/* Hero Section with Interactive Bionic Eye */}
-          <Hero onOpenTerminal={() => setTerminalOpen(true)} />
+            {/* Main Content Sections */}
+            <main>
+              {/* Hero Section with Interactive Bionic Eye */}
+              <Hero onOpenTerminal={() => setTerminalOpen(true)} />
 
-          {/* About & Technical Mindset */}
-          <About />
+              {/* About & Technical Mindset */}
+              <About />
 
-          {/* Projects Showcase & Engineering Case Studies */}
-          <Projects onSelectProject={(p) => setSelectedProject(p)} />
+              {/* Projects Showcase & Engineering Case Studies */}
+              <Projects onSelectProject={(p) => setSelectedProject(p)} />
 
-          {/* Skills Matrix & Proficiencies */}
-          <Skills />
+              {/* Skills Matrix & Proficiencies */}
+              <Skills />
 
-          {/* Journey & Timeline */}
-          <Experience />
+              {/* Journey & Timeline */}
+              <Experience />
 
-          {/* Contact & Resume Download */}
-          <Contact />
-        </main>
+              {/* Contact & Resume Download */}
+              <Contact />
+            </main>
 
-        {/* Clean Footer */}
-        <Footer />
+            {/* Clean Footer */}
+            <Footer />
 
-        {/* Floating Scroll To Top Button (Appears immediately on scroll) */}
-        {showScrollTop && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-6 right-6 z-40 p-3 rounded-full !text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-700 shadow-xl shadow-blue-600/30 border border-white/20 transition-all duration-200 hover:scale-110 active:scale-95 animate-fadeIn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-            title="Scroll to top"
-            aria-label="Scroll to top"
-          >
-            <ArrowUp className="w-5 h-5 text-white" />
-          </button>
+            {/* Floating Scroll To Top Button (Appears immediately on scroll) */}
+            {showScrollTop && (
+              <button
+                onClick={scrollToTop}
+                className="fixed bottom-6 right-6 z-40 p-3 rounded-full !text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-700 shadow-xl shadow-blue-600/30 border border-white/20 transition-all duration-200 hover:scale-110 active:scale-95 animate-fadeIn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                title="Scroll to top"
+                aria-label="Scroll to top"
+              >
+                <ArrowUp className="w-5 h-5 text-white" />
+              </button>
+            )}
+          </>
         )}
 
         {/* Engineering Case Study Modal */}

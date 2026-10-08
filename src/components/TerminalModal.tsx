@@ -69,12 +69,18 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
             <p><span className="text-blue-400 w-24 inline-block">skills</span> — Overview of technical proficiencies</p>
             <p><span className="text-blue-400 w-24 inline-block">contact</span> — Reach out via email or GitHub</p>
             <p><span className="text-blue-400 w-24 inline-block">resume</span> — Download engineering resume</p>
+            <p><span className="text-blue-400 w-24 inline-block">404</span> — Launch 404 easter egg (Tic-Tac-Toe vs Blue)</p>
             <p><span className="text-blue-400 w-24 inline-block">clear</span> — Clear terminal output</p>
             <p><span className="text-blue-400 w-24 inline-block">sudo</span> — Elevate privileges</p>
             <p><span className="text-blue-400 w-24 inline-block">exit</span> — Close terminal</p>
           </div>
         );
         break;
+
+      case '404':
+        window.location.hash = '#404';
+        onClose();
+        return;
 
       case 'whoami':
         response = (

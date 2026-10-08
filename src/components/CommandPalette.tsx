@@ -15,6 +15,7 @@ import {
   Layers, 
   User, 
   Wrench,
+  Gamepad2,
   X
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons';
@@ -101,6 +102,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       icon: Mail,
       action: () => {
         window.location.hash = '#contact';
+        onClose();
+      },
+    },
+    {
+      id: 'nav-404',
+      title: '404 Error Page (Tic-Tac-Toe vs Blue)',
+      category: 'Navigation',
+      icon: Gamepad2,
+      action: () => {
+        window.location.hash = '#404';
         onClose();
       },
     },
