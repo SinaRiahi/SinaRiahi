@@ -43,12 +43,6 @@ export const Skills: React.FC = () => {
             <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
               A comprehensive breakdown of the programming languages, backend frameworks, automation engines, and system architecture tools I work with daily — driven toward my ultimate goal of <strong className="text-cyan-600 dark:text-cyan-400 font-bold">AI in Cybersecurity</strong>.
             </p>
-            <div className="pt-1 flex items-center gap-2">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800/40 text-xs font-mono text-cyan-800 dark:text-cyan-300 font-bold">
-                <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-                <span>Ultimate Goal: AI in Cybersecurity</span>
-              </span>
-            </div>
           </div>
 
           {/* Interactive Proficiency Filter (No scrollbars, clean selected state) */}

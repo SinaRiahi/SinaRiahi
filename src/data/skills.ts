@@ -58,7 +58,7 @@ export const SKILLS_DATA: SkillCategory[] = [
       { name: 'Docker', level: 'Familiar With', context: 'Containerization, reproducible environments, and service isolation' },
       { name: 'Git & GitHub', level: 'Familiar With', context: 'Version control, collaborative workflows, and repository management' },
       { name: 'Wireshark', level: 'Familiar With', context: 'Packet capture, protocol inspection, and network traffic diagnostics' },
-      { name: 'Photoshop', level: 'Familiar With', context: 'Digital image editing, asset retouching, and interface graphics' },
+      { name: 'Photoshop', level: 'Actively Using', context: 'Digital image editing, asset retouching, and interface graphics... also drawing' },
     ],
   },
 ];

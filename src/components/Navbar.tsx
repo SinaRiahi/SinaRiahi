@@ -11,14 +11,30 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
   const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
+  const [showBrand, setShowBrand] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      const heroNameEl = document.getElementById('hero-name');
+      if (heroNameEl) {
+        const rect = heroNameEl.getBoundingClientRect();
+        // Morph into header when hero name reaches or scrolls past the header threshold
+        setShowBrand(rect.top <= 65 || window.scrollY > 120);
+      } else {
+        setShowBrand(window.scrollY > 70);
+      }
     };
+
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   return (
@@ -30,16 +46,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Zone 1: Brand Wordmark (Single text element) */}
-        <a
-          href="#home"
-          className="text-lg font-bold tracking-tight text-slate-900 dark:text-white transition-opacity hover:opacity-90 flex items-center gap-2"
-          style={{ width: '100px', height: '34px' }}
-          aria-label="Sina Riahi homepage"
-        >
-          <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
-          <span>Sina Riahi</span>
-        </a>
+        {/* Zone 1: Brand Wordmark (Morphed in on scroll from hero card) */}
+        <div className="w-[120px] h-[34px] flex items-center">
+          <a
+            href="#home"
+            className={`text-lg font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2 transition-all duration-300 ease-out transform ${
+              showBrand
+                ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
+                : 'opacity-0 -translate-y-2 scale-95 pointer-events-none select-none'
+            }`}
+            aria-label="Sina Riahi homepage"
+            tabIndex={showBrand ? 0 : -1}
+          >
+            <span className="w-2 h-2 rounded-full bg-blue-500 inline-block shrink-0 shadow-sm shadow-blue-500/50" />
+            <span className="whitespace-nowrap">Sina Riahi</span>
+          </a>
+        </div>
 
         {/* Zone 2: 4-6 Clean Text Navigation Links */}
         <nav className="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-700 dark:text-slate-300">

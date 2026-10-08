@@ -42,6 +42,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
             {/* Display Headline */}
             <div className="space-y-3">
               <h1 
+                id="hero-name"
                 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]"
                 style={{ fontStyle: 'normal', textDecorationLine: 'none', textAlign: 'left' }}
               >

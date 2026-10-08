@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 
-export type FoodType = 'default' | 'chicken' | 'pizza' | 'burger' | 'soda';
+export type FoodType = 'default' | 'chicken' | 'pizza' | 'burger' | 'soda' | 'clover';
 
 interface FoodItem {
   id: FoodType;
@@ -15,6 +15,7 @@ const FOOD_ITEMS: FoodItem[] = [
   { id: 'pizza', label: 'Pizza Slice', emoji: '🍕', badge: 'Cheesy' },
   { id: 'burger', label: 'Burger', emoji: '🍔', badge: 'Juicy' },
   { id: 'soda', label: 'Soda (Fizzy)', emoji: '🥤', badge: 'Burp Alert!' },
+  { id: 'clover', label: 'Clover Leaf', emoji: '🍀', badge: 'Lucky' },
 ];
 
 const generateEmojiCursorUrl = (emoji: string): string => {
@@ -181,7 +182,10 @@ export const NomNomMonster: React.FC<NomNomMonsterProps> = ({ className = '' }) 
         requestAnimationFrame(animateSpit);
       } else {
         setMonsterState('idle');
-        setSpawnedCursor({ x: spitTarget.x, y: spitTarget.y, food: eatenFood });
+        // Always spit out the regular cursor (never foods)
+        setSpawnedCursor({ x: spitTarget.x, y: spitTarget.y, food: 'default' });
+        setSelectedFood('default');
+        applyCustomCursor('default');
 
         if (eatenFood === 'soda') {
           setIsBlurping(true);
@@ -204,7 +208,7 @@ export const NomNomMonster: React.FC<NomNomMonsterProps> = ({ className = '' }) 
     };
 
     requestAnimationFrame(animateSpit);
-  }, [spitTarget.x, spitTarget.y]);
+  }, [spitTarget.x, spitTarget.y, applyCustomCursor]);
 
   const eatCursor = useCallback(() => {
     if (isCooldownRef.current) return;
@@ -287,8 +291,6 @@ export const NomNomMonster: React.FC<NomNomMonsterProps> = ({ className = '' }) 
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [monsterState, spawnedCursor, eatCursor, restoreGlobalCursor]);
-
-  const lastEatenObj = FOOD_ITEMS.find((f) => f.id === lastEatenFoodRef.current) || FOOD_ITEMS[0];
 
   return (
     <div className={`p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#0d0f17]/80 border border-slate-300 dark:border-white/10 shadow-sm space-y-4 ${className}`}>
@@ -501,19 +503,15 @@ export const NomNomMonster: React.FC<NomNomMonsterProps> = ({ className = '' }) 
                   opacity: 1,
                 }}
               >
-                {lastEatenObj.id === 'default' ? (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="drop-shadow-md">
-                    <path
-                      d="M4 2L20 10L12 12L10 20L4 2Z"
-                      fill="#ffffff"
-                      stroke="#0f172a"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                ) : (
-                  <span className="text-2xl drop-shadow-md select-none">{lastEatenObj.emoji}</span>
-                )}
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="drop-shadow-md">
+                  <path
+                    d="M4 2L20 10L12 12L10 20L4 2Z"
+                    fill="#ffffff"
+                    stroke="#0f172a"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
             )}
 
@@ -525,21 +523,15 @@ export const NomNomMonster: React.FC<NomNomMonsterProps> = ({ className = '' }) 
                   top: `${spawnedCursor.y}px`,
                 }}
               >
-                {spawnedCursor.food === 'default' ? (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="drop-shadow-lg">
-                    <path
-                      d="M4 2L20 10L12 12L10 20L4 2Z"
-                      fill="#ffffff"
-                      stroke="#0f172a"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                ) : (
-                  <span className="text-2xl drop-shadow-lg select-none">
-                    {FOOD_ITEMS.find((f) => f.id === spawnedCursor.food)?.emoji || '🍗'}
-                  </span>
-                )}
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="drop-shadow-lg">
+                  <path
+                    d="M4 2L20 10L12 12L10 20L4 2Z"
+                    fill="#ffffff"
+                    stroke="#0f172a"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
             )}
           </div>

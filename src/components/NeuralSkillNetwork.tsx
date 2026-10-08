@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { SKILLS_DATA } from '../data/skills';
 import { SkillProficiency } from '../types';
-import { Activity } from 'lucide-react';
+import { Activity, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 interface Node3D {
@@ -145,12 +145,64 @@ export const NeuralSkillNetwork: React.FC = () => {
     return list;
   }, [nodes]);
 
+  const pointerDownPos = useRef({ x: 0, y: 0 });
+
+  // Raycast / Node hit detection helper
+  const getNodeAt = (clientX: number, clientY: number): Node3D | null => {
+    const canvas = canvasRef.current;
+    if (!canvas) return null;
+
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = clientX - rect.left;
+    const mouseY = clientY - rect.top;
+
+    let closestNode: Node3D | null = null;
+    let minDistance = 28; // Hit radius for click and touch
+
+    const dpr = window.devicePixelRatio || 1;
+    const cx = canvas.width / (2 * dpr);
+    const cy = canvas.height / (2 * dpr);
+    const scale = (Math.min(canvas.width, canvas.height) / (2.6 * dpr)) * 2;
+
+    const cosY = Math.cos(rotation.current.y);
+    const sinY = Math.sin(rotation.current.y);
+    const cosX = Math.cos(rotation.current.x);
+    const sinX = Math.sin(rotation.current.x);
+
+    nodes.forEach((node) => {
+      const rx = node.x * cosY - node.z * sinY;
+      const rz = node.x * sinY + node.z * cosY;
+      const ry = node.y * cosX - rz * sinX;
+      const rz2 = node.y * sinX + rz * cosX;
+
+      const fov = 340;
+      const pScale = fov / (fov + rz2 + 110);
+      const projX = cx + rx * pScale * (scale / 100);
+      const projY = cy + ry * pScale * (scale / 100);
+
+      const d = Math.hypot(mouseX - projX, mouseY - projY);
+      if (d < minDistance) {
+        minDistance = d;
+        closestNode = node;
+      }
+    });
+
+    return closestNode;
+  };
+
   // Handle pointer rotation
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
     isDragging.current = true;
     lastMousePos.current = { x: e.clientX, y: e.clientY };
+    pointerDownPos.current = { x: e.clientX, y: e.clientY };
     angularVelocity.current = { x: 0, y: 0 };
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
+
+    const hit = getNodeAt(e.clientX, e.clientY);
+    if (hit) {
+      hoveredNodeRef.current = hit;
+      setHoveredNode(hit);
+    }
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -176,46 +228,9 @@ export const NeuralSkillNetwork: React.FC = () => {
       lastMousePos.current = { x: e.clientX, y: e.clientY };
     }
 
-    // Raycast/Hover detection
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    // Check hit against projected nodes
-    let closestNode: Node3D | null = null;
-    let minDistance = 26; // Hit radius
-
-    const cx = canvas.width / (2 * (window.devicePixelRatio || 1));
-    const cy = canvas.height / (2 * (window.devicePixelRatio || 1));
-    // Doubled zoom scale: (Math.min(...) / 2.6) * 2 = Math.min(...) / 1.3
-    const scale = (Math.min(canvas.width, canvas.height) / (2.6 * (window.devicePixelRatio || 1))) * 2;
-
-    const cosY = Math.cos(rotation.current.y);
-    const sinY = Math.sin(rotation.current.y);
-    const cosX = Math.cos(rotation.current.x);
-    const sinX = Math.sin(rotation.current.x);
-
-    nodes.forEach((node) => {
-      // 3D rotation projection
-      const rx = node.x * cosY - node.z * sinY;
-      const rz = node.x * sinY + node.z * cosY;
-      const ry = node.y * cosX - rz * sinX;
-      const rz2 = node.y * sinX + rz * cosX;
-
-      const fov = 340;
-      const pScale = fov / (fov + rz2 + 110);
-      const projX = cx + rx * pScale * (scale / 100);
-      const projY = cy + ry * pScale * (scale / 100);
-
-      const d = Math.hypot(mouseX - projX, mouseY - projY);
-      if (d < minDistance) {
-        minDistance = d;
-        closestNode = node;
-      }
-    });
-
-    hoveredNodeRef.current = closestNode;
-    setHoveredNode(closestNode);
+    const hit = getNodeAt(e.clientX, e.clientY);
+    hoveredNodeRef.current = hit;
+    setHoveredNode(hit);
   };
 
   const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -226,7 +241,18 @@ export const NeuralSkillNetwork: React.FC = () => {
       // Ignore if pointer capture was already released
     }
 
-    if (hoveredNodeRef.current) {
+    const distMoved = Math.hypot(
+      e.clientX - pointerDownPos.current.x,
+      e.clientY - pointerDownPos.current.y
+    );
+
+    // If tap or short movement (< 10px), select clicked node
+    if (distMoved < 10) {
+      const hit = getNodeAt(e.clientX, e.clientY) || hoveredNodeRef.current;
+      if (hit) {
+        setSelectedNode(hit);
+      }
+    } else if (hoveredNodeRef.current) {
       setSelectedNode(hoveredNodeRef.current);
     }
   };
@@ -433,80 +459,115 @@ export const NeuralSkillNetwork: React.FC = () => {
 
   const activeNodeInfo = hoveredNode || selectedNode;
 
+  const renderCardContent = (info: Node3D) => (
+    <>
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
+          <h4 className="text-base font-extrabold text-slate-900 dark:text-white">
+            {info.name}
+          </h4>
+        </div>
+        <div className="flex items-center gap-2">
+          <span
+            className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold ${
+              info.level === 'Actively Using'
+                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300'
+                : info.level === 'Familiar With'
+                ? 'bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300'
+                : info.level === 'Learning'
+                ? 'bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300'
+                : 'bg-cyan-100 text-cyan-800 dark:bg-cyan-500/20 dark:text-cyan-300'
+            }`}
+          >
+            {info.level}
+          </span>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedNode(null);
+              setHoveredNode(null);
+              hoveredNodeRef.current = null;
+            }}
+            className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-md transition-colors"
+            aria-label="Close skill details"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </div>
+
+      <div className="text-xs font-mono text-blue-600 dark:text-cyan-400 font-semibold">
+        Region: {info.lobe}
+      </div>
+
+      <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+        {info.context || 'Specialized systems implementation.'}
+      </p>
+
+      <div className="text-[10px] font-mono text-slate-600 dark:text-slate-400 pt-1 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
+        <span>Category: {info.category}</span>
+        <span className="text-emerald-700 dark:text-emerald-400 font-bold">Synaptic Node Active</span>
+      </div>
+    </>
+  );
+
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-[480px] sm:h-[540px] rounded-2xl bg-white dark:bg-[#07090e] border border-slate-300 dark:border-white/10 shadow-lg overflow-hidden flex flex-col transition-all select-none"
-    >
-      {/* Subtle background grid pattern */}
+    <div className="w-full flex flex-col gap-3">
+      {/* 3D Brain Network Box */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.06]"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #38bdf8 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-        }}
-      />
-
-      {/* Auto-Orbit Toggle Button */}
-      <button
-        onClick={() => setIsAutoRotate(!isAutoRotate)}
-        className={`absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors backdrop-blur-md shadow-sm ${
-          isAutoRotate
-            ? 'bg-blue-50/90 dark:bg-blue-500/10 border-blue-300 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 font-semibold'
-            : 'bg-white/80 dark:bg-white/5 border-slate-300 dark:border-white/10 text-slate-700 dark:text-slate-400'
-        }`}
-        title="Toggle automatic rotation"
+        ref={containerRef}
+        className="relative w-full h-[440px] sm:h-[540px] rounded-2xl bg-white dark:bg-[#07090e] border border-slate-300 dark:border-white/10 shadow-lg overflow-hidden flex flex-col transition-all select-none"
       >
-        <Activity className="w-3.5 h-3.5" />
-        <span>{isAutoRotate ? 'Auto-Orbit: ON' : 'Auto-Orbit: PAUSED'}</span>
-      </button>
+        {/* Subtle background grid pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.06]"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #38bdf8 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+          }}
+        />
 
-      {/* Main Interactive 3D Canvas */}
-      <canvas
-        ref={canvasRef}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        className="w-full h-full cursor-grab active:cursor-grabbing touch-none select-none"
-      />
+        {/* Auto-Orbit Toggle Button */}
+        <button
+          onClick={() => setIsAutoRotate(!isAutoRotate)}
+          className={`absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors backdrop-blur-md shadow-sm ${
+            isAutoRotate
+              ? 'bg-blue-50/90 dark:bg-blue-500/10 border-blue-300 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 font-semibold'
+              : 'bg-white/80 dark:bg-white/5 border-slate-300 dark:border-white/10 text-slate-700 dark:text-slate-400'
+          }`}
+          title="Toggle automatic rotation"
+        >
+          <Activity className="w-3.5 h-3.5" />
+          <span>{isAutoRotate ? 'Auto-Orbit: ON' : 'Auto-Orbit: PAUSED'}</span>
+        </button>
 
-      {/* Live Node Telemetry / Inspector Card (shown only on hover/select) */}
+        {/* Mobile helper indicator */}
+        <div className="sm:hidden absolute top-4 left-4 z-10 px-2.5 py-1 rounded-md bg-white/70 dark:bg-black/60 border border-slate-200/80 dark:border-white/10 text-[10px] font-mono text-slate-600 dark:text-slate-400 backdrop-blur-sm pointer-events-none">
+          Drag to rotate · Tap node to inspect
+        </div>
+
+        {/* Main Interactive 3D Canvas */}
+        <canvas
+          ref={canvasRef}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          className="w-full h-full cursor-grab active:cursor-grabbing touch-none select-none"
+        />
+
+        {/* DESKTOP ONLY: Live Node Telemetry / Inspector Card inside box */}
+        {activeNodeInfo && (
+          <div className="hidden sm:block absolute bottom-4 left-4 max-w-md p-4 rounded-xl bg-white/95 dark:bg-[#0c101a]/95 backdrop-blur-md border border-blue-500/40 shadow-xl transition-all z-20 space-y-2 pointer-events-auto">
+            {renderCardContent(activeNodeInfo)}
+          </div>
+        )}
+      </div>
+
+      {/* MOBILE ONLY: Description card placed outside the box (below it) */}
       {activeNodeInfo && (
-        <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-md p-4 rounded-xl bg-white/95 dark:bg-[#0c101a]/95 backdrop-blur-md border border-blue-500/40 shadow-xl transition-all z-20 space-y-2 pointer-events-auto">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
-              <h4 className="text-base font-extrabold text-slate-900 dark:text-white">
-                {activeNodeInfo.name}
-              </h4>
-            </div>
-            <span
-              className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold ${
-                activeNodeInfo.level === 'Actively Using'
-                  ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300'
-                  : activeNodeInfo.level === 'Familiar With'
-                  ? 'bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300'
-                  : activeNodeInfo.level === 'Learning'
-                  ? 'bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300'
-                  : 'bg-cyan-100 text-cyan-800 dark:bg-cyan-500/20 dark:text-cyan-300'
-              }`}
-            >
-              {activeNodeInfo.level}
-            </span>
-          </div>
-
-          <div className="text-xs font-mono text-blue-600 dark:text-cyan-400 font-semibold">
-            Region: {activeNodeInfo.lobe}
-          </div>
-
-          <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
-            {activeNodeInfo.context || 'Specialized systems implementation.'}
-          </p>
-
-          <div className="text-[10px] font-mono text-slate-600 dark:text-slate-400 pt-1 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
-            <span>Category: {activeNodeInfo.category}</span>
-            <span className="text-emerald-700 dark:text-emerald-400 font-bold">Synaptic Node Active</span>
-          </div>
+        <div className="block sm:hidden w-full p-4 rounded-xl bg-white dark:bg-[#0c101a] border border-blue-500/40 shadow-md space-y-2.5 transition-all animate-fadeIn">
+          {renderCardContent(activeNodeInfo)}
         </div>
       )}
     </div>

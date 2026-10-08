@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SOCIAL_LINKS } from '../data/socials';
+import { getTehranStatus } from '../data/schedule';
 import { FileText, Copy, Check, ArrowUpRight, Send } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons';
 import { NomNomMonster } from './NomNomMonster';
@@ -9,6 +10,15 @@ export const Contact: React.FC = () => {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [formSent, setFormSent] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [currentStatus, setCurrentStatus] = useState(getTehranStatus());
+
+  useEffect(() => {
+    // Keep status updated periodically
+    const interval = setInterval(() => {
+      setCurrentStatus(getTehranStatus());
+    }, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(SOCIAL_LINKS.email);
@@ -92,8 +102,12 @@ export const Contact: React.FC = () => {
                   </a>
                 </div>
 
-                <div className="px-3 py-2 text-[11px] font-mono text-slate-600 dark:text-slate-400">
+                <div className="px-3 pt-2 text-[11px] font-mono text-slate-600 dark:text-slate-400">
                   Location: <span className="text-slate-900 dark:text-slate-200 font-semibold">{SOCIAL_LINKS.location}</span> (UTC+3:30)
+                </div>
+
+                <div className="px-3 pb-1 text-[11px] font-mono text-slate-600 dark:text-slate-400">
+                  I'm currently <span className={`font-bold ${currentStatus.colorClass}`}>{currentStatus.status}</span>
                 </div>
               </div>
             </div>
