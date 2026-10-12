@@ -21,6 +21,7 @@ export function App() {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   // Detect base path for GitHub Pages (e.g. /SinaRiahi/) or standard domain (/)
   const getBasePath = () => {
@@ -43,26 +44,43 @@ export function App() {
 
     const segments = window.location.pathname.split('/').filter(Boolean);
 
-    // Root paths: '', '/', '/index.html'
-    if (segments.length === 0 || (segments.length === 1 && segments[0] === 'index.html')) {
+    // Root paths on custom domain or dev server: '', '/', '/index.html'
+    if (segments.length === 0 || (segments.length === 1 && segments[0].toLowerCase() === 'index.html')) {
       return false;
     }
 
     // GitHub Pages repository root: /SinaRiahi, /SinaRiahi/, /SinaRiahi/index.html
-    const isGitHubPages = window.location.hostname.endsWith('github.io');
-    const isRepoSubpath = segments.length > 0 && segments[0].toLowerCase() === 'sinariahi';
-
-    if (isGitHubPages || isRepoSubpath) {
-      if (segments.length === 1 && segments[0].toLowerCase() !== '404') {
+    // If the first segment is the repo name 'sinariahi', then:
+    // - /SinaRiahi or /SinaRiahi/ -> segments.length === 1 -> Landing page!
+    // - /SinaRiahi/index.html -> segments.length === 2, segments[1] === 'index.html' -> Landing page!
+    if (segments[0].toLowerCase() === 'sinariahi') {
+      if (segments.length === 1) {
         return false;
       }
-      if (segments.length === 2 && segments[1] === 'index.html') {
+      if (segments.length === 2 && segments[1].toLowerCase() === 'index.html') {
         return false;
       }
+      // Explicit 404 subroute: /SinaRiahi/404 or /SinaRiahi/404.html
+      if (segments.length === 2 && (segments[1].toLowerCase() === '404' || segments[1].toLowerCase() === '404.html')) {
+        return true;
+      }
+      // Any other subpath inside /SinaRiahi/... is a real 404
+      return true;
     }
 
-    // Any other unresolved path should display the 404 page
-    return true;
+    // On any domain where segments[0] is explicitly '404' or '404.html'
+    if (segments[0].toLowerCase() === '404' || segments[0].toLowerCase() === '404.html') {
+      return true;
+    }
+
+    // If on GitHub Pages without sinariahi subpath (e.g. user site root), single segment might be 404
+    const isGitHubPages = window.location.hostname.endsWith('github.io');
+    if (isGitHubPages && segments.length > 0) {
+      return true;
+    }
+
+    // In local development or preview environments with any path
+    return false;
   };
 
   const [is404, setIs404] = useState<boolean>(checkIs404);
@@ -90,13 +108,28 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Monitor scroll position to show scroll-to-top button as soon as user scrolls down even a bit (> 15px)
+  // Monitor scroll position to show scroll-to-top button and compute scroll progress
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 15);
+      const scrollY = window.scrollY;
+      setShowScrollTop(scrollY > 20);
+
+      const totalScrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScrollable > 0) {
+        const progress = Math.min(Math.max(scrollY / totalScrollable, 0), 1);
+        setScrollProgress(progress);
+      } else {
+        setScrollProgress(0);
+      }
     };
+
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -162,16 +195,59 @@ export function App() {
             {/* Clean Footer */}
             <Footer />
 
-            {/* Floating Scroll To Top Button (Appears immediately on scroll) */}
+            {/* Floating Scroll To Top Button with Circular Progress Outline */}
             {showScrollTop && (
-              <button
-                onClick={scrollToTop}
-                className="fixed bottom-6 right-6 z-40 p-3 rounded-full !text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-700 shadow-xl shadow-blue-600/30 border border-white/20 transition-all duration-200 hover:scale-110 active:scale-95 animate-fadeIn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-                title="Scroll to top"
-                aria-label="Scroll to top"
-              >
-                <ArrowUp className="w-5 h-5 text-white" />
-              </button>
+              <div className="fixed bottom-6 right-6 z-40 animate-fadeIn">
+                <button
+                  onClick={scrollToTop}
+                  className="relative flex items-center justify-center w-12 h-12 rounded-full group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#08090D] transition-transform duration-200 hover:scale-110 active:scale-95 shadow-xl shadow-blue-600/25"
+                  title={`Back to top (${Math.round(scrollProgress * 100)}%)`}
+                  aria-label="Scroll back to top"
+                >
+                  {/* Circular Progress Bar SVG Outline */}
+                  <svg
+                    className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none drop-shadow-sm"
+                    viewBox="0 0 48 48"
+                  >
+                    <defs>
+                      <linearGradient id="scrollProgressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#38BDF8" />
+                        <stop offset="100%" stopColor="#2563EB" />
+                      </linearGradient>
+                    </defs>
+                    {/* Background track circle outline */}
+                    <circle
+                      cx="24"
+                      cy="24"
+                      r="21"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      className="text-slate-300/80 dark:text-white/15"
+                      fill="none"
+                    />
+                    {/* Filling progress circle */}
+                    <circle
+                      cx="24"
+                      cy="24"
+                      r="21"
+                      stroke="url(#scrollProgressGradient)"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeDasharray={2 * Math.PI * 21}
+                      style={{
+                        strokeDashoffset: (2 * Math.PI * 21) * (1 - scrollProgress),
+                        transition: 'stroke-dashoffset 150ms ease-out',
+                      }}
+                      fill="none"
+                    />
+                  </svg>
+
+                  {/* Inner Action Button */}
+                  <div className="relative flex items-center justify-center w-9 h-9 rounded-full bg-blue-600 group-hover:bg-blue-500 active:bg-blue-700 text-white shadow-md transition-colors duration-200">
+                    <ArrowUp className="w-4 h-4 text-white group-hover:-translate-y-0.5 transition-transform duration-200" />
+                  </div>
+                </button>
+              </div>
             )}
           </>
         )}

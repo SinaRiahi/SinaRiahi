@@ -98,7 +98,7 @@ export const About: React.FC = () => {
                 "{PERSONAL_INFO.learningPhilosophy}"
               </p>
               <div className="text-[11px] font-mono text-blue-700 dark:text-cyan-400 font-bold">
-                Location: {PERSONAL_INFO.location} · Available for Engineering Opportunities
+                Location: {PERSONAL_INFO.location}
               </div>
             </div>
 

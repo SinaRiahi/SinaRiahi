@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/projects';
 import { SOCIAL_LINKS, PERSONAL_INFO } from '../data/socials';
 import { handleResumeDownload } from '../utils/resume';
@@ -69,18 +68,12 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
             <p><span className="text-blue-400 w-24 inline-block">skills</span> — Overview of technical proficiencies</p>
             <p><span className="text-blue-400 w-24 inline-block">contact</span> — Reach out via email or GitHub</p>
             <p><span className="text-blue-400 w-24 inline-block">resume</span> — Download engineering resume</p>
-            <p><span className="text-blue-400 w-24 inline-block">404</span> — Launch 404 easter egg (Tic-Tac-Toe vs Blue)</p>
             <p><span className="text-blue-400 w-24 inline-block">clear</span> — Clear terminal output</p>
             <p><span className="text-blue-400 w-24 inline-block">sudo</span> — Elevate privileges</p>
             <p><span className="text-blue-400 w-24 inline-block">exit</span> — Close terminal</p>
           </div>
         );
         break;
-
-      case '404':
-        window.location.hash = '#404';
-        onClose();
-        return;
 
       case 'whoami':
         response = (
@@ -218,20 +211,21 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
         aria-modal="true"
       >
         {/* Terminal Window Header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-[#11141d] border-b border-white/10 select-none">
+        <div className="flex items-center px-4 py-3 bg-[#11141d] border-b border-white/10 select-none">
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
+            <button
+              onClick={onClose}
+              type="button"
+              className="group relative w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 flex items-center justify-center transition-all cursor-pointer focus:outline-none focus:ring-1 focus:ring-red-400"
+              aria-label="Close terminal"
+              title="Close terminal"
+            >
+              <span className="opacity-0 group-hover:opacity-100 text-[8px] font-bold text-black/80 leading-none">✕</span>
+            </button>
             <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
             <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
             <span className="text-slate-400 text-[11px] ml-2">sina@system:~ (interactive-shell)</span>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1 text-slate-400 hover:text-white rounded"
-            aria-label="Close terminal"
-          >
-            <X className="w-4 h-4" />
-          </button>
         </div>
 
         {/* Logs Output Container */}

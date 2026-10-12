@@ -6,8 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>
     // GitHub Pages SPA 404 handler:
-    // When a visitor hits an unresolved path directly on GitHub Pages,
-    // redirect to the base repository path with #404 hash to launch the custom 404 Tic-Tac-Toe arena
+    // If a visitor accesses an unresolved sub-route directly on GitHub Pages,
+    // this preserves the route or loads the custom 404 arena.
+    // If the hit was for the repository root or index, it redirects cleanly to the landing page.
     (function() {
       var path = window.location.pathname;
       var segments = path.split('/').filter(Boolean);
@@ -18,6 +19,13 @@
         ? '/' + segments[0] + '/'
         : '/';
 
+      // If user hit the repo root or root index, go straight to landing without #404
+      if (segments.length === 0 || (segments.length === 1 && segments[0].toLowerCase() === 'sinariahi') || (segments.length === 1 && segments[0].toLowerCase() === 'index.html')) {
+        window.location.replace(basePath);
+        return;
+      }
+
+      // If hitting an unknown sub-path, route to #404
       window.location.replace(basePath + '#404');
     })();
   </script>

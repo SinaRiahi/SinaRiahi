@@ -76,6 +76,7 @@ export const NeuralSkillNetwork: React.FC = () => {
 
       // Data Science, AI & Automation
       nodriver: { x: 45, y: -10, z: 80, lobe: 'Right Frontal Pole (Stealth Automation)' },
+      'Chrome Extension Development': { x: 55, y: 0, z: 65, lobe: 'Right Frontal Pole (Extension Engineering)' },
       NumPy: { x: -70, y: 25, z: 20, lobe: 'Left Temporal (Vectorized Arrays)' },
       Requests: { x: 60, y: 15, z: 10, lobe: 'Right Temporal (HTTP Networking)' },
       PyTorch: { x: -10, y: -50, z: 70, lobe: 'Prefrontal Cortex (Neural Networks)' },
