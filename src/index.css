@@ -185,4 +185,134 @@ a.bg-blue-500 * {
   animation: blurpWobble 0.8s ease-in-out;
 }
 
+/* ==========================================================================
+   Hidden Terminal Easter Egg Themes: Spider (Red) & Dragon (Orange)
+   ========================================================================== */
+
+/* Spider Theme (Crimson Red Accent across the entire page) */
+html.theme-spider {
+  --theme-accent-primary: #dc2626;
+  --theme-accent-secondary: #ef4444;
+}
+
+html.theme-spider [class*="text-blue-"],
+html.theme-spider [class*="text-cyan-"],
+html.theme-spider [class*="text-brand-"] {
+  color: #f87171 !important;
+}
+
+html.theme-spider a[class*="text-blue-"]:hover,
+html.theme-spider button[class*="text-blue-"]:hover {
+  color: #ef4444 !important;
+}
+
+html.theme-spider [class*="bg-blue-600"],
+html.theme-spider [class*="bg-blue-500"],
+html.theme-spider [class*="bg-brand-600"],
+html.theme-spider [class*="bg-brand-500"] {
+  background-color: #dc2626 !important;
+}
+
+html.theme-spider [class*="hover:bg-blue-"]:hover,
+html.theme-spider [class*="hover:bg-cyan-"]:hover {
+  background-color: #b91c1c !important;
+}
+
+html.theme-spider [class*="bg-blue-"][class*="/10"],
+html.theme-spider [class*="bg-cyan-"][class*="/10"],
+html.theme-spider [class*="bg-blue-"][class*="/15"],
+html.theme-spider [class*="bg-blue-"][class*="/20"],
+html.theme-spider [class*="bg-cyan-"][class*="/20"] {
+  background-color: rgba(239, 68, 68, 0.16) !important;
+}
+
+html.theme-spider [class*="border-blue-"],
+html.theme-spider [class*="border-cyan-"] {
+  border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+html.theme-spider [class*="shadow-blue-"] {
+  box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.35) !important;
+}
+
+html.theme-spider [class*="focus:ring-blue-"]:focus,
+html.theme-spider [class*="focus-visible:ring-blue-"]:focus-visible {
+  --tw-ring-color: #ef4444 !important;
+}
+
+html.theme-spider ::selection {
+  background-color: rgba(220, 38, 38, 0.6) !important;
+  color: #ffffff !important;
+}
+
+html.theme-spider #scrollProgressGradient stop:first-child {
+  stop-color: #f87171 !important;
+}
+html.theme-spider #scrollProgressGradient stop:last-child {
+  stop-color: #dc2626 !important;
+}
+
+/* Dragon Theme (Solar Orange Accent across the entire page) */
+html.theme-dragon {
+  --theme-accent-primary: #ea580c;
+  --theme-accent-secondary: #f97316;
+}
+
+html.theme-dragon [class*="text-blue-"],
+html.theme-dragon [class*="text-cyan-"],
+html.theme-dragon [class*="text-brand-"] {
+  color: #fb923c !important;
+}
+
+html.theme-dragon a[class*="text-blue-"]:hover,
+html.theme-dragon button[class*="text-blue-"]:hover {
+  color: #f97316 !important;
+}
+
+html.theme-dragon [class*="bg-blue-600"],
+html.theme-dragon [class*="bg-blue-500"],
+html.theme-dragon [class*="bg-brand-600"],
+html.theme-dragon [class*="bg-brand-500"] {
+  background-color: #ea580c !important;
+}
+
+html.theme-dragon [class*="hover:bg-blue-"]:hover,
+html.theme-dragon [class*="hover:bg-cyan-"]:hover {
+  background-color: #c2410c !important;
+}
+
+html.theme-dragon [class*="bg-blue-"][class*="/10"],
+html.theme-dragon [class*="bg-cyan-"][class*="/10"],
+html.theme-dragon [class*="bg-blue-"][class*="/15"],
+html.theme-dragon [class*="bg-blue-"][class*="/20"],
+html.theme-dragon [class*="bg-cyan-"][class*="/20"] {
+  background-color: rgba(249, 115, 22, 0.16) !important;
+}
+
+html.theme-dragon [class*="border-blue-"],
+html.theme-dragon [class*="border-cyan-"] {
+  border-color: rgba(249, 115, 22, 0.5) !important;
+}
+
+html.theme-dragon [class*="shadow-blue-"] {
+  box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.35) !important;
+}
+
+html.theme-dragon [class*="focus:ring-blue-"]:focus,
+html.theme-dragon [class*="focus-visible:ring-blue-"]:focus-visible {
+  --tw-ring-color: #f97316 !important;
+}
+
+html.theme-dragon ::selection {
+  background-color: rgba(234, 88, 12, 0.6) !important;
+  color: #ffffff !important;
+}
+
+html.theme-dragon #scrollProgressGradient stop:first-child {
+  stop-color: #fb923c !important;
+}
+html.theme-dragon #scrollProgressGradient stop:last-child {
+  stop-color: #ea580c !important;
+}
+
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTheme } from '../context/ThemeContext';
 import { PROJECTS_DATA } from '../data/projects';
 import { SOCIAL_LINKS, PERSONAL_INFO } from '../data/socials';
 import { handleResumeDownload } from '../utils/resume';
@@ -13,16 +14,88 @@ interface CommandLog {
   output: string | React.ReactNode;
 }
 
+const CONFIRMATION_SENTENCE = "I hereby irrevocably declare and authorize the unconditional deletion of this domain.";
+
+type DestroyStep =
+  | 'idle'
+  | 'confirm_yn'
+  | 'confirm_sentence'
+  | 'ask_bird'
+  | 'why_bird'
+  | 'define_bird'
+  | 'match_definition'
+  | 'is_the_word'
+  | 'loading';
+
+const FakeLoadingOneHour: React.FC = () => {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds((prev) => {
+        if (prev >= 3600) {
+          clearInterval(timer);
+          return 3600;
+        }
+        return prev + 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const total = 3600;
+  const isFinished = seconds >= total;
+  const percent = ((seconds / total) * 100).toFixed(2);
+
+  const formatTime = (s: number) => {
+    const hh = String(Math.floor(s / 3600)).padStart(2, '0');
+    const mm = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+    const ss = String(s % 60).padStart(2, '0');
+    return `${hh}:${mm}:${ss}`;
+  };
+
+  const totalBlocks = 24;
+  const filledBlocks = Math.floor((seconds / total) * totalBlocks);
+  const bar = '█'.repeat(filledBlocks) + '░'.repeat(totalBlocks - filledBlocks);
+
+  return (
+    <div className="space-y-2 py-2 font-mono">
+      <div className="text-cyan-400">Purging core filesystem and server clusters...</div>
+      <div className="text-xs">
+        <span className="text-blue-400">[{bar}]</span>{' '}
+        <span className="text-emerald-400 font-bold">{percent}%</span>
+      </div>
+      <div className="text-[11px] text-slate-400 flex items-center gap-4">
+        <span>Elapsed: {formatTime(seconds)} / 01:00:00</span>
+        <span>Remaining: {formatTime(Math.max(0, total - seconds))}</span>
+      </div>
+      {isFinished ? (
+        <div className="text-red-500 font-bold text-sm tracking-wider uppercase mt-3">
+          permission denied
+        </div>
+      ) : (
+        <div className="text-[11px] text-amber-400/80 italic">
+          [Process running. Estimated time to completion: 1 hour]
+        </div>
+      )}
+    </div>
+  );
+};
+
 export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose }) => {
+  const { setAccent } = useTheme();
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
+  const [destroyStep, setDestroyStep] = useState<DestroyStep>('idle');
+  const [birdName, setBirdName] = useState<string>('bird');
+  const [pasteWarning, setPasteWarning] = useState<boolean>(false);
   const [logs, setLogs] = useState<CommandLog[]>([
     {
       command: 'sys.init',
       output: (
         <div className="space-y-1 text-slate-300">
-          <p className="text-emerald-400">Welcome to Sina Riahi\'s Developer Console (v1.0.0)</p>
+          <p className="text-emerald-400">Welcome to Sina Riahi's Developer Console (v1.0.0)</p>
           <p className="text-slate-400">Type <span className="text-blue-400 font-bold">help</span> to view available commands or <span className="text-blue-400 font-bold">exit</span> to close.</p>
         </div>
       ),
@@ -51,6 +124,127 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
     setHistory((prev) => [...prev, cmd]);
     setHistoryIndex(-1);
 
+    // Global escape commands during any active destroy prompt
+    if (cmd.toLowerCase() === 'exit') {
+      onClose();
+      return;
+    }
+    if (cmd.toLowerCase() === 'clear') {
+      setLogs([]);
+      setInput('');
+      setDestroyStep('idle');
+      return;
+    }
+
+    // Interactive Destroy Protocol Steps
+    if (destroyStep === 'confirm_yn') {
+      let response: React.ReactNode = '';
+      if (cmd.toLowerCase() === 'y' || cmd.toLowerCase() === 'yes') {
+        setDestroyStep('confirm_sentence');
+        response = (
+          <div className="space-y-2 text-slate-200">
+            <p className="text-amber-400 font-semibold">Security Clearance Level 1 Passed.</p>
+            <p className="text-slate-300">Type the following confirmation sentence exactly (copy-paste is disabled):</p>
+            <div 
+              className="select-none pointer-events-none text-amber-300 font-bold bg-amber-950/40 p-2.5 rounded border border-amber-500/30 font-mono tracking-wide"
+              style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none' }}
+              onCopy={(e) => e.preventDefault()}
+            >
+              "{CONFIRMATION_SENTENCE}"
+            </div>
+          </div>
+        );
+      } else {
+        setDestroyStep('idle');
+        response = <p className="text-emerald-400">Destruction aborted. All systems remain intact.</p>;
+      }
+      setLogs((prev) => [...prev, { command: cmd, output: response }]);
+      setInput('');
+      return;
+    }
+
+    if (destroyStep === 'confirm_sentence') {
+      let response: React.ReactNode = '';
+      const cleanInput = cmd.replace(/^["']|["']$/g, '').trim().toLowerCase();
+      const cleanTarget = CONFIRMATION_SENTENCE.toLowerCase();
+
+      if (cleanInput === cleanTarget) {
+        setDestroyStep('ask_bird');
+        response = (
+          <div className="space-y-1 text-slate-200">
+            <p className="text-emerald-400 font-semibold">Verification passed.</p>
+            <p className="text-cyan-400 font-bold">Please enter the name of a bird:</p>
+          </div>
+        );
+      } else {
+        response = (
+          <div className="space-y-2 text-red-400">
+            <p className="font-semibold">Sentence mismatch! You must type it out manually and exactly (copy-paste is disabled):</p>
+            <div 
+              className="select-none pointer-events-none text-amber-300 font-bold bg-amber-950/40 p-2.5 rounded border border-amber-500/30 font-mono tracking-wide"
+              style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none' }}
+              onCopy={(e) => e.preventDefault()}
+            >
+              "{CONFIRMATION_SENTENCE}"
+            </div>
+          </div>
+        );
+      }
+      setLogs((prev) => [...prev, { command: cmd, output: response }]);
+      setInput('');
+      return;
+    }
+
+    if (destroyStep === 'ask_bird') {
+      const selectedBird = cmd.trim() || 'pigeon';
+      setBirdName(selectedBird);
+      setDestroyStep('why_bird');
+      const response = <p className="text-cyan-400 font-medium">Why is a {selectedBird} a bird?</p>;
+      setLogs((prev) => [...prev, { command: cmd, output: response }]);
+      setInput('');
+      return;
+    }
+
+    if (destroyStep === 'why_bird') {
+      setDestroyStep('define_bird');
+      const response = <p className="text-cyan-400 font-medium">Define {birdName}:</p>;
+      setLogs((prev) => [...prev, { command: cmd, output: response }]);
+      setInput('');
+      return;
+    }
+
+    if (destroyStep === 'define_bird') {
+      setDestroyStep('match_definition');
+      const response = <p className="text-cyan-400 font-medium">Does {birdName} match that definition?</p>;
+      setLogs((prev) => [...prev, { command: cmd, output: response }]);
+      setInput('');
+      return;
+    }
+
+    if (destroyStep === 'match_definition') {
+      setDestroyStep('is_the_word');
+      const response = <p className="text-cyan-400 font-medium">Is {birdName} the word?</p>;
+      setLogs((prev) => [...prev, { command: cmd, output: response }]);
+      setInput('');
+      return;
+    }
+
+    if (destroyStep === 'is_the_word') {
+      setDestroyStep('loading');
+      const response = <FakeLoadingOneHour />;
+      setLogs((prev) => [...prev, { command: cmd, output: response }]);
+      setInput('');
+      return;
+    }
+
+    if (destroyStep === 'loading') {
+      const response = <p className="text-amber-400 text-xs font-mono">Destruction routine is currently executing. Please wait for completion.</p>;
+      setLogs((prev) => [...prev, { command: cmd, output: response }]);
+      setInput('');
+      return;
+    }
+
+    // Standard Terminal Command Evaluation
     const parts = cmd.toLowerCase().split(' ');
     const mainCmd = parts[0];
     const arg = parts.slice(1).join(' ');
@@ -68,9 +262,20 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
             <p><span className="text-blue-400 w-24 inline-block">skills</span> — Overview of technical proficiencies</p>
             <p><span className="text-blue-400 w-24 inline-block">contact</span> — Reach out via email or GitHub</p>
             <p><span className="text-blue-400 w-24 inline-block">resume</span> — Download engineering resume</p>
+            <p><span className="text-red-400 w-24 inline-block">destroy</span> — System destruction protocol</p>
             <p><span className="text-blue-400 w-24 inline-block">clear</span> — Clear terminal output</p>
             <p><span className="text-blue-400 w-24 inline-block">sudo</span> — Elevate privileges</p>
             <p><span className="text-blue-400 w-24 inline-block">exit</span> — Close terminal</p>
+          </div>
+        );
+        break;
+
+      case 'destroy':
+        setDestroyStep('confirm_yn');
+        response = (
+          <div className="space-y-1 text-amber-300">
+            <p className="text-red-400 font-bold">⚠️ CRITICAL WARNING: System destruction sequence triggered.</p>
+            <p>Are you sure you want to proceed with total destruction? <span className="text-white font-bold">[y/n]</span></p>
           </div>
         );
         break;
@@ -153,6 +358,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       case 'clear':
         setLogs([]);
         setInput('');
+        setDestroyStep('idle');
         return;
 
       case 'sudo':
@@ -165,6 +371,36 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
 
       case 'matrix':
         response = <p className="text-emerald-400 font-mono tracking-widest">01010011 01001001 01001110 01000001 // SYSTEM READY</p>;
+        break;
+
+      case 'spider':
+        setAccent('spider');
+        response = (
+          <div className="space-y-1 font-mono text-red-400">
+            <p className="font-bold text-red-500">🕷️ SPIDER PROTOCOL ACTIVATED</p>
+            <p className="text-slate-300">Accent shifted from blue to crimson red across the entire page.</p>
+          </div>
+        );
+        break;
+
+      case 'dragon':
+        setAccent('dragon');
+        response = (
+          <div className="space-y-1 font-mono text-orange-400">
+            <p className="font-bold text-orange-500">🐉 DRAGON PROTOCOL ACTIVATED</p>
+            <p className="text-slate-300">Accent shifted from blue to solar orange across the entire page.</p>
+          </div>
+        );
+        break;
+
+      case 'rock':
+        setAccent('default');
+        response = (
+          <div className="space-y-1 font-mono text-slate-300">
+            <p className="font-bold text-white">🪨 ROCK PROTOCOL ACTIVATED</p>
+            <p className="text-slate-400">Reverted custom accents. Default theme styles restored.</p>
+          </div>
+        );
         break;
 
       default:
@@ -224,7 +460,9 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
             </button>
             <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
             <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
-            <span className="text-slate-400 text-[11px] ml-2">sina@system:~ (interactive-shell)</span>
+            <span className="text-slate-400 text-[11px] ml-2">
+              sina@system:~ {destroyStep !== 'idle' ? `(protocol: ${destroyStep})` : '(interactive-shell)'}
+            </span>
           </div>
         </div>
 
@@ -242,16 +480,39 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
           <div ref={bottomRef} />
         </div>
 
+        {/* Anti-Paste Warning Notification */}
+        {pasteWarning && (
+          <div className="px-4 py-2 bg-red-950/90 border-t border-red-500/50 text-red-300 text-[11px] font-mono flex items-center gap-2 animate-pulse">
+            <span>🚫</span>
+            <span>Security Error: Copy-pasting is strictly prohibited for destruction authorization. You must type the confirmation manually.</span>
+          </div>
+        )}
+
         {/* Command Input Prompt */}
         <div className="p-3 bg-[#0d1017] border-t border-white/10 flex items-center gap-2">
-          <span className="text-emerald-400 shrink-0">sina@system:~$</span>
+          <span className="text-emerald-400 shrink-0">
+            {destroyStep === 'idle' ? 'sina@system:~$' : 'confirm@destroy:~$'}
+          </span>
           <input
             ref={inputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Type 'help' or command..."
+            onPaste={(e) => {
+              if (destroyStep === 'confirm_sentence') {
+                e.preventDefault();
+                setPasteWarning(true);
+                setTimeout(() => setPasteWarning(false), 3500);
+              }
+            }}
+            placeholder={
+              destroyStep === 'idle'
+                ? "Type 'help' or command..."
+                : destroyStep === 'confirm_sentence'
+                ? 'Type the confirmation sentence character-by-character...'
+                : 'Type response and press Enter...'
+            }
             className="w-full bg-transparent text-white focus:outline-none placeholder-slate-600"
           />
         </div>

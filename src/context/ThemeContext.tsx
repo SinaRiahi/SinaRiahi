@@ -1,11 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'dark' | 'light';
+export type Theme = 'dark' | 'light';
+export type AccentTheme = 'default' | 'spider' | 'dragon';
 
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
   setTheme: (t: Theme) => void;
+  accent: AccentTheme;
+  setAccent: (a: AccentTheme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -24,6 +27,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return 'dark';
   });
 
+  const [accent, setAccentState] = useState<AccentTheme>(() => {
+    const saved = localStorage.getItem('sr_portfolio_accent');
+    if (saved === 'spider' || saved === 'dragon') {
+      return saved;
+    }
+    return 'default';
+  });
+
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'dark') {
@@ -36,6 +47,17 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     localStorage.setItem('sr_portfolio_theme', theme);
   }, [theme]);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove('theme-spider', 'theme-dragon');
+    if (accent === 'spider') {
+      root.classList.add('theme-spider');
+    } else if (accent === 'dragon') {
+      root.classList.add('theme-dragon');
+    }
+    localStorage.setItem('sr_portfolio_accent', accent);
+  }, [accent]);
+
   const toggleTheme = () => {
     setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
@@ -44,8 +66,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setThemeState(t);
   };
 
+  const setAccent = (a: AccentTheme) => {
+    setAccentState(a);
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, accent, setAccent }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -1,23 +1,38 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 interface TrackingEyeProps {
   interactive?: boolean;
 }
 
 export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) => {
+  const { accent } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isGlitching, setIsGlitching] = useState<boolean>(false);
   const [glitchShift, setGlitchShift] = useState<{ x: number; y: number; skew: number }>({ x: 0, y: 0, skew: 0 });
   const [pupilScale, setPupilScale] = useState<number>(1);
   const [isDizzy, setIsDizzy] = useState<boolean>(false);
+  const [isRedIris, setIsRedIris] = useState<boolean>(false);
+  const isRedIrisRef = useRef<boolean>(false);
+  const [sweatDrops, setSweatDrops] = useState<number>(0);
 
   // Position references for smooth 60fps tracking
   const targetPos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const currentPos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const irisRef = useRef<HTMLDivElement>(null);
+  const pupilRef = useRef<HTMLDivElement>(null);
   const highlight1Ref = useRef<HTMLDivElement>(null);
   const highlight2Ref = useRef<HTMLDivElement>(null);
   const animFrameId = useRef<number>(0);
+
+  // Easter egg: 3 clicks for red iris (permanent)
+  const clickCountRef = useRef<number>(0);
+  const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Easter egg: 15s staring contest in pupil
+  const isInsidePupilRef = useRef<boolean>(false);
+  const stillStartTimeRef = useRef<number | null>(null);
+  const lastStillPosRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
   // Dizziness detection refs
   const isDizzyRef = useRef<boolean>(false);
@@ -71,6 +86,43 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
       }
     }
 
+    // If eye has turned permanently red, stare directly ahead and do not track cursor
+    if (isRedIrisRef.current) {
+      targetPos.current = { x: 0, y: 0 };
+      setPupilScale(1);
+      return;
+    }
+
+    // Staring contest check: check if cursor is inside pupil
+    if (pupilRef.current) {
+      const pRect = pupilRef.current.getBoundingClientRect();
+      const pCenterX = pRect.left + pRect.width / 2;
+      const pCenterY = pRect.top + pRect.height / 2;
+      const distToPupilCenter = Math.hypot(clientX - pCenterX, clientY - pCenterY);
+      const isInside = distToPupilCenter <= pRect.width / 2 + 6;
+
+      if (isInside) {
+        isInsidePupilRef.current = true;
+        const movedSinceLastStill = Math.hypot(
+          clientX - lastStillPosRef.current.x,
+          clientY - lastStillPosRef.current.y
+        );
+
+        if (stillStartTimeRef.current === null) {
+          stillStartTimeRef.current = now;
+          lastStillPosRef.current = { x: clientX, y: clientY };
+        } else if (movedSinceLastStill > 4) {
+          // Moved noticeably inside pupil, reset timer
+          stillStartTimeRef.current = now;
+          lastStillPosRef.current = { x: clientX, y: clientY };
+        }
+      } else {
+        isInsidePupilRef.current = false;
+        stillStartTimeRef.current = null;
+        setSweatDrops(0);
+      }
+    }
+
     // Normal eye tracking calculation
     const deltaX = clientX - centerX;
     const deltaY = clientY - centerY;
@@ -104,6 +156,41 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
     };
   }, [interactive, handlePointerMove]);
 
+  // Staring contest interval: triggers sweating if cursor is still in pupil >= 15 seconds
+  useEffect(() => {
+    const sweatInterval = setInterval(() => {
+      if (isInsidePupilRef.current && stillStartTimeRef.current !== null) {
+        const elapsedSec = (performance.now() - stillStartTimeRef.current) / 1000;
+        if (elapsedSec >= 15) {
+          // Starts with 1 water drop and gradually increases:
+          // 15 - 18s: 1 drop
+          // 18 - 21s: 2 drops
+          // 21 - 24s: 3 drops
+          // 24s+: 4 drops
+          const drops = Math.min(4, Math.floor((elapsedSec - 15) / 3) + 1);
+          setSweatDrops(drops);
+        } else {
+          setSweatDrops(0);
+        }
+      } else {
+        setSweatDrops(0);
+      }
+    }, 200);
+
+    const handleMouseLeave = () => {
+      isInsidePupilRef.current = false;
+      stillStartTimeRef.current = null;
+      setSweatDrops(0);
+    };
+
+    window.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      clearInterval(sweatInterval);
+      window.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
   // Smooth 60fps animation & dizziness loop
   useEffect(() => {
     const loop = () => {
@@ -111,7 +198,11 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
       let curX = currentPos.current.x;
       let curY = currentPos.current.y;
 
-      if (isDizzyRef.current) {
+      if (isRedIrisRef.current) {
+        // Red eye stares directly forward, no cursor tracking
+        curX += (0 - curX) * 0.15;
+        curY += (0 - curY) * 0.15;
+      } else if (isDizzyRef.current) {
         if (now > dizzyEndTime.current) {
           // Dizzy state finishes
           isDizzyRef.current = false;
@@ -181,14 +272,60 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
     }, 45);
   };
 
-  // Fixed Cyber Blue Color Theme
-  const colors = {
-    irisOuter: '#2563eb',
-    irisInner: '#06b6d4',
-    ring: '#1d4ed8',
-    glint: '#ffffff',
-    glow: 'rgba(6, 182, 212, 0.45)',
+  // Easter egg: Clicking 3 times on the eye turns iris permanently red and stares forward
+  const handleEyeClick = () => {
+    if (isRedIrisRef.current) {
+      // Impossible to change back to blue
+      triggerGlitch();
+      return;
+    }
+
+    clickCountRef.current += 1;
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+    }
+
+    if (clickCountRef.current >= 3) {
+      clickCountRef.current = 0;
+      isRedIrisRef.current = true;
+      setIsRedIris(true);
+      targetPos.current = { x: 0, y: 0 };
+    } else {
+      clickTimerRef.current = setTimeout(() => {
+        clickCountRef.current = 0;
+      }, 1200);
+    }
+
+    triggerGlitch();
   };
+
+  // Color Theme: switches to red iris when permanent red triggered, or reflects accent theme
+  const isRed = isRedIris || accent === 'spider';
+  const isOrange = !isRed && accent === 'dragon';
+
+  const colors = isRed
+    ? {
+        irisOuter: '#dc2626',
+        irisInner: '#ef4444',
+        ring: '#991b1b',
+        glint: '#ffffff',
+        glow: 'rgba(239, 68, 68, 0.6)',
+      }
+    : isOrange
+    ? {
+        irisOuter: '#ea580c',
+        irisInner: '#f97316',
+        ring: '#c2410c',
+        glint: '#ffffff',
+        glow: 'rgba(249, 115, 22, 0.6)',
+      }
+    : {
+        irisOuter: '#2563eb',
+        irisInner: '#06b6d4',
+        ring: '#1d4ed8',
+        glint: '#ffffff',
+        glow: 'rgba(6, 182, 212, 0.45)',
+      };
 
   return (
     <div className="relative w-full h-full min-h-[380px] md:min-h-[440px] flex flex-col items-center justify-center select-none">
@@ -201,35 +338,61 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
         </div>
       )}
 
-      {/* Eyeball Housing Unit with Click-to-Glitch */}
+      {/* Eyeball Housing Unit with DO NOT CLICK Label */}
       <div 
         ref={containerRef}
-        onClick={triggerGlitch}
+        onClick={handleEyeClick}
         className="relative w-72 h-72 sm:w-80 sm:h-80 aspect-square flex-shrink-0 flex items-center justify-center cursor-pointer group transition-transform"
         style={{
           transform: isGlitching
             ? `translate(${glitchShift.x}px, ${glitchShift.y}px) skewX(${glitchShift.skew}deg)`
             : isDizzy
             ? 'rotate(3deg)'
+            : sweatDrops > 0
+            ? `translate(${(Math.random() - 0.5) * sweatDrops * 1.5}px, ${(Math.random() - 0.5) * sweatDrops * 1.5}px)`
             : 'none',
           filter: isGlitching
             ? 'contrast(170%) saturate(190%) hue-rotate(45deg) drop-shadow(-5px 0 0 rgba(255,0,80,0.8)) drop-shadow(5px 0 0 rgba(0,255,255,0.8))'
             : 'none',
         }}
-        title={isDizzy ? 'Eye is dizzy! Move cursor steadily to recover' : 'Click eye to glitch • Shake cursor fast to make dizzy'}
+        title="DO NOT CLICK"
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            triggerGlitch();
+            handleEyeClick();
           }
         }}
-        aria-label="Interactive bionic eye. Click to glitch or shake mouse for dizziness."
+        aria-label="DO NOT CLICK"
       >
+        {/* Sweat drops animation styles */}
+        <style>{`
+          @keyframes sweatDropFall {
+            0% { transform: translateY(0) scale(0.6); opacity: 0; }
+            20% { opacity: 0.95; transform: translateY(6px) scale(1); }
+            80% { opacity: 0.9; transform: translateY(32px) scale(1.05); }
+            100% { transform: translateY(44px) scale(0.6); opacity: 0; }
+          }
+          .animate-sweat-drop-1 {
+            animation: sweatDropFall 1.3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          }
+          .animate-sweat-drop-2 {
+            animation: sweatDropFall 1.1s cubic-bezier(0.4, 0, 0.2, 1) 0.35s infinite;
+          }
+          .animate-sweat-drop-3 {
+            animation: sweatDropFall 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.7s infinite;
+          }
+          .animate-sweat-drop-4 {
+            animation: sweatDropFall 0.95s cubic-bezier(0.4, 0, 0.2, 1) 0.2s infinite;
+          }
+        `}</style>
+
         {/* Outer Bionic Orbit Ring / Housing */}
         <div 
-          className="absolute inset-0 rounded-full border border-blue-400/30 dark:border-cyan-500/25 transition-all duration-300"
+          className={`absolute inset-0 rounded-full border transition-all duration-300 ${
+            isRedIris ? 'border-red-500/40' : 'border-blue-400/30 dark:border-cyan-500/25'
+          }`}
           style={{ boxShadow: `0 0 50px ${colors.glow}` }}
         />
 
@@ -240,6 +403,45 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
             <span className="absolute top-1/2 -right-3 text-lg select-none">💫</span>
             <span className="absolute -bottom-3 right-1/4 text-lg select-none">✦</span>
             <span className="absolute top-1/3 -left-3 text-lg select-none">💫</span>
+          </div>
+        )}
+
+        {/* Nervous Sweat Drops: Gradually increases when staring into pupil for 15s */}
+        {sweatDrops >= 1 && (
+          <div className="absolute inset-0 pointer-events-none z-30 overflow-visible">
+            {/* Water Drop 1 (top-right forehead) */}
+            <div className="absolute -top-3 right-16 text-cyan-400 dark:text-cyan-300 animate-sweat-drop-1">
+              <svg className="w-5 h-6 drop-shadow-[0_2px_6px_rgba(34,211,238,0.7)]" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+              </svg>
+            </div>
+
+            {/* Water Drop 2 (top-left) */}
+            {sweatDrops >= 2 && (
+              <div className="absolute top-1 left-16 text-cyan-400 dark:text-cyan-300 animate-sweat-drop-2">
+                <svg className="w-4 h-5 drop-shadow-[0_2px_6px_rgba(34,211,238,0.7)]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                </svg>
+              </div>
+            )}
+
+            {/* Water Drop 3 (right temple) */}
+            {sweatDrops >= 3 && (
+              <div className="absolute top-14 right-7 text-cyan-400 dark:text-cyan-300 animate-sweat-drop-3">
+                <svg className="w-4 h-5 drop-shadow-[0_2px_6px_rgba(34,211,238,0.7)]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                </svg>
+              </div>
+            )}
+
+            {/* Water Drop 4 (left temple / heavier sweat) */}
+            {sweatDrops >= 4 && (
+              <div className="absolute top-16 left-7 text-cyan-400 dark:text-cyan-300 animate-sweat-drop-4">
+                <svg className="w-6 h-7 drop-shadow-[0_2px_6px_rgba(34,211,238,0.7)]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                </svg>
+              </div>
+            )}
           </div>
         )}
 
@@ -260,6 +462,7 @@ export const TrackingEye: React.FC<TrackingEyeProps> = ({ interactive = true }) 
           >
             {/* PUPIL (Dilates & Tracks; Spins comic spiral when dizzy) */}
             <div
+              ref={pupilRef}
               className="w-14 h-14 sm:w-16 sm:h-16 aspect-square flex-shrink-0 rounded-full bg-[#050608] transition-transform duration-100 ease-out flex items-center justify-center shadow-inner relative overflow-hidden"
               style={{
                 transform: `scale(${isGlitching ? pupilScale * 1.3 : isDizzy ? 1.2 : pupilScale})`,
