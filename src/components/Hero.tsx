@@ -13,8 +13,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
   return (
     <section id="home" className="relative min-h-[92vh] flex items-center pt-24 pb-16 overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[450px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[380px] h-[380px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[450px] bg-blue-600/10 dark:bg-blue-600/10 theme-spider:bg-red-600/10 theme-dragon:bg-orange-600/10 rounded-full blur-[120px] pointer-events-none transition-colors duration-300" />
+      <div className="absolute top-1/3 right-10 w-[380px] h-[380px] bg-cyan-500/10 dark:bg-cyan-500/10 theme-spider:bg-red-500/10 theme-dragon:bg-orange-500/10 rounded-full blur-[100px] pointer-events-none transition-colors duration-300" />
 
       {/* Fine grid texture */}
       <div 

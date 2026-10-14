@@ -4,7 +4,7 @@ import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="py-12 border-t border-slate-300 dark:border-white/5 bg-slate-100 dark:bg-[#07080b] text-slate-700 dark:text-slate-400 text-xs flex justify-center">
+    <footer className="pt-12 pb-24 sm:py-12 border-t border-slate-300 dark:border-white/5 bg-slate-100 dark:bg-[#07080b] text-slate-700 dark:text-slate-400 text-xs flex justify-center">
       <div 
         className="mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6"
         style={{ width: '1100px', maxWidth: '100%' }}

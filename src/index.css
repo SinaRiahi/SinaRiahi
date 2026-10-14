@@ -189,32 +189,49 @@ a.bg-blue-500 * {
    Hidden Terminal Easter Egg Themes: Spider (Red) & Dragon (Orange)
    ========================================================================== */
 
-/* Spider Theme (Crimson Red Accent across the entire page) */
+/* Spider Theme (Crimson Red Accents & Buttons) */
 html.theme-spider {
   --theme-accent-primary: #dc2626;
   --theme-accent-secondary: #ef4444;
 }
 
-html.theme-spider [class*="text-blue-"],
-html.theme-spider [class*="text-cyan-"],
-html.theme-spider [class*="text-brand-"] {
+html.theme-spider span[class*="text-blue-"],
+html.theme-spider span[class*="text-cyan-"],
+html.theme-spider span[class*="text-sky-"],
+html.theme-spider p[class*="text-blue-"],
+html.theme-spider p[class*="text-cyan-"],
+html.theme-spider p[class*="text-sky-"],
+html.theme-spider a[class*="text-blue-"],
+html.theme-spider a[class*="text-cyan-"],
+html.theme-spider a[class*="text-sky-"],
+html.theme-spider h1[class*="text-blue-"],
+html.theme-spider h2[class*="text-blue-"],
+html.theme-spider h3[class*="text-blue-"],
+html.theme-spider span[class*="text-brand-"],
+html.theme-spider p[class*="text-brand-"],
+html.theme-spider a[class*="text-brand-"] {
   color: #f87171 !important;
 }
 
 html.theme-spider a[class*="text-blue-"]:hover,
+html.theme-spider a[class*="text-cyan-"]:hover,
 html.theme-spider button[class*="text-blue-"]:hover {
   color: #ef4444 !important;
 }
 
-html.theme-spider [class*="bg-blue-600"],
-html.theme-spider [class*="bg-blue-500"],
-html.theme-spider [class*="bg-brand-600"],
-html.theme-spider [class*="bg-brand-500"] {
+html.theme-spider button[class*="bg-blue-"],
+html.theme-spider a[class*="bg-blue-"],
+html.theme-spider div[class*="bg-blue-600"],
+html.theme-spider div[class*="bg-blue-500"],
+html.theme-spider div[class*="bg-cyan-500"],
+html.theme-spider span[class*="bg-blue-"],
+html.theme-spider span[class*="bg-cyan-"],
+html.theme-spider [class*="bg-brand-"] {
   background-color: #dc2626 !important;
 }
 
-html.theme-spider [class*="hover:bg-blue-"]:hover,
-html.theme-spider [class*="hover:bg-cyan-"]:hover {
+html.theme-spider button[class*="bg-blue-"]:hover,
+html.theme-spider a[class*="bg-blue-"]:hover {
   background-color: #b91c1c !important;
 }
 
@@ -222,7 +239,8 @@ html.theme-spider [class*="bg-blue-"][class*="/10"],
 html.theme-spider [class*="bg-cyan-"][class*="/10"],
 html.theme-spider [class*="bg-blue-"][class*="/15"],
 html.theme-spider [class*="bg-blue-"][class*="/20"],
-html.theme-spider [class*="bg-cyan-"][class*="/20"] {
+html.theme-spider [class*="bg-cyan-"][class*="/20"],
+html.theme-spider span[class*="bg-blue-"][class*="/"] {
   background-color: rgba(239, 68, 68, 0.16) !important;
 }
 
@@ -233,11 +251,6 @@ html.theme-spider [class*="border-cyan-"] {
 
 html.theme-spider [class*="shadow-blue-"] {
   box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.35) !important;
-}
-
-html.theme-spider [class*="focus:ring-blue-"]:focus,
-html.theme-spider [class*="focus-visible:ring-blue-"]:focus-visible {
-  --tw-ring-color: #ef4444 !important;
 }
 
 html.theme-spider ::selection {
@@ -252,32 +265,49 @@ html.theme-spider #scrollProgressGradient stop:last-child {
   stop-color: #dc2626 !important;
 }
 
-/* Dragon Theme (Solar Orange Accent across the entire page) */
+/* Dragon Theme (Solar Orange Accents & Buttons) */
 html.theme-dragon {
   --theme-accent-primary: #ea580c;
   --theme-accent-secondary: #f97316;
 }
 
-html.theme-dragon [class*="text-blue-"],
-html.theme-dragon [class*="text-cyan-"],
-html.theme-dragon [class*="text-brand-"] {
+html.theme-dragon span[class*="text-blue-"],
+html.theme-dragon span[class*="text-cyan-"],
+html.theme-dragon span[class*="text-sky-"],
+html.theme-dragon p[class*="text-blue-"],
+html.theme-dragon p[class*="text-cyan-"],
+html.theme-dragon p[class*="text-sky-"],
+html.theme-dragon a[class*="text-blue-"],
+html.theme-dragon a[class*="text-cyan-"],
+html.theme-dragon a[class*="text-sky-"],
+html.theme-dragon h1[class*="text-blue-"],
+html.theme-dragon h2[class*="text-blue-"],
+html.theme-dragon h3[class*="text-blue-"],
+html.theme-dragon span[class*="text-brand-"],
+html.theme-dragon p[class*="text-brand-"],
+html.theme-dragon a[class*="text-brand-"] {
   color: #fb923c !important;
 }
 
 html.theme-dragon a[class*="text-blue-"]:hover,
+html.theme-dragon a[class*="text-cyan-"]:hover,
 html.theme-dragon button[class*="text-blue-"]:hover {
   color: #f97316 !important;
 }
 
-html.theme-dragon [class*="bg-blue-600"],
-html.theme-dragon [class*="bg-blue-500"],
-html.theme-dragon [class*="bg-brand-600"],
-html.theme-dragon [class*="bg-brand-500"] {
+html.theme-dragon button[class*="bg-blue-"],
+html.theme-dragon a[class*="bg-blue-"],
+html.theme-dragon div[class*="bg-blue-600"],
+html.theme-dragon div[class*="bg-blue-500"],
+html.theme-dragon div[class*="bg-cyan-500"],
+html.theme-dragon span[class*="bg-blue-"],
+html.theme-dragon span[class*="bg-cyan-"],
+html.theme-dragon [class*="bg-brand-"] {
   background-color: #ea580c !important;
 }
 
-html.theme-dragon [class*="hover:bg-blue-"]:hover,
-html.theme-dragon [class*="hover:bg-cyan-"]:hover {
+html.theme-dragon button[class*="bg-blue-"]:hover,
+html.theme-dragon a[class*="bg-blue-"]:hover {
   background-color: #c2410c !important;
 }
 
@@ -285,7 +315,8 @@ html.theme-dragon [class*="bg-blue-"][class*="/10"],
 html.theme-dragon [class*="bg-cyan-"][class*="/10"],
 html.theme-dragon [class*="bg-blue-"][class*="/15"],
 html.theme-dragon [class*="bg-blue-"][class*="/20"],
-html.theme-dragon [class*="bg-cyan-"][class*="/20"] {
+html.theme-dragon [class*="bg-cyan-"][class*="/20"],
+html.theme-dragon span[class*="bg-blue-"][class*="/"] {
   background-color: rgba(249, 115, 22, 0.16) !important;
 }
 
@@ -296,11 +327,6 @@ html.theme-dragon [class*="border-cyan-"] {
 
 html.theme-dragon [class*="shadow-blue-"] {
   box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.35) !important;
-}
-
-html.theme-dragon [class*="focus:ring-blue-"]:focus,
-html.theme-dragon [class*="focus-visible:ring-blue-"]:focus-visible {
-  --tw-ring-color: #f97316 !important;
 }
 
 html.theme-dragon ::selection {
