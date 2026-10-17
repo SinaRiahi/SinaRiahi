@@ -6,7 +6,6 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => void;
   t: TranslationsBundle;
   isPersian: boolean;
-  morphVersion: number;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -20,7 +19,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return 'en';
   });
 
-  const [morphVersion, setMorphVersion] = useState<number>(0);
+  const [fading, setFading] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('sr_portfolio_lang', language);
@@ -29,8 +28,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const setLanguage = (lang: Language) => {
     if (lang === language) return;
-    setLanguageState(lang);
-    setMorphVersion((prev) => prev + 1);
+    setFading(true);
+    setTimeout(() => {
+      setLanguageState(lang);
+      setFading(false);
+    }, 90);
   };
 
   return (
@@ -40,10 +42,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setLanguage,
         t: TRANSLATIONS[language],
         isPersian: language === 'fa',
-        morphVersion,
       }}
     >
-      {children}
+      <div className={`transition-opacity duration-150 ease-out ${fading ? 'opacity-60' : 'opacity-100'}`}>
+        {children}
+      </div>
     </LanguageContext.Provider>
   );
 };

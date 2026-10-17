@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { Language } from '../data/translations';
 import { MorphText } from './MorphText';
-import { Sun, Moon, Menu, X, Search } from 'lucide-react';
+import { Sun, Moon, Menu, X, Search, ChevronDown } from 'lucide-react';
 import { SOCIAL_LINKS } from '../data/socials';
 import { handleResumeDownload } from '../utils/resume';
 
@@ -11,46 +11,54 @@ interface NavbarProps {
   onOpenCommandPalette: () => void;
 }
 
-const FlagIcon: React.FC<{ lang: Language; className?: string }> = ({ lang, className = 'w-4 h-3' }) => {
+const FlagIcon: React.FC<{ lang: Language; className?: string }> = ({ lang, className = 'w-5 h-5' }) => {
   if (lang === 'en') {
-    // Crisp UK Union Jack flag SVG
+    // Circular UK Union Jack flag SVG
     return (
-      <svg viewBox="0 0 60 40" className={`${className} rounded-[2px] shadow-2xs shrink-0`} aria-hidden="true">
-        <rect width="60" height="40" fill="#012169" />
-        <path d="M0,0 L60,40 M60,0 L0,40" stroke="#FFFFFF" strokeWidth="7" />
-        <path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" strokeWidth="4" />
-        <path d="M30,0 V40 M0,20 H60" stroke="#FFFFFF" strokeWidth="11" />
-        <path d="M30,0 V40 M0,20 H60" stroke="#C8102E" strokeWidth="6.5" />
+      <svg
+        viewBox="0 0 40 40"
+        className={`${className} rounded-full overflow-hidden shrink-0 ring-1 ring-slate-900/10 dark:ring-white/15`}
+        aria-hidden="true"
+      >
+        <rect width="40" height="40" fill="#012169" />
+        <path d="M-10,0 L50,40 M50,0 L-10,40" stroke="#FFFFFF" strokeWidth="7" />
+        <path d="M-10,0 L50,40 M50,0 L-10,40" stroke="#C8102E" strokeWidth="4" />
+        <path d="M20,0 V40 M-10,20 H50" stroke="#FFFFFF" strokeWidth="11" />
+        <path d="M20,0 V40 M-10,20 H50" stroke="#C8102E" strokeWidth="6.5" />
       </svg>
     );
   }
   if (lang === 'fr') {
-    // Crisp France Tricolore flag SVG
+    // Circular France Tricolore flag SVG
     return (
-      <svg viewBox="0 0 60 40" className={`${className} rounded-[2px] shadow-2xs shrink-0`} aria-hidden="true">
-        <rect width="20" height="40" x="0" fill="#002395" />
-        <rect width="20" height="40" x="20" fill="#FFFFFF" />
-        <rect width="20" height="40" x="40" fill="#ED2939" />
+      <svg
+        viewBox="0 0 40 40"
+        className={`${className} rounded-full overflow-hidden shrink-0 ring-1 ring-slate-900/10 dark:ring-white/15`}
+        aria-hidden="true"
+      >
+        <rect width="13.34" height="40" x="0" fill="#002395" />
+        <rect width="13.34" height="40" x="13.33" fill="#FFFFFF" />
+        <rect width="13.34" height="40" x="26.66" fill="#ED2939" />
       </svg>
     );
   }
-  // Crisp Iran Tricolore flag SVG
+  // Circular Iran Tricolore flag SVG
   return (
-    <svg viewBox="0 0 60 40" className={`${className} rounded-[2px] shadow-2xs shrink-0`} aria-hidden="true">
-      <rect width="60" height="13.33" y="0" fill="#239F40" />
-      <rect width="60" height="13.34" y="13.33" fill="#FFFFFF" />
-      <rect width="60" height="13.33" y="26.67" fill="#DA0000" />
-      <circle cx="30" cy="20" r="3.6" fill="none" stroke="#DA0000" strokeWidth="1.3" />
-      <line x1="30" y1="16.2" x2="30" y2="23.8" stroke="#DA0000" strokeWidth="1.2" />
+    <svg
+      viewBox="0 0 40 40"
+      className={`${className} rounded-full overflow-hidden shrink-0 ring-1 ring-slate-900/10 dark:ring-white/15`}
+      aria-hidden="true"
+    >
+      <rect width="40" height="13.34" y="0" fill="#239F40" />
+      <rect width="40" height="13.34" y="13.33" fill="#FFFFFF" />
+      <rect width="40" height="13.34" y="26.66" fill="#DA0000" />
+      <circle cx="20" cy="20" r="3.6" fill="none" stroke="#DA0000" strokeWidth="1.3" />
+      <line x1="20" y1="16.2" x2="20" y2="23.8" stroke="#DA0000" strokeWidth="1.2" />
     </svg>
   );
 };
 
-const LANGUAGE_OPTIONS: { code: Language; label: string; short: string }[] = [
-  { code: 'en', label: 'English', short: 'EN' },
-  { code: 'fr', label: 'Français', short: 'FR' },
-  { code: 'fa', label: 'فارسی (Persian)', short: 'FA' },
-];
+const LANGUAGE_CODES: Language[] = ['en', 'fr', 'fa'];
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
   const { theme, toggleTheme } = useTheme();
@@ -58,6 +66,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
   const [scrolled, setScrolled] = useState(false);
   const [showBrand, setShowBrand] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,6 +88,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
+
+  // Close language dropdown on outside click or Escape key
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setLangDropdownOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setLangDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
@@ -141,37 +171,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
           </a>
         </nav>
 
-        {/* Zone 3: Language Flag Switcher, Actions & Controls */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5">
-          {/* Inline Flag Language Switcher */}
-          <div
-            className="flex items-center gap-0.5 p-1 bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg shadow-sm"
-            role="group"
-            aria-label="Language switcher"
-          >
-            {LANGUAGE_OPTIONS.map((opt) => {
-              const isActive = language === opt.code;
-              return (
-                <button
-                  key={opt.code}
-                  type="button"
-                  onClick={() => setLanguage(opt.code)}
-                  title={opt.label}
-                  aria-label={`Switch language to ${opt.label}`}
-                  aria-pressed={isActive}
-                  className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-mono font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
-                    isActive
-                      ? 'bg-blue-600 !text-white shadow-xs scale-[1.02]'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 opacity-75 hover:opacity-100'
-                  }`}
-                >
-                  <FlagIcon lang={opt.code} className="w-4 h-3" />
-                  <span className={`hidden lg:inline ${isActive ? '!text-white' : ''}`}>{opt.short}</span>
-                </button>
-              );
-            })}
-          </div>
-
+        {/* Zone 3: Actions, Controls & Corner Circular Flag Dropdown */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
           {/* Command Palette / Search Trigger */}
           <button
             onClick={onOpenCommandPalette}
@@ -205,6 +206,56 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
           >
             <MorphText text={t.navbar.resume} className="!text-white" />
           </a>
+
+          {/* Circular Flag-Only Dropdown at the Corner of the Header */}
+          <div ref={dropdownRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setLangDropdownOpen((prev) => !prev)}
+              className="flex items-center gap-1 p-1.5 text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-300 dark:border-white/10 rounded-full transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              aria-label="Select language"
+              aria-expanded={langDropdownOpen}
+              aria-haspopup="listbox"
+            >
+              <FlagIcon lang={language} className="w-5 h-5" />
+              <ChevronDown
+                className={`w-3 h-3 text-slate-500 dark:text-slate-400 transition-transform duration-200 ${
+                  langDropdownOpen ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+
+            {langDropdownOpen && (
+              <div
+                role="listbox"
+                aria-label="Language options"
+                className="absolute right-0 mt-2 p-1.5 bg-white dark:bg-[#0e1017] border border-slate-200 dark:border-white/10 rounded-full shadow-xl flex flex-col items-center gap-1.5 z-50 animate-fadeIn"
+              >
+                {LANGUAGE_CODES.map((code) => {
+                  const isActive = language === code;
+                  return (
+                    <button
+                      key={code}
+                      type="button"
+                      role="option"
+                      aria-selected={isActive}
+                      onClick={() => {
+                        setLangDropdownOpen(false);
+                        setLanguage(code);
+                      }}
+                      className={`flex items-center justify-center p-1 rounded-full transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
+                        isActive
+                          ? 'ring-2 ring-blue-500 scale-105'
+                          : 'hover:bg-slate-100 dark:hover:bg-white/10 opacity-75 hover:opacity-100 hover:scale-105'
+                      }`}
+                    >
+                      <FlagIcon lang={code} className="w-6 h-6" />
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -283,4 +334,5 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
     </header>
   );
 };
+
 

@@ -30,7 +30,7 @@ I'm less interested in memorizing APIs and more interested in understanding **wh
 
 *Interactive Time-Travel Calendar:* In the Trajectory & Journey timeline section, a minimalist kinetic calendar widget in portfolio blue tracks along with the scroll, smoothly animating backwards through months and years (June 2026 ➔ September 2022) as you scroll down through milestones, and forward as you scroll up.
 
-*Multilingual Switcher & Wave Letter Morphing:* Inline English, French, and Persian (Farsi) flag controls in the top navigation bar dynamically switch all portfolio copy with a 3D wave flip morphing animation (`MorphText`), rendering Persian prose with right-to-left (`dir="rtl"`) text directionality while keeping the overall site layout geometry unchanged, paired with bidirectional scroll-triggered fade-in and fade-out section animations (`ScrollFade`).
+*Multilingual Circular Flag Dropdown & Lightweight Transition:* A circular flag-only dropdown at the corner of the top navigation bar switches between English, French, and Persian (Farsi) with an ultra-lightweight opacity transition, rendering Persian prose with right-to-left (`dir="rtl"`) text directionality while keeping the overall site layout geometry unchanged, paired with bidirectional scroll-triggered fade-in and fade-out section animations (`ScrollFade`).
 
 ---
 
