@@ -1,23 +1,30 @@
 import React from 'react';
 import { SOCIAL_LINKS } from '../data/socials';
 import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons';
+import { useLanguage } from '../context/LanguageContext';
+import { MorphText } from './MorphText';
+import { ScrollFade } from './ScrollFade';
 
 export const Footer: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <footer className="pt-12 pb-24 sm:py-12 border-t border-slate-300 dark:border-white/5 bg-slate-100 dark:bg-[#07080b] text-slate-700 dark:text-slate-400 text-xs flex justify-center">
-      <div 
-        className="mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6"
-        style={{ width: '1100px', maxWidth: '100%' }}
+      <ScrollFade
+        className="mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 w-[1100px] max-w-full"
       >
-        
         {/* Brand & Attribution */}
         <div className="space-y-1 text-center sm:text-left">
-          <div className="font-bold text-slate-900 dark:text-white">
-            Sina Riahi · Computer Science Developer
-          </div>
-          <p className="text-slate-600 dark:text-slate-400 font-medium">
-            Engineered with React, TypeScript, Vite & Tailwind CSS. Built for performance and accessibility.
-          </p>
+          <MorphText
+            as="div"
+            text={t.footer.roleLine}
+            className="font-bold text-slate-900 dark:text-white"
+          />
+          <MorphText
+            as="p"
+            text={t.footer.engineeredLine}
+            className="text-slate-600 dark:text-slate-400 font-medium"
+          />
         </div>
 
         {/* Links */}
@@ -28,8 +35,8 @@ export const Footer: React.FC = () => {
             rel="noopener noreferrer"
             className="text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-semibold transition-colors flex items-center gap-1.5"
           >
-            <GithubIcon className="w-3.5 h-3.5" />
-            <span>GitHub</span>
+            <GithubIcon className="w-3.5 h-3.5 shrink-0" />
+            <MorphText text={t.footer.github} />
           </a>
 
           <a
@@ -38,8 +45,8 @@ export const Footer: React.FC = () => {
             rel="noopener noreferrer"
             className="text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-semibold transition-colors flex items-center gap-1.5"
           >
-            <LinkedinIcon className="w-3.5 h-3.5" />
-            <span>LinkedIn</span>
+            <LinkedinIcon className="w-3.5 h-3.5 shrink-0" />
+            <MorphText text={t.footer.linkedin} />
           </a>
 
           <a
@@ -48,8 +55,8 @@ export const Footer: React.FC = () => {
             rel="noopener noreferrer"
             className="text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-semibold transition-colors flex items-center gap-1.5"
           >
-            <InstagramIcon className="w-3.5 h-3.5" />
-            <span>Instagram</span>
+            <InstagramIcon className="w-3.5 h-3.5 shrink-0" />
+            <MorphText text={t.footer.instagram} />
           </a>
 
           <a
@@ -57,11 +64,11 @@ export const Footer: React.FC = () => {
             download
             className="text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-semibold transition-colors"
           >
-            Resume
+            <MorphText text={t.footer.resume} />
           </a>
         </div>
-
-      </div>
+      </ScrollFade>
     </footer>
   );
 };
+

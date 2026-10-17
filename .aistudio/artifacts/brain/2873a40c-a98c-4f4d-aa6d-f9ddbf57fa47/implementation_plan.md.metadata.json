@@ -1,6 +1,6 @@
 {
-  "summary": "Comprehensive implementation plan to elevate Sina Riahi's portfolio with refined glassmorphic micro-interactions, tactile hover animations, and an interactive, printable/downloadable PDF Resume Viewer modal.",
-  "updatedAt": "2026-10-12T19:28:37.659341894Z",
+  "summary": "Implementation plan for adding English, French, and Persian multilingual support with inline flag switcher buttons, wave letter-by-letter flip morphing animations, text-only RTL rendering for Persian without altering layout geometry, and bidirectional scroll-triggered fade-in/fade-out animations across all portfolio sections.",
+  "updatedAt": "2026-10-17T07:31:17.153478734Z",
   "requestFeedback": true,
   "userFacing": true
 }

@@ -341,4 +341,42 @@ html.theme-dragon #scrollProgressGradient stop:last-child {
   stop-color: #ea580c !important;
 }
 
+/* ==========================================================================
+   Multilingual Wave Letter-Flip Morphing & Persian Typography
+   ========================================================================== */
 
+.font-persian {
+  font-family: 'Vazirmatn', 'Plus Jakarta Sans', sans-serif !important;
+}
+
+@keyframes waveLetterFlip {
+  0% {
+    opacity: 0;
+    transform: perspective(400px) rotateX(-85deg) translateY(8px) scale(0.92);
+    filter: blur(2px);
+  }
+  55% {
+    opacity: 1;
+    transform: perspective(400px) rotateX(12deg) translateY(-2px) scale(1.02);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(400px) rotateX(0deg) translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+.animate-wave-flip {
+  display: inline-block;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
+  animation: waveLetterFlip 0.44s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-wave-flip {
+    animation: none !important;
+  }
+}

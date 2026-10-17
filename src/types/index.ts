@@ -8,7 +8,11 @@ export type ProjectStatus =
   | 'Completed'
   | 'In Active Development'
   | 'Architecture Phase'
-  | 'Experiment / Prototype';
+  | 'Experiment / Prototype'
+  | 'Terminé'
+  | 'En Développement Actif'
+  | 'تکمیل‌شده'
+  | 'در حال توسعه فعال';
 
 export interface Project {
   id: string;

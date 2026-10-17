@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { SKILLS_DATA } from '../data/skills';
 import { SkillProficiency } from '../types';
 import { NeuralSkillNetwork } from './NeuralSkillNetwork';
+import { useLanguage } from '../context/LanguageContext';
+import { MorphText } from './MorphText';
+import { ScrollFade } from './ScrollFade';
 
 export const Skills: React.FC = () => {
+  const { t, isPersian } = useLanguage();
   const [selectedProficiency, setSelectedProficiency] = useState<SkillProficiency | 'All'>('All');
 
   const proficiencyLevels: Array<SkillProficiency | 'All'> = [
@@ -30,22 +33,32 @@ export const Skills: React.FC = () => {
   return (
     <section id="skills" className="py-24 border-t border-slate-200 dark:border-white/5 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <ScrollFade className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="space-y-3 max-w-2xl">
             <div className="text-xs font-mono text-blue-600 dark:text-blue-400 font-bold">
-              04. Technical Capabilities & Proficiencies
+              <MorphText text={t.skills.kicker} />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Skills, Technologies & Systems
-            </h2>
-            <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-              A comprehensive breakdown of the programming languages, backend frameworks, automation engines, and system architecture tools I work with daily — driven toward my ultimate goal of <strong className="text-cyan-600 dark:text-cyan-400 font-bold">AI in Cybersecurity</strong>.
+            <MorphText
+              as="h2"
+              text={t.skills.title}
+              className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white"
+            />
+            <p
+              dir={isPersian ? 'rtl' : undefined}
+              className={`text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal ${
+                isPersian ? 'font-persian' : ''
+              }`}
+            >
+              <MorphText text={t.skills.descriptionPart1} />
+              <strong className="text-cyan-600 dark:text-cyan-400 font-bold">
+                <MorphText text={t.skills.descriptionHighlight} />
+              </strong>
+              .
             </p>
           </div>
 
-          {/* Interactive Proficiency Filter (No scrollbars, clean selected state) */}
+          {/* Interactive Proficiency Filter */}
           <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 rounded-xl max-w-full overflow-hidden no-scrollbar scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {proficiencyLevels.map((lvl) => (
               <button
@@ -57,15 +70,18 @@ export const Skills: React.FC = () => {
                     : 'text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/5'
                 }`}
               >
-                <span className={selectedProficiency === lvl ? '!text-white' : ''}>{lvl}</span>
+                <MorphText
+                  text={t.skills.levels[lvl]}
+                  className={selectedProficiency === lvl ? '!text-white' : ''}
+                />
               </button>
             ))}
           </div>
-        </div>
+        </ScrollFade>
 
         {/* Skill Clusters Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SKILLS_DATA.map((category, catIdx) => {
+          {t.skills.categories.map((category, catIdx) => {
             const filteredSkills = category.skills.filter((s) => {
               if (selectedProficiency === 'All') return true;
               return s.level === selectedProficiency;
@@ -74,85 +90,103 @@ export const Skills: React.FC = () => {
             if (filteredSkills.length === 0) return null;
 
             return (
-              <div
+              <ScrollFade
                 key={catIdx}
+                delay={(catIdx % 3) * 80}
                 className="p-6 rounded-2xl bg-white dark:bg-[#0d0f17]/80 border border-slate-200/90 dark:border-white/10 space-y-5 flex flex-col justify-between shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_25px_-5px_rgba(0,0,0,0.04)] dark:shadow-sm"
               >
                 <div>
                   <div className="space-y-1 pb-4 border-b border-slate-100 dark:border-white/5">
-                    <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                      {category.title}
-                    </h3>
-                    <p className="text-xs text-slate-700 dark:text-slate-400 leading-relaxed font-normal">
-                      {category.description}
-                    </p>
+                    <MorphText
+                      as="h3"
+                      text={category.title}
+                      className="text-base font-bold text-slate-900 dark:text-white"
+                    />
+                    <MorphText
+                      as="p"
+                      text={category.description}
+                      className="text-xs text-slate-700 dark:text-slate-400 leading-relaxed font-normal"
+                    />
                   </div>
 
-                  {/* Skills List with unboxed status and context notes */}
+                  {/* Skills List */}
                   <div className="divide-y divide-slate-100 dark:divide-white/5 mt-3">
                     {filteredSkills.map((skill, sIdx) => (
                       <div key={sIdx} className="py-2.5 space-y-1">
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="font-bold text-slate-900 dark:text-slate-200">
-                            {skill.name}
-                          </span>
-                          <span className={`font-mono text-[11px] px-2 py-0.5 rounded font-bold ${getProficiencyBadge(skill.level)}`}>
-                            {skill.level}
+                        <div className="flex items-center justify-between text-xs gap-2">
+                          <MorphText
+                            text={skill.name}
+                            className="font-bold text-slate-900 dark:text-slate-200"
+                          />
+                          <span
+                            className={`font-mono text-[11px] px-2 py-0.5 rounded font-bold shrink-0 ${getProficiencyBadge(
+                              skill.level
+                            )}`}
+                          >
+                            <MorphText text={t.skills.levels[skill.level]} />
                           </span>
                         </div>
                         {skill.context && (
-                          <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-tight font-medium">
-                            {skill.context}
-                          </p>
+                          <MorphText
+                            as="p"
+                            text={skill.context}
+                            className="text-[11px] text-slate-600 dark:text-slate-400 leading-tight font-medium"
+                          />
                         )}
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-2 text-[10px] font-mono text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-white/5 font-semibold">
-                  Category: {category.title}
+                <div className="pt-2 text-[10px] font-mono text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-white/5 font-semibold flex items-center gap-1">
+                  <MorphText text={t.skills.categoryLabel} />
+                  <MorphText text={category.title} />
                 </div>
-              </div>
+              </ScrollFade>
             );
           })}
         </div>
 
         {/* Legend / Key */}
-        <div className="mt-12 p-3.5 rounded-xl bg-white dark:bg-white/[0.02] border border-slate-300 dark:border-white/5 flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs font-mono text-slate-800 dark:text-slate-300 shadow-sm font-semibold">
+        <ScrollFade
+          delay={100}
+          className="mt-12 p-3.5 rounded-xl bg-white dark:bg-white/[0.02] border border-slate-300 dark:border-white/5 flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs font-mono text-slate-800 dark:text-slate-300 shadow-sm font-semibold"
+        >
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <span>Actively Using</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />
+            <MorphText text={t.skills.levels['Actively Using']} />
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
-            <span>Familiar With</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0" />
+            <MorphText text={t.skills.levels['Familiar With']} />
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-            <span>Learning</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0" />
+            <MorphText text={t.skills.levels.Learning} />
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyan-500" />
-            <span>Exploring</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 shrink-0" />
+            <MorphText text={t.skills.levels.Exploring} />
           </div>
-        </div>
+        </ScrollFade>
 
         {/* 3D Interactive Neural Network of the Brain */}
-        <div className="mt-14 space-y-4">
+        <ScrollFade delay={140} className="mt-14 space-y-4">
           <div>
             <div className="text-xs font-mono text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-wider">
-              Synaptic Skill Architecture
+              <MorphText text={t.skills.synapticKicker} />
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-              3D Neural Brain Network
-            </h3>
+            <MorphText
+              as="h3"
+              text={t.skills.neuralNetworkTitle}
+              className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white"
+            />
           </div>
 
           <NeuralSkillNetwork />
-        </div>
-
+        </ScrollFade>
       </div>
     </section>
   );
 };
+
