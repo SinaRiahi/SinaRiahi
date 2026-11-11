@@ -4,6 +4,7 @@ import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons';
 import { useLanguage } from '../context/LanguageContext';
 import { MorphText } from './MorphText';
 import { ScrollFade } from './ScrollFade';
+import { handleResumeDownload } from '../utils/resume';
 
 export const Footer: React.FC = () => {
   const { t } = useLanguage();
@@ -61,6 +62,7 @@ export const Footer: React.FC = () => {
 
           <a
             href={SOCIAL_LINKS.resumeUrl}
+            onClick={handleResumeDownload}
             download
             className="text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-semibold transition-colors"
           >
@@ -71,4 +73,5 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
+
 
