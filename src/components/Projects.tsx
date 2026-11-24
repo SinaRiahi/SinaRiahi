@@ -91,6 +91,19 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
               >
                 {/* Visual Header / Blueprint Graphic */}
                 <div className="relative h-44 w-full bg-gradient-to-br from-slate-100 via-blue-50/50 to-slate-200/80 dark:from-[#121520] dark:to-[#0a0c12] border-b border-slate-200 dark:border-white/5 flex flex-col justify-between p-5 overflow-hidden">
+                  {/* Optional subtle artwork preview backdrop */}
+                  {project.screenshots && project.screenshots.length > 0 && (
+                    <>
+                      <img
+                        src={project.screenshots[0].src}
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 w-full h-full object-cover object-top opacity-25 dark:opacity-30 group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/75 to-white/60 dark:from-[#0b0e16]/95 dark:via-[#0b0e16]/75 dark:to-[#0b0e16]/60 pointer-events-none" />
+                    </>
+                  )}
+
                   {/* Subtle technical background grid */}
                   <div
                     className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06] pointer-events-none"
@@ -173,7 +186,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
                   </div>
 
                   {/* Bottom Action Footer */}
-                  <div className="pt-3 flex items-center justify-between border-t border-slate-100 dark:border-white/5">
+                  <div className="pt-3 flex items-center justify-between gap-2 border-t border-slate-100 dark:border-white/5">
                     <button
                       onClick={() => onSelectProject(project)}
                       className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-cyan-300 transition-colors group/btn"
@@ -182,6 +195,17 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
                       <MorphText text={t.projects.readMore} />
                       <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 shrink-0" />
                     </button>
+                    {project.liveUrl && project.liveLabel && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        <MorphText text={project.liveLabel} />
+                        <ArrowUpRight className="w-3 h-3 shrink-0" />
+                      </a>
+                    )}
                   </div>
                 </div>
               </ScrollFade>

@@ -51,6 +51,7 @@ export const NeuralSkillNetwork: React.FC = () => {
     const brainMap: Record<string, { x: number; y: number; z: number; lobe: string }> = {
       // Core Languages & Foundations
       Python: { x: -55, y: -25, z: 60, lobe: 'Left Frontal (Automation / Logic)' },
+      Kotlin: { x: -65, y: -10, z: 45, lobe: 'Left Frontal (Android & Game Systems)' },
       'Data Structures': { x: -35, y: -45, z: 50, lobe: 'Left Frontal (Algorithmic Logic)' },
       Algorithms: { x: -45, y: -35, z: 40, lobe: 'Left Frontal (Computational Theory)' },
       TypeScript: { x: 55, y: -25, z: 60, lobe: 'Right Frontal (Systems / UI)' },
@@ -63,6 +64,7 @@ export const NeuralSkillNetwork: React.FC = () => {
 
       // Backend, Desktop & Systems
       PySide6: { x: -75, y: -30, z: 30, lobe: 'Left Frontal (Desktop GUIs & Qt)' },
+      'Jetpack Compose': { x: 70, y: -35, z: 15, lobe: 'Right Parietal (Android & Game UI)' },
       FastAPI: { x: 35, y: -30, z: 45, lobe: 'Right Frontal (Async Services)' },
       PostgreSQL: { x: 30, y: 20, z: 15, lobe: 'Right Deep Cortex (ACID Transactions)' },
       'REST APIs': { x: 75, y: 10, z: 30, lobe: 'Right Temporal (Network Ingestion)' },
@@ -87,12 +89,15 @@ export const NeuralSkillNetwork: React.FC = () => {
       'AI & ML': { x: 0, y: -30, z: 65, lobe: 'Prefrontal Cortex (Machine Learning)' },
       Optimization: { x: -30, y: -20, z: 35, lobe: 'Left Frontal (Combinatorial Solvers)' },
 
-      // Cybersecurity, DevOps & Tools
+      // Cybersecurity, DevOps & Creative Production
       Cybersecurity: { x: 0, y: 45, z: 40, lobe: 'Central Executive (Network Security & AI)' },
       Docker: { x: -40, y: 55, z: -45, lobe: 'Left Cerebellum (Containerization)' },
       'Git & GitHub': { x: 40, y: 55, z: -45, lobe: 'Right Cerebellum (Version Control)' },
       Wireshark: { x: 0, y: 70, z: -10, lobe: 'Brainstem (Packet Diagnostics)' },
-      Photoshop: { x: -45, y: -15, z: -70, lobe: 'Left Visual Cortex (Digital Graphics)' },
+      Photoshop: { x: -45, y: -15, z: -70, lobe: 'Left Visual Cortex (Game Art & Graphics)' },
+      Illustrator: { x: -30, y: 5, z: -75, lobe: 'Left Visual Cortex (Vector & UI Art)' },
+      'Godot (Animation)': { x: -15, y: -25, z: -72, lobe: 'Visual-Motor Cortex (2D Animation)' },
+      'Adobe Premiere Pro': { x: 18, y: 12, z: -72, lobe: 'Right Visual Cortex (Cartoon Editing)' },
     };
 
     const result: Node3D[] = [];

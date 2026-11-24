@@ -2,6 +2,74 @@ import { Project } from '../types';
 
 export const PROJECTS_DATA: Project[] = [
   {
+    id: 'the-genesis-clause',
+    title: 'The Genesis Clause',
+    subtitle: 'Hardcore Permadeath Android Survival Game with Automated Diary Generation (itch.io)',
+    category: 'Product & Web',
+    year: 'Nov 24, 2026',
+    status: 'Completed',
+    featured: true,
+    technologies: ['Kotlin', 'Jetpack Compose', 'Android SDK', 'Python (3 Dev Scripts)', 'Adobe Photoshop', 'Adobe Illustrator'],
+    summary: 'My first commercial-grade Android mobile game, published on itch.io under Arachnest. A hardcore permadeath survival experience featuring an automated narrative diary generator (readable in-game and exportable as a PDF), dozens of items, distinct biomes, stylized tactile mini-games, and high-stakes random events.',
+    problem: 'Mobile survival games frequently dilute tension with forgiving checkpoints, generic loot tables, and forgettable runs that leave no lasting narrative artifact once a playthrough ends.',
+    solution: 'Engineered a punishing, deeply atmospheric permadeath survival engine in Kotlin and Jetpack Compose where every decision, encounter, biome expedition, and crew action is dynamically woven into a persistent survivor journal exportable as a standalone PDF.',
+    keyFeatures: [
+      'Automated Narrative Diary & PDF Export: Tracks every player decision, injury, discovery, and encounter in real time, compiling a readable story journal that can be exported to PDF at any moment.',
+      'Hardcore Permadeath & Branching Random Events: Unforgiving survival loop filled with unpredictable encounters—crashed shuttles, wasteland traders, mutated packs, sentry turrets—where every choice steers the run.',
+      'Deep Arsenal, Life Paths & Companions: Choose between Fighter, Looter, Engineer, and Planner archetypes; scavenge extensive weapons, medkits, and blueprints; repair vehicles, craft surveyor drones, rescue pets, and hire a crew.',
+      'Distinct Biomes & Stylized Tactile Mini-Games: Explore overgrown bunkers, frozen fortresses, and toxic swamps while playing diegetic mini-games including radio tuning, hacking, deciphering, lockpicking, coffee extraction, and wasteland card games.',
+      'Custom Art & Python Dev Tooling: Hand-crafted wasteland UI and illustrations in Adobe Photoshop and Illustrator, accelerated by 3 custom Python automation scripts built to streamline game data, assets, and content pipelines.',
+    ],
+    architectureDetails: [
+      'Built natively for Android using Kotlin and Jetpack Compose with custom grunge/industrial skeuomorphic UI components and responsive modals.',
+      'Event-driven state machine managing permadeath run persistence, biome hazard modifiers, inventory weight/durability, crew stats, and branching narrative trees.',
+      'Automated journal synthesis engine translating gameplay telemetry and choices into cohesive timestamped prose entries with native Android PDF document generation.',
+      '3 dedicated Python workflow automation scripts created to validate item/event schemas, process art assets, and accelerate balancing iterations.',
+    ],
+    challenges: [
+      'Designing rich, textured post-apocalyptic UI modals and interactive mini-games inside Jetpack Compose while maintaining smooth mobile frame rates.',
+      'Authoring a scalable content pipeline for hundreds of items, random events, and dynamic diary templates without manual data entry bottlenecks—solved via 3 custom Python dev scripts.',
+    ],
+    lessonsLearned: [
+      'Shipping a complete game solo—from Kotlin engine code and Jetpack Compose UI to Photoshop/Illustrator art—rewards building small Python automation tools early.',
+      'Permadeath combined with an exportable PDF diary transforms even fatal runs into memorable stories players want to keep and share.',
+    ],
+    liveUrl: 'https://arachnest.itch.io/the-genesis-clause',
+    liveLabel: 'Play on itch.io',
+    screenshots: [
+      {
+        src: '/assets/aistudio/diary_system_8d37f98c.jpg',
+        title: 'Automated Diary & PDF Export',
+        caption: 'Tracks every choice and action into an ARAKNO personnel journal that can be read anytime or saved as a PDF.',
+      },
+      {
+        src: '/assets/aistudio/biomes_7cb205f0.jpg',
+        title: 'Distinct Biomes & Interactive Landmarks',
+        caption: 'Explore diverse wasteland zones—overgrown bunkers, frozen citadels, arid deserts, and irradiated swamps—each with unique hazards.',
+      },
+      {
+        src: '/assets/aistudio/events_encounters_8f14fb9a.jpg',
+        title: 'Branching Random Events & Encounters',
+        caption: 'Face unpredictable wasteland encounters whose outcomes permanently steer your survival story.',
+      },
+      {
+        src: '/assets/aistudio/skills_items_ac3752aa.jpg',
+        title: 'Life Paths, Skills & Extensive Arsenal',
+        caption: 'Build around Fighter, Looter, Engineer, or Planner paths using a deep catalog of weapons, ammo, medical gear, and blueprints.',
+      },
+      {
+        src: '/assets/aistudio/games_54a8f329.jpg',
+        title: 'Stylized Modals & Wasteland Mini-Games',
+        caption: 'Tune radios, hack biometric locks, brew rations, pick tumblers, and unwind with wasteland card games.',
+      },
+      {
+        src: '/assets/aistudio/features_88c7b9a0.jpg',
+        title: 'Vehicles, Drones, Pets & Crew',
+        caption: 'Repair flatbed pickups, deploy surveyor drones, rescue loyal pets (even mechanical spiders), and recruit specialists.',
+      },
+    ],
+  },
+  {
     id: 'mypal',
     title: 'MyPal',
     subtitle: 'Modular Desktop Utility & P2P Ecosystem',

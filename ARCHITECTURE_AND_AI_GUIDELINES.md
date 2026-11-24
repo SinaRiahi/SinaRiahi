@@ -13,20 +13,20 @@
     - `Hero.tsx` — Editorial introduction, focus areas, primary CTAs, and the interactive `TrackingEye` ocular sensor.
     - `TrackingEye.tsx` — Bionic cursor-tracking ocular sensor with 15-second stare-contest nervous sweat droplets, glitch effect, and permanent 3-click crimson red lock (`DO NOT CLICK`).
     - `About.tsx` — Academic credentials (Kharazmi University, 17.22/20 GPA), linguistic proficiencies, engineering philosophy, and 4 production capability cards.
-    - `Projects.tsx` & `ProjectDetailModal.tsx` — Categorized bento grid and deep-dive engineering case study modal.
-    - `Skills.tsx` & `NeuralSkillNetwork.tsx` — Proficiency filter matrix and interactive 3D cerebral hemisphere neural network canvas.
-    - `Experience.tsx` & `TimeTravelCalendar.tsx` — Chronological milestone timeline paired with a scroll-synchronized kinetic calendar widget.
+    - `Projects.tsx` & `ProjectDetailModal.tsx` — Categorized bento grid (with subtle artwork backdrops on screenshot-backed projects) and deep-dive engineering dossier modal featuring an interactive responsive screenshot gallery and fullscreen keyboard-navigable lightbox (`The Genesis Clause` 6-screenshot showcase).
+    - `Skills.tsx` & `NeuralSkillNetwork.tsx` — Proficiency filter matrix and interactive 3D cerebral hemisphere neural network canvas covering Python, Kotlin, Jetpack Compose, systems engineering, and creative production tools (Godot Animation, Photoshop, Illustrator, Adobe Premiere Pro).
+    - `Experience.tsx` & `TimeTravelCalendar.tsx` — Chronological milestone timeline (spanning Sept 2022 through Nov 24, 2026, including *The Genesis Clause* Android launch and *Founding Arachnest* `@Arachneststudio`) with direct external links and a scroll-synchronized kinetic calendar widget.
     - `Contact.tsx` & `NomNomMonster.tsx` — Direct contact cards, Tehran live schedule status, localized resume download card, mailto form, and interactive snack-eating monster widget.
     - `CommandPalette.tsx` — `⌘K / Ctrl+K` keyboard navigation and action launcher.
-    - `TerminalModal.tsx` — Developer terminal emulator (`~` key) supporting system inspection commands, interactive `destroy` prank protocol, and hidden accent theme commands (`spider`, `dragon`, `rock`).
+    - `TerminalModal.tsx` — Developer terminal emulator (`~` key) supporting system inspection commands (`cat the-genesis-clause`, etc.), interactive `destroy` prank protocol, and hidden accent theme commands (`spider`, `dragon`, `rock`).
     - `MorphText.tsx` — Lightweight text primitive applying Persian `dir="rtl"` and `Vazirmatn` font styling without altering page layout geometry.
     - `ScrollFade.tsx` — Bidirectional `IntersectionObserver` wrapper animating sections and cards on viewport entry and exit.
   - `/src/context/` — Global React Context providers:
     - `ThemeContext.tsx` — Manages `dark` / `light` surface mode and `default` / `spider` (red) / `dragon` (orange) accent themes.
     - `LanguageContext.tsx` — Manages active language (`en`, `fr`, `fa`), `localStorage` persistence (`sr_portfolio_lang`), and lightweight opacity transitions.
   - `/src/data/` — Static data stores and localization bundles:
-    - `translations.ts` — Complete trilingual dictionary (`en`, `fr`, `fa`) for all UI sections, projects, skills, and milestones.
-    - `resumeMarkdown.ts` — Trilingual Markdown (`md`) resume sources and structured parser for client-side PDF generation.
+    - `translations.ts` — Complete trilingual dictionary (`en`, `fr`, `fa`) for all UI sections, projects (including `The Genesis Clause` dossier & 6 screenshots), skills, and milestones.
+    - `resumeMarkdown.ts` — Trilingual Markdown (`md`) resume sources updated through November 24, 2026 (*The Genesis Clause*, 3 custom Python dev scripts, *Founding Arachnest*, Godot animation, Illustrator, Adobe Premiere Pro) for client-side PDF generation.
     - `projects.ts`, `skills.ts`, `experience.ts`, `socials.ts`, `schedule.ts`.
   - `/src/utils/`:
     - `resume.ts` — Client-side Markdown-to-PDF (`md -> pdf`) generator and downloader that compiles the active language's Markdown resume into a multi-page A4 PDF (`Sina_Riahi_Resume_EN.pdf`, `Sina_Riahi_Resume_FR.pdf`, `Sina_Riahi_Resume_FA.pdf`).
@@ -51,5 +51,5 @@
 ## 3. Multilingual Markdown-to-PDF (`md -> pdf`) Resume Pipeline
 
 - **Language-Aware Generation**: Clicking any Resume download button (`Navbar`, `Hero`, `Contact`, `Footer`, `CommandPalette`, or running `resume` in `TerminalModal`) detects the current site language (`en`, `fr`, or `fa`).
-- **Markdown Source (`src/data/resumeMarkdown.ts`)**: Stores canonical Markdown resume documents for English, French, and Persian, covering Header & Contact Info, Professional Summary, Technical Skills, Experience, Major Projects, Additional Projects, Education, Languages, and Volunteer Experience.
+- **Markdown Source (`src/data/resumeMarkdown.ts`)**: Stores canonical 3-page Markdown resume documents (updated Nov 24, 2026) for English, French, and Persian, covering Header & Contact Info, Professional Summary, Technical Skills (including Kotlin, Jetpack Compose, Godot 2D Animation, Photoshop, Illustrator, Adobe Premiere Pro), Experience (including Founder of Arachnest `@Arachneststudio`), Major Projects (leading with *The Genesis Clause* on itch.io), Additional Projects, Education, Languages, and Volunteer Experience.
 - **Client-Side PDF Rendering (`src/utils/resume.ts`)**: Parses the localized Markdown into paginated A4 sheets, renders them offscreen with native browser font shaping (supporting Persian RTL ligatures in `Vazirmatn` and French diacritics in `Plus Jakarta Sans`), captures high-DPI pages via `html2canvas` + `jsPDF`, caches the resulting PDF blob per language, and downloads `Sina_Riahi_Resume_<LANG>.pdf`.

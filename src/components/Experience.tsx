@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraduationCap, Code2, Compass } from 'lucide-react';
+import { GraduationCap, Code2, Compass, Gamepad2, Clapperboard, ExternalLink } from 'lucide-react';
 import { TimeTravelCalendar } from './TimeTravelCalendar';
 import { useLanguage } from '../context/LanguageContext';
 import { MorphText } from './MorphText';
@@ -14,6 +14,10 @@ export const Experience: React.FC = () => {
         return GraduationCap;
       case 'project':
         return Code2;
+      case 'launch':
+        return Gamepad2;
+      case 'studio':
+        return Clapperboard;
       default:
         return Compass;
     }
@@ -77,6 +81,20 @@ export const Experience: React.FC = () => {
                         text={milestone.description}
                         className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal"
                       />
+
+                      {milestone.link && (
+                        <div className="pt-1">
+                          <a
+                            href={milestone.link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-blue-600 dark:text-cyan-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                            <MorphText text={milestone.link.label} />
+                          </a>
+                        </div>
+                      )}
 
                       {/* Clean unboxed tags with typographic separators */}
                       <div className="pt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-mono text-slate-800 dark:text-slate-400">

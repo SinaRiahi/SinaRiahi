@@ -14,6 +14,12 @@ export type ProjectStatus =
   | 'تکمیل‌شده'
   | 'در حال توسعه فعال';
 
+export interface ProjectScreenshot {
+  src: string;
+  title: string;
+  caption: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -31,6 +37,8 @@ export interface Project {
   challenges: string[];
   lessonsLearned: string[];
   liveUrl?: string;
+  liveLabel?: string;
+  screenshots?: ProjectScreenshot[];
 }
 
 export type SkillProficiency = 'Actively Using' | 'Familiar With' | 'Learning' | 'Exploring';
@@ -53,7 +61,11 @@ export interface JourneyMilestone {
   organizationOrContext: string;
   description: string;
   tags: string[];
-  type: 'education' | 'project' | 'transition' | 'exploration';
+  type: 'education' | 'project' | 'transition' | 'exploration' | 'launch' | 'studio';
+  link?: {
+    label: string;
+    url: string;
+  };
 }
 
 export interface SocialLinks {

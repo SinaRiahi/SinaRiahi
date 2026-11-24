@@ -258,7 +258,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
             <p className="text-cyan-400 font-bold">Available Commands:</p>
             <p><span className="text-blue-400 w-24 inline-block">whoami</span> — Identity and background</p>
             <p><span className="text-blue-400 w-24 inline-block">projects</span> — List engineered projects</p>
-            <p><span className="text-blue-400 w-24 inline-block">cat &lt;id&gt;</span> — Inspect project (e.g. cat yadban, cat task-master, cat utilities-suite)</p>
+            <p><span className="text-blue-400 w-24 inline-block">cat &lt;id&gt;</span> — Inspect project (e.g. cat the-genesis-clause, cat mypal, cat yadban)</p>
             <p><span className="text-blue-400 w-24 inline-block">skills</span> — Overview of technical proficiencies</p>
             <p><span className="text-blue-400 w-24 inline-block">contact</span> — Reach out via email or GitHub</p>
             <p><span className="text-blue-400 w-24 inline-block">resume</span> — Download engineering resume</p>
@@ -307,7 +307,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
       case 'cat':
       case 'project':
         if (!arg) {
-          response = <p className="text-amber-400">Specify a project id: cat yadban | cat task-master | cat utilities-suite | cat mypal</p>;
+          response = <p className="text-amber-400">Specify a project id: cat the-genesis-clause | cat mypal | cat yadban | cat task-master</p>;
         } else {
           const match = PROJECTS_DATA.find(
             (p) => p.id.toLowerCase() === arg || p.title.toLowerCase().includes(arg)
@@ -331,7 +331,7 @@ export const TerminalModal: React.FC<TerminalModalProps> = ({ isOpen, onClose })
         response = (
           <div className="space-y-1 text-slate-300">
             <p className="text-emerald-400 font-bold">Active Stack:</p>
-            <p>Python, TypeScript, JavaScript, FastAPI, PostgreSQL, React, Vite, Git/GitHub, Linux, Docker, Cloudflare Workers, Three.js</p>
+            <p>Python, Kotlin, Jetpack Compose, TypeScript, Rust, FastAPI, PostgreSQL, React, Docker, Godot (Animation), Photoshop, Illustrator, Adobe Premiere Pro</p>
           </div>
         );
         break;

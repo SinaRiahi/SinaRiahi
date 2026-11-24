@@ -2,9 +2,9 @@ import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Calendar as CalendarIcon } from 'lucide-react';
 
 export const TimeTravelCalendar: React.FC = () => {
-  // Date boundary: from June 30, 2026 (graduation/present) down to September 1, 2022 (entering university)
-  const startDate = useMemo(() => new Date(2026, 5, 30).getTime(), []); // June 30, 2026
-  const endDate = useMemo(() => new Date(2022, 8, 1).getTime(), []);   // Sept 1, 2022
+  // Date boundary: from November 24, 2026 (The Genesis Clause release) down to September 1, 2022 (entering university)
+  const startDate = useMemo(() => new Date(2026, 10, 24).getTime(), []); // Nov 24, 2026
+  const endDate = useMemo(() => new Date(2022, 8, 1).getTime(), []);     // Sept 1, 2022
   const totalTimeSpan = startDate - endDate;
 
   const [currentTimestamp, setCurrentTimestamp] = useState<number>(startDate);

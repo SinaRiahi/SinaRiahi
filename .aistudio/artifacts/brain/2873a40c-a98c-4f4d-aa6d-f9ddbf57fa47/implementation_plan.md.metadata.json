@@ -1,6 +1,0 @@
-{
-  "summary": "Implementation plan for adding English, French, and Persian multilingual support with inline flag switcher buttons, wave letter-by-letter flip morphing animations, text-only RTL rendering for Persian without altering layout geometry, and bidirectional scroll-triggered fade-in/fade-out animations across all portfolio sections.",
-  "updatedAt": "2026-10-17T07:31:17.153478734Z",
-  "requestFeedback": true,
-  "userFacing": true
-}

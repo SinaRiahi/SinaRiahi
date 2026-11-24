@@ -5,7 +5,8 @@ export const SKILLS_DATA: SkillCategory[] = [
     title: 'Languages & Core Theory',
     description: 'Programming languages, memory semantics, and core theoretical computer science principles.',
     skills: [
-      { name: 'Python', level: 'Actively Using', context: 'Primary language for desktop software, automation, and backend APIs' },
+      { name: 'Python', level: 'Actively Using', context: 'Primary language for desktop software, automation, game-dev scripts, and backend APIs' },
+      { name: 'Kotlin', level: 'Actively Using', context: 'Native Android app and mobile game development (The Genesis Clause & Yadban)' },
       { name: 'Data Structures', level: 'Actively Using', context: 'Trees, graphs, heaps, hash tables, and custom memory structures' },
       { name: 'Algorithms', level: 'Actively Using', context: 'Graph traversal, dynamic programming, and complexity analysis' },
       { name: 'TypeScript', level: 'Familiar With', context: 'Type-safe client architectures and modern application engines' },
@@ -26,10 +27,11 @@ export const SKILLS_DATA: SkillCategory[] = [
     ],
   },
   {
-    title: 'Desktop Software & UI Engineering',
-    description: 'Native desktop application GUIs, responsive frontends, and component architecture.',
+    title: 'Desktop, Mobile & UI Engineering',
+    description: 'Native desktop and Android application GUIs, responsive frontends, and component architecture.',
     skills: [
       { name: 'PySide6', level: 'Actively Using', context: 'Enterprise desktop GUIs, Qt event loops, multithreading, and custom widgets' },
+      { name: 'Jetpack Compose', level: 'Actively Using', context: 'Declarative Android UI, stylized game modals, mini-games, and Material 3 apps' },
       { name: 'React', level: 'Exploring', context: 'Component hierarchies, reactive state management, and modern hooks' },
       { name: 'Tauri', level: 'Exploring', context: 'Lightweight desktop application framework with web frontends' },
       { name: 'HTML', level: 'Familiar With', context: 'Semantic markup, accessibility standards, and document structure' },
@@ -64,14 +66,17 @@ export const SKILLS_DATA: SkillCategory[] = [
     ],
   },
   {
-    title: 'Cybersecurity, DevOps & Creative Tools',
-    description: 'Packet diagnostics, container infrastructure, git workflows, and interface design.',
+    title: 'Cybersecurity, DevOps & Creative Production',
+    description: 'Packet diagnostics, container infrastructure, game art, 2D animation, and video production.',
     skills: [
       { name: 'Cybersecurity', level: 'Learning', context: 'Network security, vulnerability analysis & ultimate focus: AI in Cybersecurity' },
       { name: 'Wireshark', level: 'Familiar With', context: 'Packet capture, protocol inspection, and network traffic diagnostics' },
       { name: 'Docker', level: 'Familiar With', context: 'Containerization, reproducible environments, and service isolation' },
       { name: 'Git & GitHub', level: 'Familiar With', context: 'Version control, collaborative workflows, and repository management' },
-      { name: 'Photoshop', level: 'Actively Using', context: 'Digital image editing, asset retouching, and interface graphics... also drawing' },
+      { name: 'Photoshop', level: 'Actively Using', context: 'Game art, digital image editing, UI textures, asset retouching, and drawing' },
+      { name: 'Illustrator', level: 'Actively Using', context: 'Vector game emblems, icons, logos, and scalable UI assets for Arachnest' },
+      { name: 'Godot (Animation)', level: 'Familiar With', context: '2D skeletal/cutout animation and scene sequencing for @Arachneststudio cartoons' },
+      { name: 'Adobe Premiere Pro', level: 'Familiar With', context: 'Cartoon editing, sound mixing, and video post-production for @Arachneststudio' },
     ],
   },
 ];

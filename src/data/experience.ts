@@ -2,6 +2,30 @@ import { JourneyMilestone } from '../types';
 
 export const JOURNEY_DATA: JourneyMilestone[] = [
   {
+    period: 'November 24, 2026',
+    title: 'Released "The Genesis Clause" — First Android Mobile Game',
+    organizationOrContext: 'Arachnest · itch.io',
+    description: 'Built and shipped my first mobile game on Android and released it on itch.io. A hardcore permadeath survival game featuring automated diary generation with PDF export, extensive items, distinct biomes, stylized mini-games, and branching random events. Engineered with Kotlin and Jetpack Compose, illustrated with Adobe Photoshop & Illustrator, and supported by 3 custom Python game-dev workflow scripts.',
+    tags: ['Kotlin', 'Jetpack Compose', 'Photoshop & Illustrator', '3 Python Dev Scripts', 'Android / itch.io'],
+    type: 'launch',
+    link: {
+      label: 'Play on itch.io',
+      url: 'https://arachnest.itch.io/the-genesis-clause',
+    },
+  },
+  {
+    period: '2026 – Present',
+    title: 'Founding Arachnest',
+    organizationOrContext: 'Arachnest Entertainment Studio · @Arachneststudio',
+    description: 'Founded Arachnest, an independent entertainment studio focused on creating video games and animated cartoons. Learned animation in Godot and video editing in Adobe Premiere Pro to produce original animated cartoons published on Instagram (@Arachneststudio), alongside indie mobile game releases.',
+    tags: ['Entertainment Studio', 'Godot Animation', 'Adobe Premiere Pro', 'Video Games & Cartoons', '@Arachneststudio'],
+    type: 'studio',
+    link: {
+      label: '@Arachneststudio on Instagram',
+      url: 'https://instagram.com/Arachneststudio',
+    },
+  },
+  {
     period: 'May 2025 – June 2026',
     title: 'Sales Department Manager',
     organizationOrContext: 'Naria Gallery',

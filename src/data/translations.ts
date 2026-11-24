@@ -69,6 +69,8 @@ export interface TranslationsBundle {
       caseStudy: string;
       stack: string;
       liveDemo: string;
+      screenshotsTitle: string;
+      clickToInspect: string;
       execSummary: string;
       problemSpace: string;
       engineeredSolution: string;
@@ -237,6 +239,8 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
         caseStudy: 'Case Study',
         stack: 'Stack:',
         liveDemo: 'Live Demo',
+        screenshotsTitle: 'Visual Dossier & Gameplay Screenshots',
+        clickToInspect: 'Click any frame to inspect full-size',
         execSummary: '01. Executive Summary',
         problemSpace: 'The Problem Space',
         engineeredSolution: 'The Engineered Solution',
@@ -272,6 +276,74 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
         nextProject: 'Next Project',
       },
       items: [
+        {
+          id: 'the-genesis-clause',
+          title: 'The Genesis Clause',
+          subtitle: 'Hardcore Permadeath Android Survival Game with Automated Diary Generation (itch.io)',
+          category: 'Product & Web',
+          year: 'Nov 24, 2026',
+          status: 'Completed',
+          featured: true,
+          technologies: ['Kotlin', 'Jetpack Compose', 'Android SDK', 'Python (3 Dev Scripts)', 'Adobe Photoshop', 'Adobe Illustrator'],
+          summary: 'My first commercial-grade Android mobile game, published on itch.io under Arachnest. A hardcore permadeath survival experience featuring an automated narrative diary generator (readable in-game and exportable as a PDF), dozens of items, distinct biomes, stylized tactile mini-games, and high-stakes random events.',
+          problem: 'Mobile survival games frequently dilute tension with forgiving checkpoints, generic loot tables, and forgettable runs that leave no lasting narrative artifact once a playthrough ends.',
+          solution: 'Engineered a punishing, deeply atmospheric permadeath survival engine in Kotlin and Jetpack Compose where every decision, encounter, biome expedition, and crew action is dynamically woven into a persistent survivor journal exportable as a standalone PDF.',
+          keyFeatures: [
+            'Automated Narrative Diary & PDF Export: Tracks every player decision, injury, discovery, and encounter in real time, compiling a readable story journal that can be exported to PDF at any moment.',
+            'Hardcore Permadeath & Branching Random Events: Unforgiving survival loop filled with unpredictable encounters—crashed shuttles, wasteland traders, mutated packs, sentry turrets—where every choice steers the run.',
+            'Deep Arsenal, Life Paths & Companions: Choose between Fighter, Looter, Engineer, and Planner archetypes; scavenge extensive weapons, medkits, and blueprints; repair vehicles, craft surveyor drones, rescue pets, and hire a crew.',
+            'Distinct Biomes & Stylized Tactile Mini-Games: Explore overgrown bunkers, frozen fortresses, and toxic swamps while playing diegetic mini-games including radio tuning, hacking, deciphering, lockpicking, coffee extraction, and wasteland card games.',
+            'Custom Art & Python Dev Tooling: Hand-crafted wasteland UI and illustrations in Adobe Photoshop and Illustrator, accelerated by 3 custom Python automation scripts built to streamline game data, assets, and content pipelines.',
+          ],
+          architectureDetails: [
+            'Built natively for Android using Kotlin and Jetpack Compose with custom grunge/industrial skeuomorphic UI components and responsive modals.',
+            'Event-driven state machine managing permadeath run persistence, biome hazard modifiers, inventory weight/durability, crew stats, and branching narrative trees.',
+            'Automated journal synthesis engine translating gameplay telemetry and choices into cohesive timestamped prose entries with native Android PDF document generation.',
+            '3 dedicated Python workflow automation scripts created to validate item/event schemas, process art assets, and accelerate balancing iterations.',
+          ],
+          challenges: [
+            'Designing rich, textured post-apocalyptic UI modals and interactive mini-games inside Jetpack Compose while maintaining smooth mobile frame rates.',
+            'Authoring a scalable content pipeline for hundreds of items, random events, and dynamic diary templates without manual data entry bottlenecks—solved via 3 custom Python dev scripts.',
+          ],
+          lessonsLearned: [
+            'Shipping a complete game solo—from Kotlin engine code and Jetpack Compose UI to Photoshop/Illustrator art—rewards building small Python automation tools early.',
+            'Permadeath combined with an exportable PDF diary transforms even fatal runs into memorable stories players want to keep and share.',
+          ],
+          liveUrl: 'https://arachnest.itch.io/the-genesis-clause',
+          liveLabel: 'Play on itch.io',
+          screenshots: [
+            {
+              src: '/assets/aistudio/diary_system_8d37f98c.jpg',
+              title: 'Automated Diary & PDF Export',
+              caption: 'Tracks every choice and action into an ARAKNO personnel journal that can be read anytime or saved as a PDF.',
+            },
+            {
+              src: '/assets/aistudio/biomes_7cb205f0.jpg',
+              title: 'Distinct Biomes & Interactive Landmarks',
+              caption: 'Explore diverse wasteland zones—overgrown bunkers, frozen citadels, arid deserts, and irradiated swamps—each with unique hazards.',
+            },
+            {
+              src: '/assets/aistudio/events_encounters_8f14fb9a.jpg',
+              title: 'Branching Random Events & Encounters',
+              caption: 'Face unpredictable wasteland encounters whose outcomes permanently steer your survival story.',
+            },
+            {
+              src: '/assets/aistudio/skills_items_ac3752aa.jpg',
+              title: 'Life Paths, Skills & Extensive Arsenal',
+              caption: 'Build around Fighter, Looter, Engineer, or Planner paths using a deep catalog of weapons, ammo, medical gear, and blueprints.',
+            },
+            {
+              src: '/assets/aistudio/games_54a8f329.jpg',
+              title: 'Stylized Modals & Wasteland Mini-Games',
+              caption: 'Tune radios, hack biometric locks, brew rations, pick tumblers, and unwind with wasteland card games.',
+            },
+            {
+              src: '/assets/aistudio/features_88c7b9a0.jpg',
+              title: 'Vehicles, Drones, Pets & Crew',
+              caption: 'Repair flatbed pickups, deploy surveyor drones, rescue loyal pets (even mechanical spiders), and recruit specialists.',
+            },
+          ],
+        },
         {
           id: 'mypal',
           title: 'MyPal',
@@ -489,7 +561,8 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           title: 'Languages & Core Theory',
           description: 'Programming languages, memory semantics, and core theoretical computer science principles.',
           skills: [
-            { name: 'Python', level: 'Actively Using', context: 'Primary language for desktop software, automation, and backend APIs' },
+            { name: 'Python', level: 'Actively Using', context: 'Primary language for desktop software, automation, game-dev scripts, and backend APIs' },
+            { name: 'Kotlin', level: 'Actively Using', context: 'Native Android app and mobile game development (The Genesis Clause & Yadban)' },
             { name: 'Data Structures', level: 'Actively Using', context: 'Trees, graphs, heaps, hash tables, and custom memory structures' },
             { name: 'Algorithms', level: 'Actively Using', context: 'Graph traversal, dynamic programming, and complexity analysis' },
             { name: 'TypeScript', level: 'Familiar With', context: 'Type-safe client architectures and modern application engines' },
@@ -510,10 +583,11 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           ],
         },
         {
-          title: 'Desktop Software & UI Engineering',
-          description: 'Native desktop application GUIs, responsive frontends, and component architecture.',
+          title: 'Desktop, Mobile & UI Engineering',
+          description: 'Native desktop and Android application GUIs, responsive frontends, and component architecture.',
           skills: [
             { name: 'PySide6', level: 'Actively Using', context: 'Enterprise desktop GUIs, Qt event loops, multithreading, and custom widgets' },
+            { name: 'Jetpack Compose', level: 'Actively Using', context: 'Declarative Android UI, stylized game modals, mini-games, and Material 3 apps' },
             { name: 'React', level: 'Exploring', context: 'Component hierarchies, reactive state management, and modern hooks' },
             { name: 'Tauri', level: 'Exploring', context: 'Lightweight desktop application framework with web frontends' },
             { name: 'HTML', level: 'Familiar With', context: 'Semantic markup, accessibility standards, and document structure' },
@@ -548,14 +622,17 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           ],
         },
         {
-          title: 'Cybersecurity, DevOps & Creative Tools',
-          description: 'Packet diagnostics, container infrastructure, git workflows, and interface design.',
+          title: 'Cybersecurity, DevOps & Creative Production',
+          description: 'Packet diagnostics, container infrastructure, game art, 2D animation, and video production.',
           skills: [
             { name: 'Cybersecurity', level: 'Learning', context: 'Network security, vulnerability analysis & ultimate focus: AI in Cybersecurity' },
             { name: 'Wireshark', level: 'Familiar With', context: 'Packet capture, protocol inspection, and network traffic diagnostics' },
             { name: 'Docker', level: 'Familiar With', context: 'Containerization, reproducible environments, and service isolation' },
             { name: 'Git & GitHub', level: 'Familiar With', context: 'Version control, collaborative workflows, and repository management' },
-            { name: 'Photoshop', level: 'Actively Using', context: 'Digital image editing, asset retouching, and interface graphics... also drawing' },
+            { name: 'Photoshop', level: 'Actively Using', context: 'Game art, digital image editing, UI textures, asset retouching, and drawing' },
+            { name: 'Illustrator', level: 'Actively Using', context: 'Vector game emblems, icons, logos, and scalable UI assets for Arachnest' },
+            { name: 'Godot (Animation)', level: 'Familiar With', context: '2D skeletal/cutout animation and scene sequencing for @Arachneststudio cartoons' },
+            { name: 'Adobe Premiere Pro', level: 'Familiar With', context: 'Cartoon editing, sound mixing, and video post-production for @Arachneststudio' },
           ],
         },
       ],
@@ -566,6 +643,30 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
       description: 'A chronological timeline documenting self-directed projects, academic milestones, and the transition into computer science.',
       focusLabel: 'Focus:',
       milestones: [
+        {
+          period: 'November 24, 2026',
+          title: 'Released "The Genesis Clause" — First Android Mobile Game',
+          organizationOrContext: 'Arachnest · itch.io',
+          description: 'Built and shipped my first mobile game on Android and released it on itch.io. A hardcore permadeath survival game featuring automated diary generation with PDF export, extensive items, distinct biomes, stylized mini-games, and branching random events. Engineered with Kotlin and Jetpack Compose, illustrated with Adobe Photoshop & Illustrator, and supported by 3 custom Python game-dev workflow scripts.',
+          tags: ['Kotlin', 'Jetpack Compose', 'Photoshop & Illustrator', '3 Python Dev Scripts', 'Android / itch.io'],
+          type: 'launch',
+          link: {
+            label: 'Play on itch.io',
+            url: 'https://arachnest.itch.io/the-genesis-clause',
+          },
+        },
+        {
+          period: '2026 – Present',
+          title: 'Founding Arachnest',
+          organizationOrContext: 'Arachnest Entertainment Studio · @Arachneststudio',
+          description: 'Founded Arachnest, an independent entertainment studio focused on creating video games and animated cartoons. Learned animation in Godot and video editing in Adobe Premiere Pro to produce original animated cartoons published on Instagram (@Arachneststudio), alongside indie mobile game releases.',
+          tags: ['Entertainment Studio', 'Godot Animation', 'Adobe Premiere Pro', 'Video Games & Cartoons', '@Arachneststudio'],
+          type: 'studio',
+          link: {
+            label: '@Arachneststudio on Instagram',
+            url: 'https://instagram.com/Arachneststudio',
+          },
+        },
         {
           period: 'May 2025 – June 2026',
           title: 'Sales Department Manager',
@@ -728,6 +829,8 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
         caseStudy: 'Étude de Cas',
         stack: 'Technologies :',
         liveDemo: 'Démo Live',
+        screenshotsTitle: 'Dossier Visuel & Captures du Jeu',
+        clickToInspect: 'Cliquez sur une capture pour l’agrandir',
         execSummary: '01. Résumé Exécutif',
         problemSpace: 'Problématique',
         engineeredSolution: 'Solution Technique',
@@ -763,6 +866,74 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
         nextProject: 'Projet Suivant',
       },
       items: [
+        {
+          id: 'the-genesis-clause',
+          title: 'The Genesis Clause',
+          subtitle: 'Jeu Android de Survie Hardcore Permadeath avec Génération Automatique de Journal (itch.io)',
+          category: 'Product & Web',
+          year: '24 nov. 2026',
+          status: 'Terminé',
+          featured: true,
+          technologies: ['Kotlin', 'Jetpack Compose', 'Android SDK', 'Python (3 Scripts Dev)', 'Adobe Photoshop', 'Adobe Illustrator'],
+          summary: 'Mon premier jeu mobile Android, publié sur itch.io sous Arachnest. Une expérience de survie hardcore à mort permanente dotée d’un générateur automatique de journal intime (consultable en jeu et exportable en PDF), d’innombrables objets, de biomes distincts, de mini-jeux stylisés et d’événements aléatoires.',
+          problem: 'Les jeux de survie mobiles diluent souvent la tension avec des points de contrôle indulgents et des parties oubliables qui ne laissent aucun souvenir narratif une fois terminées.',
+          solution: 'Conception d’un moteur de survie permadeath impitoyable en Kotlin et Jetpack Compose où chaque décision, rencontre, expédition et action de l’équipage est automatiquement rédigée dans un journal de survivant exportable en PDF.',
+          keyFeatures: [
+            'Journal Narratif Automatique & Export PDF : Enregistre chaque décision, blessure et rencontre en temps réel pour composer un récit lisible et exportable en PDF à tout moment.',
+            'Survie Hardcore Permadeath & Événements Aléatoires : Boucle impitoyable jalonnée de rencontres imprévisibles (navettes écrasées, marchands, meutes mutantes, tourelles) guidées par vos choix.',
+            'Arsenal Complet, Voies de Vie & Compagnons : Choisissez Combattant, Pilleur, Ingénieur ou Stratège ; réparez des véhicules, fabriquez des drones, sauvez des animaux et recrutez un équipage.',
+            'Biomes Distincts & Mini-Jeux Tactiles : Explorez bunkers envahis, forteresses glacées et marais toxiques avec des mini-jeux stylisés : radio, piratage, crochetage, déchiffrement et cartes.',
+            'Direction Artistique & 3 Scripts Python : Visuels et interfaces façonnés sous Photoshop et Illustrator, accélérés par 3 scripts Python sur mesure pour automatiser le développement du jeu.',
+          ],
+          architectureDetails: [
+            'Développé nativement pour Android en Kotlin et Jetpack Compose avec une interface industrielle texturée et des modales réactives.',
+            'Machine à états événementielle gérant la persistance permadeath, les modificateurs de biomes, l’inventaire, l’équipage et les arbres narratifs.',
+            'Moteur de synthèse de journal traduisant la télémétrie de jeu en entrées chronologiques cohérentes avec génération PDF native sur Android.',
+            '3 scripts d’automatisation Python dédiés à la validation des schémas d’objets/événements, au traitement d’actifs graphiques et à l’équilibrage.',
+          ],
+          challenges: [
+            'Concevoir des modales post-apocalyptiques riches en textures et des mini-jeux interactifs sous Jetpack Compose tout en maintenant une fluidité optimale sur mobile.',
+            'Structurer un pipeline évolutif pour des centaines d’objets, événements aléatoires et modèles de journal sans saisie manuelle répétitive — résolu grâce à 3 scripts Python.',
+          ],
+          lessonsLearned: [
+            'Mener un jeu complet en solo — du code Kotlin/Compose à l’art Photoshop/Illustrator — récompense la création précoce de petits scripts Python d’automatisation.',
+            'Associer la mort permanente à un journal PDF exportable transforme même les parties fatales en histoires mémorables que les joueurs gardent.',
+          ],
+          liveUrl: 'https://arachnest.itch.io/the-genesis-clause',
+          liveLabel: 'Jouer sur itch.io',
+          screenshots: [
+            {
+              src: '/assets/aistudio/diary_system_8d37f98c.jpg',
+              title: 'Journal Automatique & Export PDF',
+              caption: 'Enregistre chaque choix dans un dossier ARAKNO consultable à tout moment ou sauvegardable en PDF.',
+            },
+            {
+              src: '/assets/aistudio/biomes_7cb205f0.jpg',
+              title: 'Biomes Distincts & Lieux Interactifs',
+              caption: 'Explorez bunkers, citadelles gelées, déserts et marais irradiés, chacun avec ses propres défis.',
+            },
+            {
+              src: '/assets/aistudio/events_encounters_8f14fb9a.jpg',
+              title: 'Événements Aléatoires & Rencontres',
+              caption: 'Affrontez des rencontres imprévisibles dont vos décisions orientent durablement le parcours.',
+            },
+            {
+              src: '/assets/aistudio/skills_items_ac3752aa.jpg',
+              title: 'Voies de Vie, Compétences & Objets',
+              caption: 'Spécialisez-vous (Combattant, Pilleur, Ingénieur, Stratège) avec un vaste arsenal d’objets et plans.',
+            },
+            {
+              src: '/assets/aistudio/games_54a8f329.jpg',
+              title: 'Modales Stylisées & Mini-Jeux',
+              caption: 'Piratez, déchiffrez, crochetez des serrures, réglez la radio et détendez-vous aux jeux de cartes.',
+            },
+            {
+              src: '/assets/aistudio/features_88c7b9a0.jpg',
+              title: 'Véhicules, Drones, Animaux & Équipage',
+              caption: 'Réparez des véhicules, fabriquez des drones éclaireurs, adoptez des compagnons et recrutez une équipe.',
+            },
+          ],
+        },
         {
           id: 'mypal',
           title: 'MyPal',
@@ -980,7 +1151,8 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           title: 'Langages & Théorie Fondamentale',
           description: 'Langages de programmation, gestion de la mémoire et principes fondamentaux de l’informatique théorique.',
           skills: [
-            { name: 'Python', level: 'Actively Using', context: 'Langage principal pour logiciels de bureau, automatisation et API backend' },
+            { name: 'Python', level: 'Actively Using', context: 'Langage principal pour logiciels de bureau, automatisation, scripts de jeu et API backend' },
+            { name: 'Kotlin', level: 'Actively Using', context: 'Développement natif d’applications et jeux mobiles Android (The Genesis Clause & Yadban)' },
             { name: 'Data Structures', level: 'Actively Using', context: 'Arbres, graphes, tas, tables de hachage et structures mémoire sur mesure' },
             { name: 'Algorithms', level: 'Actively Using', context: 'Parcours de graphes, programmation dynamique et analyse de complexité' },
             { name: 'TypeScript', level: 'Familiar With', context: 'Architectures clientes typées et moteurs d’applications modernes' },
@@ -1001,10 +1173,11 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           ],
         },
         {
-          title: 'Logiciels de Bureau & Ingénierie UI',
-          description: 'Interfaces graphiques natives de bureau, frontends réactifs et architecture de composants.',
+          title: 'Desktop, Mobile & Ingénierie UI',
+          description: 'Interfaces graphiques natives desktop et Android, frontends réactifs et architecture de composants.',
           skills: [
             { name: 'PySide6', level: 'Actively Using', context: 'GUI de bureau d’entreprise, boucles Qt, multithreading et widgets sur mesure' },
+            { name: 'Jetpack Compose', level: 'Actively Using', context: 'UI Android déclarative, modales de jeu stylisées, mini-jeux et apps Material 3' },
             { name: 'React', level: 'Exploring', context: 'Hiérarchies de composants, gestion d’état réactive et hooks modernes' },
             { name: 'Tauri', level: 'Exploring', context: 'Framework léger d’applications de bureau avec interfaces web' },
             { name: 'HTML', level: 'Familiar With', context: 'Balisage sémantique, normes d’accessibilité et structure documentaire' },
@@ -1039,14 +1212,17 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           ],
         },
         {
-          title: 'Cybersécurité, DevOps & Outils Créatifs',
-          description: 'Diagnostic de paquets, conteneurisation, flux Git et conception graphique.',
+          title: 'Cybersécurité, DevOps & Production Créative',
+          description: 'Diagnostic de paquets, conteneurisation, art de jeu, animation 2D et montage vidéo.',
           skills: [
             { name: 'Cybersecurity', level: 'Learning', context: 'Sécurité réseau, analyse de vulnérabilités & objectif ultime : IA en Cybersécurité' },
             { name: 'Wireshark', level: 'Familiar With', context: 'Capture de paquets, inspection de protocoles et diagnostic réseau' },
             { name: 'Docker', level: 'Familiar With', context: 'Conteneurisation, environnements reproductibles et isolation de services' },
             { name: 'Git & GitHub', level: 'Familiar With', context: 'Contrôle de version, flux collaboratifs et gestion de dépôts' },
-            { name: 'Photoshop', level: 'Actively Using', context: 'Édition d’images numériques, retouche d’actifs, graphisme UI et dessin' },
+            { name: 'Photoshop', level: 'Actively Using', context: 'Art de jeu, édition d’images, textures UI, retouche d’actifs et dessin' },
+            { name: 'Illustrator', level: 'Actively Using', context: 'Emblèmes vectoriels, icônes, logos et ressources UI pour Arachnest' },
+            { name: 'Godot (Animation)', level: 'Familiar With', context: 'Animation 2D et séquençage de scènes pour les dessins animés @Arachneststudio' },
+            { name: 'Adobe Premiere Pro', level: 'Familiar With', context: 'Montage de dessins animés, mixage audio et post-production pour @Arachneststudio' },
           ],
         },
       ],
@@ -1057,6 +1233,30 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
       description: 'Une chronologie documentant mes projets autonomes, mes réalisations académiques et ma transition vers l’informatique.',
       focusLabel: 'Axes :',
       milestones: [
+        {
+          period: '24 Novembre 2026',
+          title: 'Sortie de « The Genesis Clause » — Premier Jeu Mobile Android',
+          organizationOrContext: 'Arachnest · itch.io',
+          description: 'Développement et sortie sur itch.io de mon premier jeu mobile Android : un jeu de survie hardcore à mort permanente avec génération automatique de journal intime (export PDF), nombreux objets, biomes variés, mini-jeux et événements aléatoires. Conçu avec Kotlin et Jetpack Compose, illustré sous Photoshop et Illustrator, et soutenu par 3 scripts Python dédiés au développement.',
+          tags: ['Kotlin', 'Jetpack Compose', 'Photoshop & Illustrator', '3 Scripts Python', 'Android / itch.io'],
+          type: 'launch',
+          link: {
+            label: 'Jouer sur itch.io',
+            url: 'https://arachnest.itch.io/the-genesis-clause',
+          },
+        },
+        {
+          period: '2026 – Présent',
+          title: 'Fondation d’Arachnest (Founding Arachnest)',
+          organizationOrContext: 'Arachnest Entertainment Studio · @Arachneststudio',
+          description: 'Fondation d’Arachnest, un studio de divertissement indépendant dédié aux jeux vidéo et aux dessins animés. Apprentissage de l’animation 2D sous Godot et du montage sur Adobe Premiere Pro pour produire des dessins animés originaux publiés sur Instagram (@Arachneststudio), en parallèle de la création de jeux mobiles.',
+          tags: ['Studio Indépendant', 'Animation Godot', 'Adobe Premiere Pro', 'Jeux & Dessins Animés', '@Arachneststudio'],
+          type: 'studio',
+          link: {
+            label: '@Arachneststudio sur Instagram',
+            url: 'https://instagram.com/Arachneststudio',
+          },
+        },
         {
           period: 'Mai 2025 – Juin 2026',
           title: 'Responsable du Département des Ventes',
@@ -1219,6 +1419,8 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
         caseStudy: 'مطالعه موردی',
         stack: 'تکنولوژی‌ها:',
         liveDemo: 'مشاهده زنده',
+        screenshotsTitle: 'پرونده تصویری و اسکرین‌شات‌های بازی',
+        clickToInspect: 'برای مشاهده تمام‌صفحه روی هر تصویر کلیک کنید',
         execSummary: '۰۱. خلاصه مدیریتی',
         problemSpace: 'مسئله و چالش موجود',
         engineeredSolution: 'راه‌حل مهندسی‌شده',
@@ -1254,6 +1456,74 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
         nextProject: 'پروژه بعدی',
       },
       items: [
+        {
+          id: 'the-genesis-clause',
+          title: 'The Genesis Clause',
+          subtitle: 'بازی موبایل بقای هاردکور و مرگ دائمی اندروید با تولید خودکار دفترچه خاطرات (itch.io)',
+          category: 'Product & Web',
+          year: '۳ آذر ۱۴۰۵ (Nov 24, 2026)',
+          status: 'تکمیل‌شده',
+          featured: true,
+          technologies: ['Kotlin', 'Jetpack Compose', 'Android SDK', 'Python (3 Dev Scripts)', 'Adobe Photoshop', 'Adobe Illustrator'],
+          summary: 'اولین بازی موبایل اندروید من که تحت استودیو آراکنست (Arachnest) در itch.io منتشر شد. یک تجربه بقای هاردکور با مرگ دائمی (Permadeath)، تولید خودکار دفترچه خاطرات قابل‌خواندن و قابل‌ذخیره به‌صورت PDF، انبوهی از آیتم‌ها، زیست‌بوم‌های متنوع، مینی‌گیم‌های سبک‌دار و رویدادهای تصادفی.',
+          problem: 'بسیاری از بازی‌های بقای موبایلی با چک‌پوینت‌های آسان و آیتم‌های تکراری، تنش واقعی بقا را از بین می‌برند و پس از پایان هر دست بازی هیچ روایت ماندگاری از داستان بازیکن باقی نمی‌گذارند.',
+          solution: 'طراحی و ساخت موتور بقای هاردکور با مرگ دائمی در Kotlin و Jetpack Compose که تمامی تصمیم‌ها، برخوردها، کاوش در زیست‌بوم‌ها و اقدامات خدمه را به‌طور خودکار به یک دفترچه خاطرات خواندنی با قابلیت خروجی PDF تبدیل می‌کند.',
+          keyFeatures: [
+            'تولید خودکار دفترچه خاطرات و خروجی PDF: ثبت لحظه‌به‌لحظه تمام تصمیم‌ها، جراحت‌ها و رویدادها در قالب یک ژورنال داستانی شخصی که در هر زمان قابل‌ذخیره به‌صورت فایل PDF است.',
+            'بقای هاردکور با مرگ دائمی و رویدادهای تصادفی: چرخه بقای بی‌رحم با برخوردهای غیرقابل‌پیش‌بینی (شاتل سقوط‌کرده، تاجران سرزمین بایر، گله‌های جهش‌یافته و برجک‌های خودکار) که مسیر بازی را شکل می‌دهند.',
+            'آیتم‌های گسترده، مسیرهای زندگی و همراهان: انتخاب بین ۴ مسیر مبارز، غارتگر، مهندس و برنامه‌ریز؛ جمع‌آوری سلاح و تجهیزات؛ تعمیر خودرو، ساخت پهپاد، نجات حیوانات و استخدام خدمه.',
+            'زیست‌بوم‌های متنوع و مینی‌گیم‌های تعاملی: کاوش در پناهگاه‌های جنگلی، دژهای یخ‌زده و باتلاق‌های سمی همراه با مینی‌گیم‌های هک، قفل‌گشایی، تنظیم رادیو، دم‌آوری قهوه و بازی‌های ورق.',
+            'طراحی هنری اختصاصی و ۳ اسکریپت پایتون: خلق کامل رابط کاربری و تصاویر در Adobe Photoshop و Illustrator به همراه ۳ اسکریپت اختصاصی پایتون برای تسهیل فرآیند توسعه و مدیریت داده‌های بازی.',
+          ],
+          architectureDetails: [
+            'توسعه‌یافته به‌صورت بومی برای اندروید با Kotlin و Jetpack Compose شامل رابط کاربری صنعتی و مدال‌های تعاملی سبک‌دار.',
+            'ماشین حالت رویدادمحور برای مدیریت مرگ دائمی، خطرات هر زیست‌بوم، مدیریت موجودی و وزن، آمار خدمه و درخت‌های داستانی شاخه‌دار.',
+            'موتور نگارش خودکار دفترچه خاطرات که تله‌متری و انتخاب‌های بازیکن را به یادداشت‌های زمان‌دار با قابلیت تولید PDF بومی اندروید تبدیل می‌کند.',
+            '۳ اسکریپت اتوماسیون پایتون برای اعتبارسنجی داده‌های آیتم‌ها و رویدادها، پردازش دارایی‌های گرافیکی و تسریع بالانس بازی.',
+          ],
+          challenges: [
+            'طراحی مدال‌های پرجزئیات آخرالزمانی و مینی‌گیم‌های لمسی درون Jetpack Compose ضمن حفظ نرخ فریم روان در گوشی‌های اندرویدی.',
+            'مدیریت محتوای گسترده شامل صدها آیتم، رویدادهای تصادفی و الگوهای دفترچه خاطرات بدون گلوگاه ورود دستی داده — حل‌شده با ساخت ۳ اسکریپت پایتون.',
+          ],
+          lessonsLearned: [
+            'ساخت و انتشار انفرادی یک بازی کامل — از کدنویسی Kotlin و Compose تا طراحی در Photoshop و Illustrator — با ساخت ابزارهای کوچک اتوماسیون پایتون در ابتدای مسیر بسیار سریع‌تر می‌شود.',
+            'ترکیب مرگ دائمی با دفترچه خاطرات قابل‌ذخیره به‌صورت PDF، حتی شکست‌ها را به خاطراتی ماندگار و ارزشمند برای بازیکنان تبدیل می‌کند.',
+          ],
+          liveUrl: 'https://arachnest.itch.io/the-genesis-clause',
+          liveLabel: 'اجرا و دانلود در itch.io',
+          screenshots: [
+            {
+              src: '/assets/aistudio/diary_system_8d37f98c.jpg',
+              title: 'دفترچه خاطرات خودکار و خروجی PDF',
+              caption: 'تمامی تصمیم‌ها و اقدامات بازیکن در پرونده ARAKNO ثبت شده و هر زمان به‌صورت PDF ذخیره می‌شود.',
+            },
+            {
+              src: '/assets/aistudio/biomes_7cb205f0.jpg',
+              title: 'زیست‌بوم‌های متنوع و مکان‌های تعاملی',
+              caption: 'کاوش در مناطق مختلف از پناهگاه‌های جنگلی و قلعه‌های برفی تا بیابان و باتلاق‌های رادیواکتیو.',
+            },
+            {
+              src: '/assets/aistudio/events_encounters_8f14fb9a.jpg',
+              title: 'رویدادهای تصادفی و برخوردها',
+              caption: 'رویارویی با وقایع غیرمنتظره که هر تصمیم شما مسیر بقا و داستان بازی را تغییر می‌دهد.',
+            },
+            {
+              src: '/assets/aistudio/skills_items_ac3752aa.jpg',
+              title: 'مسیرهای زندگی، مهارت‌ها و آیتم‌ها',
+              caption: 'انتخاب مسیر مبارز، غارتگر، مهندس یا برنامه‌ریز در کنار انبوهی از سلاح‌ها، ابزارها و نقشه‌های ساخت.',
+            },
+            {
+              src: '/assets/aistudio/games_54a8f329.jpg',
+              title: 'مدال‌های سبک‌دار و مینی‌گیم‌ها',
+              caption: 'تنظیم رادیو، هک بیومتریک، قفل‌گشایی، رمزگشایی و بازی‌های ورق در سرزمین بایر.',
+            },
+            {
+              src: '/assets/aistudio/features_88c7b9a0.jpg',
+              title: 'خودروها، پهپادها، حیوانات و خدمه',
+              caption: 'تعمیر خودرو، ساخت پهپادهای شناسایی، نجات حیوانات خانگی (حتی عنکبوت مکانیکی) و استخدام خدمه.',
+            },
+          ],
+        },
         {
           id: 'mypal',
           title: 'MyPal',
@@ -1471,7 +1741,8 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           title: 'زبان‌ها و مبانی نظری علوم کامپیوتر',
           description: 'زبان‌های برنامه‌نویسی، مدیریت حافظه و اصول بنیادین علوم کامپیوتر.',
           skills: [
-            { name: 'Python', level: 'Actively Using', context: 'زبان اصلی برای توسعه نرم‌افزار دسکتاپ، اتوماسیون و APIهای بک‌اند' },
+            { name: 'Python', level: 'Actively Using', context: 'زبان اصلی برای توسعه نرم‌افزار دسکتاپ، اتوماسیون، اسکریپت‌های بازی‌سازی و APIهای بک‌اند' },
+            { name: 'Kotlin', level: 'Actively Using', context: 'توسعه بومی اپلیکیشن و بازی موبایل اندروید (The Genesis Clause و یادبان)' },
             { name: 'Data Structures', level: 'Actively Using', context: 'درخت‌ها، گراف‌ها، هیپ، جداول هش و ساختمان‌های داده بهینه' },
             { name: 'Algorithms', level: 'Actively Using', context: 'پیمایش گراف، برنامه‌نویسی پویا و تحلیل پیچیدگی زمانی و مکانی' },
             { name: 'TypeScript', level: 'Familiar With', context: 'معماری‌های کلاینت تایپ‌سیف و موتورهای برنامه‌های وب مدرن' },
@@ -1492,10 +1763,11 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           ],
         },
         {
-          title: 'نرم‌افزارهای دسکتاپ و مهندسی رابط کاربری',
-          description: 'رابط‌های گرافیکی بومی دسکتاپ، فرانت‌اندهای واکنش‌گرا و معماری کامپوننت.',
+          title: 'نرم‌افزارهای دسکتاپ، موبایل و مهندسی رابط کاربری',
+          description: 'رابط‌های گرافیکی بومی دسکتاپ و اندروید، فرانت‌اندهای واکنش‌گرا و معماری کامپوننت.',
           skills: [
             { name: 'PySide6', level: 'Actively Using', context: 'طراحی رابط گرافیکی دسکتاپ سازمانی، چندتردی در Qt و ویجت‌های سفارشی' },
+            { name: 'Jetpack Compose', level: 'Actively Using', context: 'رابط کاربری مدرن اندروید، مدال‌های سبک‌دار بازی، مینی‌گیم‌ها و اپلیکیشن‌های Material 3' },
             { name: 'React', level: 'Exploring', context: 'معماری کامپوننت‌ها، مدیریت وضعیت واکنش‌گرا و هوک‌های مدرن' },
             { name: 'Tauri', level: 'Exploring', context: 'فریم‌ورک فوق‌سبک ساخت نرم‌افزارهای دسکتاپ با هسته Rust' },
             { name: 'HTML', level: 'Familiar With', context: 'نشانه‌گذاری معنایی، استانداردهای دسترس‌پذیری و ساختار اسناد وب' },
@@ -1530,14 +1802,17 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           ],
         },
         {
-          title: 'امنیت سایبری، DevOps و ابزارهای خلاقانه',
-          description: 'تحلیل بسته‌های شبکه، زیرساخت کانتینری، گردش‌کار گیت و طراحی گرافیک.',
+          title: 'امنیت سایبری، DevOps و تولید خلاقانه',
+          description: 'تحلیل بسته‌های شبکه، کانتینرسازی، طراحی هنری بازی، انیمیشن دوبعدی و تدوین ویدیو.',
           skills: [
             { name: 'Cybersecurity', level: 'Learning', context: 'امنیت شبکه، تحلیل آسیب‌پذیری و هدف نهایی: هوش مصنوعی در امنیت سایبری' },
             { name: 'Wireshark', level: 'Familiar With', context: 'شنود بسته‌های شبکه، بررسی پروتکل‌ها و عیب‌یابی ترافیک' },
             { name: 'Docker', level: 'Familiar With', context: 'کانتینرسازی، محیط‌های تکرارپذیر و ایزوله‌سازی سرویس‌ها' },
             { name: 'Git & GitHub', level: 'Familiar With', context: 'کنترل نسخه، گردش‌کارهای تیمی و مدیریت مخازن کد' },
-            { name: 'Photoshop', level: 'Actively Using', context: 'ویرایش تصاویر دیجیتال، طراحی دارایی‌های رابط کاربری و نقاشی دیجیتال' },
+            { name: 'Photoshop', level: 'Actively Using', context: 'طراحی هنری بازی، ویرایش تصاویر دیجیتال، تکسچرهای رابط کاربری و نقاشی دیجیتال' },
+            { name: 'Illustrator', level: 'Actively Using', context: 'طراحی برداری نشان‌ها، آیکون‌ها، لوگو و المان‌های رابط کاربری برای آراکنست' },
+            { name: 'Godot (Animation)', level: 'Familiar With', context: 'انیمیشن‌سازی دوبعدی و صحنه‌بندی کارتون‌ها برای صفحه @Arachneststudio' },
+            { name: 'Adobe Premiere Pro', level: 'Familiar With', context: 'تدوین کارتون‌ها، میکس صدا و پس‌تولید ویدیویی برای @Arachneststudio' },
           ],
         },
       ],
@@ -1548,6 +1823,30 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
       description: 'خط زمانی مستند از پروژه‌های اجرایی، دستاوردهای دانشگاهی و مسیر ورود تخصصی به علوم کامپیوتر.',
       focusLabel: 'تمرکز:',
       milestones: [
+        {
+          period: '۳ آذر ۱۴۰۵ (November 24, 2026)',
+          title: 'انتشار «The Genesis Clause» — اولین بازی موبایل اندروید',
+          organizationOrContext: 'استودیو آراکنست (Arachnest) · itch.io',
+          description: 'ساخت و انتشار اولین بازی موبایل اندروید خود در پلتفرم itch.io؛ یک بازی بقای هاردکور با مرگ دائمی، تولید خودکار دفترچه خاطرات با خروجی PDF، آیتم‌های فراوان، زیست‌بوم‌های متنوع، مینی‌گیم‌ها و رویدادهای تصادفی. ساخته‌شده با Kotlin و Jetpack Compose، طراحی هنری در Photoshop و Illustrator همراه با ۳ اسکریپت اختصاصی پایتون برای تسهیل بازی‌سازی.',
+          tags: ['Kotlin', 'Jetpack Compose', 'Photoshop و Illustrator', '۳ اسکریپت پایتون', 'اندروید / itch.io'],
+          type: 'launch',
+          link: {
+            label: 'اجرا و دانلود در itch.io',
+            url: 'https://arachnest.itch.io/the-genesis-clause',
+          },
+        },
+        {
+          period: '۱۴۰۵ – اکنون (2026 – Present)',
+          title: 'بنیان‌گذاری آراکنست (Founding Arachnest)',
+          organizationOrContext: 'استودیوی سرگرمی آراکنست · @Arachneststudio',
+          description: 'بنیان‌گذاری آراکنست (Arachnest)، یک استودیوی مستقل سرگرمی با تمرکز بر ساخت بازی‌های ویدیویی و کارتون‌های انیمیشنی. یادگیری انیمیشن‌سازی در Godot و تدوین در Adobe Premiere Pro برای ساخت کارتون‌های اختصاصی در صفحه جدید اینستاگرام (@Arachneststudio) در کنار توسعه بازی‌های موبایل.',
+          tags: ['استودیوی سرگرمی', 'انیمیشن با Godot', 'Adobe Premiere Pro', 'بازی و کارتون', '@Arachneststudio'],
+          type: 'studio',
+          link: {
+            label: '@Arachneststudio در اینستاگرام',
+            url: 'https://instagram.com/Arachneststudio',
+          },
+        },
         {
           period: 'اردیبهشت ۱۴۰۴ – خرداد ۱۴۰۵ (May 2025 – June 2026)',
           title: 'مدیر بخش فروش',
