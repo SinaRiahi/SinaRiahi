@@ -5,7 +5,7 @@ export const SOCIAL_LINKS: SocialLinks = {
   email: 'sinariahi1382@gmail.com',
   linkedin: 'https://www.linkedin.com/in/sina-riahi-36b4a01b9',
   instagram: 'https://instagram.com/sina___riahi',
-  resumeUrl: '/resume/Sina_Riahi.pdf',
+  resumeUrl: './resume/Sina_Riahi.pdf',
   location: 'Tehran, Iran',
 };
 

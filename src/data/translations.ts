@@ -313,32 +313,32 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           liveLabel: 'Play on itch.io',
           screenshots: [
             {
-              src: '/assets/aistudio/diary_system_8d37f98c.jpg',
+              src: './assets/aistudio/diary_system_8d37f98c.jpg',
               title: 'Automated Diary & PDF Export',
               caption: 'Tracks every choice and action into an ARAKNO personnel journal that can be read anytime or saved as a PDF.',
             },
             {
-              src: '/assets/aistudio/biomes_7cb205f0.jpg',
+              src: './assets/aistudio/biomes_7cb205f0.jpg',
               title: 'Distinct Biomes & Interactive Landmarks',
               caption: 'Explore diverse wasteland zones—overgrown bunkers, frozen citadels, arid deserts, and irradiated swamps—each with unique hazards.',
             },
             {
-              src: '/assets/aistudio/events_encounters_8f14fb9a.jpg',
+              src: './assets/aistudio/events_encounters_8f14fb9a.jpg',
               title: 'Branching Random Events & Encounters',
               caption: 'Face unpredictable wasteland encounters whose outcomes permanently steer your survival story.',
             },
             {
-              src: '/assets/aistudio/skills_items_ac3752aa.jpg',
+              src: './assets/aistudio/skills_items_ac3752aa.jpg',
               title: 'Life Paths, Skills & Extensive Arsenal',
               caption: 'Build around Fighter, Looter, Engineer, or Planner paths using a deep catalog of weapons, ammo, medical gear, and blueprints.',
             },
             {
-              src: '/assets/aistudio/games_54a8f329.jpg',
+              src: './assets/aistudio/games_54a8f329.jpg',
               title: 'Stylized Modals & Wasteland Mini-Games',
               caption: 'Tune radios, hack biometric locks, brew rations, pick tumblers, and unwind with wasteland card games.',
             },
             {
-              src: '/assets/aistudio/features_88c7b9a0.jpg',
+              src: './assets/aistudio/features_88c7b9a0.jpg',
               title: 'Vehicles, Drones, Pets & Crew',
               caption: 'Repair flatbed pickups, deploy surveyor drones, rescue loyal pets (even mechanical spiders), and recruit specialists.',
             },
@@ -903,32 +903,32 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           liveLabel: 'Jouer sur itch.io',
           screenshots: [
             {
-              src: '/assets/aistudio/diary_system_8d37f98c.jpg',
+              src: './assets/aistudio/diary_system_8d37f98c.jpg',
               title: 'Journal Automatique & Export PDF',
               caption: 'Enregistre chaque choix dans un dossier ARAKNO consultable à tout moment ou sauvegardable en PDF.',
             },
             {
-              src: '/assets/aistudio/biomes_7cb205f0.jpg',
+              src: './assets/aistudio/biomes_7cb205f0.jpg',
               title: 'Biomes Distincts & Lieux Interactifs',
               caption: 'Explorez bunkers, citadelles gelées, déserts et marais irradiés, chacun avec ses propres défis.',
             },
             {
-              src: '/assets/aistudio/events_encounters_8f14fb9a.jpg',
+              src: './assets/aistudio/events_encounters_8f14fb9a.jpg',
               title: 'Événements Aléatoires & Rencontres',
               caption: 'Affrontez des rencontres imprévisibles dont vos décisions orientent durablement le parcours.',
             },
             {
-              src: '/assets/aistudio/skills_items_ac3752aa.jpg',
+              src: './assets/aistudio/skills_items_ac3752aa.jpg',
               title: 'Voies de Vie, Compétences & Objets',
               caption: 'Spécialisez-vous (Combattant, Pilleur, Ingénieur, Stratège) avec un vaste arsenal d’objets et plans.',
             },
             {
-              src: '/assets/aistudio/games_54a8f329.jpg',
+              src: './assets/aistudio/games_54a8f329.jpg',
               title: 'Modales Stylisées & Mini-Jeux',
               caption: 'Piratez, déchiffrez, crochetez des serrures, réglez la radio et détendez-vous aux jeux de cartes.',
             },
             {
-              src: '/assets/aistudio/features_88c7b9a0.jpg',
+              src: './assets/aistudio/features_88c7b9a0.jpg',
               title: 'Véhicules, Drones, Animaux & Équipage',
               caption: 'Réparez des véhicules, fabriquez des drones éclaireurs, adoptez des compagnons et recrutez une équipe.',
             },
@@ -1493,32 +1493,32 @@ export const TRANSLATIONS: Record<Language, TranslationsBundle> = {
           liveLabel: 'اجرا و دانلود در itch.io',
           screenshots: [
             {
-              src: '/assets/aistudio/diary_system_8d37f98c.jpg',
+              src: './assets/aistudio/diary_system_8d37f98c.jpg',
               title: 'دفترچه خاطرات خودکار و خروجی PDF',
               caption: 'تمامی تصمیم‌ها و اقدامات بازیکن در پرونده ARAKNO ثبت شده و هر زمان به‌صورت PDF ذخیره می‌شود.',
             },
             {
-              src: '/assets/aistudio/biomes_7cb205f0.jpg',
+              src: './assets/aistudio/biomes_7cb205f0.jpg',
               title: 'زیست‌بوم‌های متنوع و مکان‌های تعاملی',
               caption: 'کاوش در مناطق مختلف از پناهگاه‌های جنگلی و قلعه‌های برفی تا بیابان و باتلاق‌های رادیواکتیو.',
             },
             {
-              src: '/assets/aistudio/events_encounters_8f14fb9a.jpg',
+              src: './assets/aistudio/events_encounters_8f14fb9a.jpg',
               title: 'رویدادهای تصادفی و برخوردها',
               caption: 'رویارویی با وقایع غیرمنتظره که هر تصمیم شما مسیر بقا و داستان بازی را تغییر می‌دهد.',
             },
             {
-              src: '/assets/aistudio/skills_items_ac3752aa.jpg',
+              src: './assets/aistudio/skills_items_ac3752aa.jpg',
               title: 'مسیرهای زندگی، مهارت‌ها و آیتم‌ها',
               caption: 'انتخاب مسیر مبارز، غارتگر، مهندس یا برنامه‌ریز در کنار انبوهی از سلاح‌ها، ابزارها و نقشه‌های ساخت.',
             },
             {
-              src: '/assets/aistudio/games_54a8f329.jpg',
+              src: './assets/aistudio/games_54a8f329.jpg',
               title: 'مدال‌های سبک‌دار و مینی‌گیم‌ها',
               caption: 'تنظیم رادیو، هک بیومتریک، قفل‌گشایی، رمزگشایی و بازی‌های ورق در سرزمین بایر.',
             },
             {
-              src: '/assets/aistudio/features_88c7b9a0.jpg',
+              src: './assets/aistudio/features_88c7b9a0.jpg',
               title: 'خودروها، پهپادها، حیوانات و خدمه',
               caption: 'تعمیر خودرو، ساخت پهپادهای شناسایی، نجات حیوانات خانگی (حتی عنکبوت مکانیکی) و استخدام خدمه.',
             },

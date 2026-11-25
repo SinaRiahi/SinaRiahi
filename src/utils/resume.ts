@@ -384,7 +384,7 @@ export const handleResumeDownload = async (
     }, 150);
   } catch (err) {
     console.error('Resume PDF generation fallback triggered:', err);
-    const fallbackUrl = '/resume/Sina_Riahi.pdf';
+    const fallbackUrl = './resume/Sina_Riahi.pdf';
     const a = document.createElement('a');
     a.href = fallbackUrl;
     a.download = filename;

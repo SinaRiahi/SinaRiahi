@@ -53,3 +53,12 @@
 - **Language-Aware Generation**: Clicking any Resume download button (`Navbar`, `Hero`, `Contact`, `Footer`, `CommandPalette`, or running `resume` in `TerminalModal`) detects the current site language (`en`, `fr`, or `fa`).
 - **Markdown Source (`src/data/resumeMarkdown.ts`)**: Stores canonical 3-page Markdown resume documents (updated Nov 24, 2026) for English, French, and Persian, covering Header & Contact Info, Professional Summary, Technical Skills (including Kotlin, Jetpack Compose, Godot 2D Animation, Photoshop, Illustrator, Adobe Premiere Pro), Experience (including Founder of Arachnest `@Arachneststudio`), Major Projects (leading with *The Genesis Clause* on itch.io), Additional Projects, Education, Languages, and Volunteer Experience.
 - **Client-Side PDF Rendering (`src/utils/resume.ts`)**: Parses the localized Markdown into paginated A4 sheets, renders them offscreen with native browser font shaping (supporting Persian RTL ligatures in `Vazirmatn` and French diacritics in `Plus Jakarta Sans`), captures high-DPI pages via `html2canvas` + `jsPDF`, caches the resulting PDF blob per language, and downloads `Sina_Riahi_Resume_<LANG>.pdf`.
+
+---
+
+## 4. GitHub Pages Deployment & Static Asset Invariants
+
+- **Workflow Architecture (`.github/workflows/deploy.yml`)**: Uses a **two-job** GitHub Pages pipeline (`build` -> `deploy` with `needs: build`) to prevent same-job artifact metadata lookup race conditions with `actions/deploy-pages@v4`:
+  - `build`: Runs `actions/configure-pages@v5`, `npm install`, `npm run build`, verifies `./dist/index.html`, and uploads `./dist` with `actions/upload-pages-artifact@v4`.
+  - `deploy`: Waits on `needs: build` and deploys the `github-pages` artifact via `actions/deploy-pages@v4`.
+- **Relative Asset Path Invariant**: Because `vite.config.ts` sets `base: './'`, all runtime static references under `public/` (such as `./assets/aistudio/...` and `./resume/Sina_Riahi.pdf`) must use relative `./` paths rather than root-anchored `/` paths so assets resolve reliably on both root (`username.github.io`) and repository subpath (`username.github.io/repo/`) deployments.
